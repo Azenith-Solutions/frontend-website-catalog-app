@@ -1,0 +1,43 @@
+import React from 'react'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+
+import WhatsAppButton from './WhatsAppButton';
+
+import '../styles/CardComponent.css'
+
+
+function CardComponent(props) {
+  return (
+
+    <Card sx={{
+      width: 250,
+      height: 300,
+      borderRadius: '6px',
+      boxShadow: '-5px 5px 18px 10px rgba(0, 0, 0, 0.1)',
+      fontFamily: 'Inter, sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      <CardMedia
+        sx={{ height: 136, backgroundSize: 'cover' }}
+        image="https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg"
+        title="component"
+      />
+      <CardContent sx={{ padding: '9px 16px 0px 16px' }}>
+        <p className='card-content-title'>{props.title}</p>
+        <p className='card-content-price'>{props.price}</p>
+        <p className='card-content-desc'>{props.desc}</p>
+      </CardContent>
+      <div className='card-button-container'>
+        <button className='card-button-more'>
+          Saiba mais
+        </button>
+        <WhatsAppButton />
+      </div>
+    </Card>
+  )
+}
+
+export default CardComponent
