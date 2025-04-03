@@ -1,1 +1,0 @@
-Pasta para colocar imagens, icons etc
