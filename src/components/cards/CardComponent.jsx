@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import WhatsAppButton from './WhatsAppButton';
 
-import '../styles/CardComponent.css'
+import '../../styles/CardComponent.css'
 
 
 function CardComponent(props) {
