@@ -1,0 +1,122 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    margin-top: 8.2vh;
+
+    color: #000;
+    font-family: Inter;
+    text-align: justify;
+
+    .images-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 50vw;
+        margin-left: 3.1vw;
+
+        .main-image {
+            background-image: url('../../assets/images/main-image.png');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 37.7vw;
+            height: 46.24vh;
+            border-radius: 6px;
+        }
+
+        .images-list {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+
+            margin-top: 2.055498458376156vh;
+            gap: 1.25vw;
+
+            div {
+                width: 11.72vw;
+                height: 15.41vh;
+                border-radius: 6px;
+            }
+
+            .first-image {
+                background-image: url('../../assets/images/first-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .second-image {
+                background-image: url('../../assets/images/second-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .third-image {
+                background-image: url('../../assets/images/third-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+    .details-container {
+        display: flex;
+        flex-direction: column;
+        background-color: bisque;
+
+        margin-right: 60px;
+        width: 50vw;
+        height: 620px;
+
+        h2 {
+            font-size: 48px;
+            font-weight: 800;
+        }
+
+        .price {
+            color: #5F1516;
+            font-size: 32px;
+            font-weight: 500;
+        }
+
+        .description-text {
+            width: 614px;
+            height: 320px;
+        }
+
+        .more-details {
+            background: none;
+            /* border: none; */
+
+            width: 250px;
+
+            color: #248AFF;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 35px;
+        }
+
+        .request-quote {
+            display: flex;
+            width: 619px;
+            border-radius: 6px;
+
+            background: #67121B;
+            color: #FFFFFFFF;
+            /* height: 64px; */
+            padding: 11px 141px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+    }
+}
