@@ -5,7 +5,7 @@
     justify-content: center;
 
     width: 100vw;
-    margin-top: 8.2vh;
+    margin-top: 200px;
 
     color: #000;
     font-family: Inter;
@@ -26,7 +26,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             width: 37.7vw;
-            height: 46.24vh;
+            height: 47.24vh;
             border-radius: 6px;
         }
 
@@ -40,15 +40,8 @@
 
             div {
                 width: 11.72vw;
-                height: 15.41vh;
+                height: 16.41vh;
                 border-radius: 6px;
-            }
-
-            .first-image {
-                background-image: url('../../assets/images/first-image.png');
-                background-position: center;
-                background-size: cover;
-                background-repeat: no-repeat;
             }
 
             .second-image {
@@ -64,50 +57,73 @@
                 background-size: cover;
                 background-repeat: no-repeat;
             }
+
+            .fourth-image {
+                background-image: url('../../assets/images/fourth-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
         }
     }
 
     .details-container {
         display: flex;
         flex-direction: column;
-        background-color: bisque;
+        justify-content: center;
 
-        margin-right: 60px;
+        padding: 0 3.12vw;
         width: 50vw;
-        height: 620px;
+        height: 65.96vh;
 
         h2 {
-            font-size: 48px;
+            font-size:  2.5rem;
             font-weight: 800;
         }
 
         .price {
+            margin-bottom: 35px;
             color: #5F1516;
             font-size: 32px;
             font-weight: 500;
         }
 
-        .description-text {
-            width: 614px;
-            height: 320px;
-        }
+        b, .description-text {
+            width: 500px;
+            color: #000;
+            text-align: justify;
+            font-size: 20px;
+            font-style: normal;
+            line-height: 32px;
+        }   
 
         .more-details {
             background: none;
-            /* border: none; */
+            border: none;
+            cursor: pointer;
 
-            width: 250px;
+            text-align: start;
+            margin-top: 40px;
+            width: 150px; 
 
             color: #248AFF;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 500;
-            line-height: 35px;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         .request-quote {
             display: flex;
-            width: 619px;
+            align-items: center;
+            cursor: pointer;
+
+            width: 500px;
             border-radius: 6px;
+
+            margin-top: 40px;
 
             background: #67121B;
             color: #FFFFFFFF;

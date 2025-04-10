@@ -16,9 +16,9 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                     <div className='main-image'></div>
 
                     <div className="images-list">
-                        <div className="first-image" style={{ backgroundColor: 'green' }}></div>
-                        <div className="second-image" style={{ backgroundColor: 'blue' }}></div>
-                        <div className="third-image" style={{ backgroundColor: 'yellow' }}></div>
+                        <div className="second-image"></div>
+                        <div className="third-image"></div>
+                        <div className="fourth-image"></div>
                     </div>
                 </aside>
 
