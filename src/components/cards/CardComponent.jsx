@@ -8,17 +8,20 @@ import WhatsAppButton from './WhatsAppButton';
 import '../../styles/CardComponent.css'
 
 
-function CardComponent(props) {
+function CardComponent({props}) {
   return (
 
     <Card sx={{
-      width: 250,
+      flex: 1,
+      minWidth: 210,
+      maxWidth: 250,
       height: 300,
       borderRadius: '6px',
       boxShadow: '-5px 5px 18px 10px rgba(0, 0, 0, 0.1)',
       fontFamily: 'Inter, sans-serif',
       display: 'flex',
       flexDirection: 'column',
+      position: 'relative'
     }}>
       <CardMedia
         sx={{ height: 136, backgroundSize: 'cover' }}
