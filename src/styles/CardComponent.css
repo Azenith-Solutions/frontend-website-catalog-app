@@ -4,6 +4,10 @@
     flex-direction: column;
     padding: 5px 16px 16px 16px;
     gap: 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 .card-button-more{
