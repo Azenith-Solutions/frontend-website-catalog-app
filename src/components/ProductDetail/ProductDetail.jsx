@@ -1,9 +1,11 @@
 import './ProductDetail.css';
 import { useState } from "react";
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(true);
+    
+    document.title = `Detalhes do ${productName}`;
 
     function handleOpenMoreDetailsList() {
         setOpenMoreDetailsList(!openMoreDetailsList);
@@ -34,25 +36,25 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
 
                         <p className='description-text'>{description}</p>
 
-                        <button className="more-details" onClick={handleOpenMoreDetailsList}>Ver características</button>
+                        <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
                     </>
 
-                    <button className='request-quote'><WhatsAppIcon /> Solicitar Orçamento</button>
+                    <button className='request-quote'><ShoppingCartIcon />Adicionar ao carrinho</button>
                 </aside>
 
             </div>
 
             {(openMoreDetailsList) && (
-                <>
+                <div className="more-details-list">
                     <h3>Características do {productName}</h3>
                     <ul>
-                        {detailsList.map((detail, index) => (
-                            <li key={index}>
+                        {detailsList.map((detail) => (
+                            <li>
                                 {detail}
                             </li>
                         ))}
                     </ul>
-                </>
+                </div>
             )}
 
             <div className="related-products">

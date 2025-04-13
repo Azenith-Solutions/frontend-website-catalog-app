@@ -1,3 +1,9 @@
+div {
+    /* overflow-x: hidden; */
+    color: #000;
+    font-family: Inter;
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -5,10 +11,8 @@
     justify-content: center;
 
     width: 100vw;
-    margin-top: 200px;
+    margin-top: 22.5185vh;
 
-    color: #000;
-    font-family: Inter;
     text-align: justify;
 
     .images-container {
@@ -70,44 +74,45 @@
     .details-container {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        /* justify-content: center; */
 
         padding: 0 3.12vw;
         width: 50vw;
-        height: 65.96vh;
+        /* height: 712.368px; */
 
         h2 {
-            font-size:  2.5rem;
+            font-size: 2.5rem;
             font-weight: 800;
         }
 
         .price {
-            margin-bottom: 35px;
+            margin-bottom: 3.2407vh;
             color: #5F1516;
-            font-size: 32px;
+            font-size: 2rem;
             font-weight: 500;
         }
 
-        b, .description-text {
-            width: 500px;
+        b,
+        .description-text {
+            width: 26.055237102657635vw;
             color: #000;
             text-align: justify;
-            font-size: 20px;
+            font-size: 1.25rem;
             font-style: normal;
             line-height: 32px;
-        }   
+        }
 
-        .more-details {
+        .more-details-button {
             background: none;
             border: none;
             cursor: pointer;
 
             text-align: start;
-            margin-top: 40px;
-            width: 150px; 
+            margin-top: 4.110996916752312vh;
+            width: 7.81657113079729vw;
 
             color: #248AFF;
-            font-size: 18px;
+            font-size: 1.125rem;
             font-weight: 500;
 
             &:hover {
@@ -118,21 +123,55 @@
         .request-quote {
             display: flex;
             align-items: center;
+            justify-content: center;
             cursor: pointer;
 
-            width: 500px;
+            width: 26.055237102657635vw;
             border-radius: 6px;
 
-            margin-top: 40px;
+            margin-top: 4.110996916752312vh;
+            padding: 1.1305241521068858vh 7.3475768629494524vw;
 
             background: #67121B;
             color: #FFFFFFFF;
-            /* height: 64px; */
-            padding: 11px 141px;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
+            gap: 0.5211047420531527vw;
+            
+            transition: all 0.15s ease-in-out;
+            
+            &:hover {
+                transition: all 0.15s ease-in-out;
+                background: #501213;
+            }
         }
     }
+}
+
+.more-details-list {
+    display: flex;
+    flex-direction: column;
+    margin: 6.166495375128469vh 8.1vw;
+
+
+    h3 {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: normal;
+    }
+
+    ul {
+        margin-top: 2.055498458376156vh;
+    }
+
+    li {
+        margin-left: 1.5633142261594581vw;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+}
+
+.related-products {
+    margin: 10.166495375128469vh 8.1vw;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: normal;
 }

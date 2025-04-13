@@ -1,0 +1,40 @@
+.redirect-button {
+    transition: all 0.3s ease-in-out;
+    
+    &:hover {
+        transition: all 0.3s ease-in-out;
+        background-color: #FFFFFFFF;
+        color: #000000;
+    }
+}
+
+.items::before,
+.items::after {
+    position: absolute;
+    width: 50%;
+    height: 1px;
+    background: #EEEEEE;
+    top: 90%;
+    left: 25%;
+    pointer-events: none;
+}
+
+.items::before {
+    content: '';
+}
+
+.items-animation {
+    font-family: bely-display, sans-serif;
+    text-transform: lowercase;
+}
+
+.items-animation::before {
+    transform-origin: 100% 50%;
+    transform: scale3d(0, 1, 1);
+    transition: transform 0.3s;
+}
+
+.items-animation:hover::before {
+    transform-origin: 0% 50%;
+    transform: scale3d(1, 1, 1);
+}
