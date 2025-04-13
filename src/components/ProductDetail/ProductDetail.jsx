@@ -3,7 +3,7 @@ import { useState } from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
-    const [openMoreDetailsList, setOpenMoreDetailsList] = useState(true);
+    const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
     
     document.title = `Detalhes do ${productName}`;
 
