@@ -1,0 +1,56 @@
+.header-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    h1 {
+        font-size: 40px;
+        color: #5F1516;
+        text-transform: uppercase;
+    }
+}
+
+
+.cart-list{
+    margin: 20px auto; 
+    max-height: 700px; 
+    overflow-y: auto;
+}
+
+/* Estilo geral do formulário */
+.quotation-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Três colunas iguais */
+    gap: 20px;
+    /* Espaçamento entre os elementos */
+    margin-top: 20px;
+    /* Centraliza o formulário */
+    margin-bottom: 70px;
+    padding: 50px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+
+/* Estilo do botão */
+.quotation-form button {
+    grid-column: span 3;
+    /* Ocupa toda a largura (3 colunas) */
+    padding: 20px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #5F1516;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quotation-form button:hover {
+    background-color: #7a1c1e;
+}
