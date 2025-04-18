@@ -1,10 +1,11 @@
 import './ProductDetail.css';
 import { useState } from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CarouselCard from "../CardCarousel/CarouselCard";
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
-    
+
     document.title = `Detalhes do ${productName}`;
 
     function handleOpenMoreDetailsList() {
@@ -12,8 +13,8 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
     }
 
     return (
-        <>
-            <div className="container">
+        <div className='container'>
+            <div className="hero-container">
                 <aside className="images-container">
                     <div className='main-image'></div>
 
@@ -60,7 +61,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
             <div className="related-products">
                 <h3>Produtos Relacionados</h3>
             </div>
-        </>
+        </div>
     )
 }
 
