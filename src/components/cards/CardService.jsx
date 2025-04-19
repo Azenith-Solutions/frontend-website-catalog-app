@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
 import SaibaMaisButton from './SaibaMaisButton';
-import '../../styles/CardService.css';
+import './CardService.css';
 
 function CardService({ props }) {
   return (

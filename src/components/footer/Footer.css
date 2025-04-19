@@ -1,0 +1,33 @@
+.footer-list{
+    list-style: none;
+}
+
+.list-title{
+    padding-top: 20px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.list-title,.list-item,.list-item-menu{
+    margin-bottom: 20px;
+}
+
+.list-item,.list-item-menu{
+    font-size: 14px;
+    display: flex;
+    align-items: start;
+    gap: 5px;
+}
+
+.list-item-menu{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.container-icons-media{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

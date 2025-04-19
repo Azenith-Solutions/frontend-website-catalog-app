@@ -1,5 +1,5 @@
 import React from 'react'
-import LandingPage from '../pages/LandingPage.jsx'
+import LandingPage from '../pages/LandingPage/LandingPage.jsx'
 import CartPage from '../pages/CartPage/CartPage.jsx'
 import ServicePage from '../pages/servicePage/ServicePage.jsx'
 import { Routes, Route } from 'react-router-dom'

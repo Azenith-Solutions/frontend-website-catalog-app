@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../styles/Footer.css'
+import './Footer.css'
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box'
