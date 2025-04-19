@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import NavBarCatalog from '../../components/navBar/NavBarCatalog'
-import Footer from '../../components/Footer'
+import Footer from '../../components/footer/Footer'
 import Container from '@mui/material/Container'
 import { ShoppingCart } from '@mui/icons-material'
 import CartCard from '../../components/cartCard/CartCard'

@@ -1,9 +1,9 @@
 import React from 'react'
 import NavBarCatalog from "../../components/navBar/NavBarCatalog"
-import Footer from "../../components/Footer"
+import Footer from "../../components/footer/Footer"
 import Container from '@mui/material/Container'
 import CardService from '../../components/cards/CardService'
-import CardCarousel from '../../components/cardCarousel/CarouselCard'
+import CardCarousel from '../../components/CardCarousel/CarouselCard'
 import './ServicePage.css'
 
 import { Email } from '@mui/icons-material';
