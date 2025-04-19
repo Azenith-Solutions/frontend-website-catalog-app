@@ -15,10 +15,22 @@
   font-size: 220px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .swiper-button-next::after,
   .swiper-button-prev::after {
     font-size: 26px;
+  }
+
+}
+
+.carrosel-container{
+  width: 100%;
+  margin-top: 160px;
+}
+
+@media (max-width: 900px) {
+  .carrosel-container{
+    margin-top: 80px;
   }
 }
 

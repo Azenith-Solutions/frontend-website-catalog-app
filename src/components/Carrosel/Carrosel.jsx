@@ -16,7 +16,7 @@ const images = [
 
 const Carrosel = () => {
   return (
-    <div style={{ width: "100%", margin: "0 auto" }}>
+    <div className="carrosel-container">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
