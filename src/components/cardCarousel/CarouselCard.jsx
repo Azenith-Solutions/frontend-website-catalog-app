@@ -13,7 +13,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import '../../styles/CarouselCard.css';
+import './CarouselCard.css';
 
 function CarouselCard({CardComponent, filter, uriEndPoint}) {
     const [listaComponentes, setListaComponentes] = useState(components.slice(0, 10));

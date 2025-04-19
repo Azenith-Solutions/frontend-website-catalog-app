@@ -1,4 +1,4 @@
-import '../styles/LandingPage.css'
+import './LandingPage.css'
 import React from 'react';
 
 function App() {

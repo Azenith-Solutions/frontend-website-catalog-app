@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../styles/NavBarCatalog.css'
+import './NavBarCatalog.css'
 import SearchInputNavBar from '../navBar/SearchInputNavBar';
 import MobileMenu from './MobileMenu';
 

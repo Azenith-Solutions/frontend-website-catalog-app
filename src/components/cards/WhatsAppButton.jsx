@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../styles/WhatsAppButton.css'
+import './WhatsAppButton.css'
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 
