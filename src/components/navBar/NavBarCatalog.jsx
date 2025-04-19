@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '../../styles/NavBarCatalog.css'
 import SearchInputNavBar from '../navBar/SearchInputNavBar';
 import MobileMenu from './MobileMenu';
 
@@ -65,12 +66,12 @@ function DrawerAppBar(props) {
           <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', gap: '10px' }}>
             <img src={LogoWhite} alt="" style={{ height: '50px' }} />
           </Box>
-          <Button sx={{
+          <Button className='redirect-button' sx={{
             color: '#fff',
             display: { xs: 'none', md: 'flex' },
             padding: '10px 4rem',
             border: '1px solid #fff',
-            borderRadius: '62px',
+            borderRadius: '300px',
             textTransform: 'none'
           }}>
             {redirectButtonName}
@@ -91,7 +92,7 @@ function DrawerAppBar(props) {
             display: { xs: 'none', sm: 'flex' }, gap: '40px'
           }}>
             {menuItems.map((item) => (
-              <Button key={item} sx={{
+              <Button key={item} className='items items-animation' sx={{
                 color: '#fff',
                 textTransform: 'none',
                 fontWeight: '400'

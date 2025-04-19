@@ -1,0 +1,202 @@
+.hero-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+
+    /* Adicione esta regra para limitar a largura ao máximo do Container */
+    width: 100%;
+
+    text-align: justify;
+
+    .images-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 50%;
+        /* Ajuste proporcional */
+
+
+        .main-image {
+            background-image: url('../../assets/images/main-image.png');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 420px;
+            border-radius: 6px;
+        }
+
+        .images-list {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            width: 100%;
+            gap: 24px;
+
+            margin-top: 2.055498458376156vh;
+
+            div {
+                flex: 1;
+                min-width: 100px;
+                max-width: 250px;
+                height: 150px;
+                border-radius: 6px;
+            }
+
+            .second-image {
+                background-image: url('../../assets/images/second-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .third-image {
+                background-image: url('../../assets/images/third-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .fourth-image {
+                background-image: url('../../assets/images/fourth-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+
+    .details-container {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 45%;
+        /* Ajuste proporcional */
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .price {
+            color: #5F1516;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 50px;
+        }
+
+        b,
+        .description-text {
+            color: #000;
+            text-align: justify;
+            font-size: 1.25rem;
+            font-style: normal;
+            line-height: 32px;
+            margin-bottom: 50px;
+        }
+
+        .more-details-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            text-align: start;
+
+            color: #248AFF;
+            font-size: 1.125rem;
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .request-quote {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+
+            border-radius: 6px;
+
+            padding: 17px 20px;
+
+            background: #67121B;
+            color: #FFFFFFFF;
+            gap: 0.5211047420531527vw;
+
+            transition: all 0.15s ease-in-out;
+
+            &:hover {
+                transition: all 0.15s ease-in-out;
+                background: #501213;
+            }
+        }
+    }
+}
+
+.more-details-list {
+    display: flex;
+    flex-direction: column;
+    margin: 80px 0;
+
+    h3 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        line-height: normal;
+    }
+
+    ul {
+        margin-top: 2.055498458376156vh;
+    }
+
+    li {
+        margin-left: 1.5633142261594581vw;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+}
+
+.related-products {
+    margin: 80px 0;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: normal;
+
+    h3{
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .hero-container {
+        flex-direction: column;
+
+        .images-container {
+            width: 100%;
+        }
+
+        .details-container {
+            width: 100%;
+            margin-top: 20px;
+
+            .request-quote {
+                margin-top: 30px;
+                position: initial;
+            }
+        }
+
+    }
+
+    .related-products {
+        margin: 40px 0;
+    }
+}
