@@ -1,7 +1,10 @@
 import './ProductDetail.css';
 import { useState } from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Container from '@mui/material/Container';
+
 import CarouselCard from "../CardCarousel/CarouselCard";
+import CardComponent from '../../components/cards/CardComponent';
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
@@ -13,7 +16,10 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
     }
 
     return (
-        <div className='container'>
+        <Container sx={{
+            maxWidth: { lg: '1600px' },
+            marginTop: {xs:'120px', md: '200px'}
+        }}>
             <div className="hero-container">
                 <aside className="images-container">
                     <div className='main-image'></div>
@@ -60,8 +66,10 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
 
             <div className="related-products">
                 <h3>Produtos Relacionados</h3>
+                <CarouselCard CardComponent={CardComponent} filter={"componentes"} uriEndPoint={"http://localhost:3000/produtos"} />
+
             </div>
-        </div>
+        </Container>
     )
 }
 

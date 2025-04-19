@@ -1,13 +1,13 @@
 import React from 'react'
-import '../styles/Footer.css'
+import '../../styles/Footer.css'
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box'
 import { Email, Phone, LocationOn, WhatsApp, Instagram, Facebook } from '@mui/icons-material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-import LogoDefault from '../assets/hardwareTech/DefaultLogo/SIMBOLO.png';
-import LogoNomeDefault from '../assets/hardwareTech/DefaultLogo/NOME.png';
+import LogoDefault from '../../assets/hardwareTech/DefaultLogo/SIMBOLO.png';
+import LogoNomeDefault from '../../assets/hardwareTech/DefaultLogo/NOME.png';
 
 const styleIcons = {
     'backgroundColor': '#d9d9d9',

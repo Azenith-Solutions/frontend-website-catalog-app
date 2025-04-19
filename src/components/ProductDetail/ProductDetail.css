@@ -1,186 +1,202 @@
-div {
-    /* overflow-x: hidden; */
-    /* color: #000; */
-    font-family: Inter;
-}
-
-.container {
+.hero-container {
     display: flex;
-    align-self: center;
-    justify-self: center;
-    /* justify-content: center; */
-    /* align-items: center; */
-    flex-direction: column;
-    max-width: 1600px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
 
-    .hero-container {
+    /* Adicione esta regra para limitar a largura ao máximo do Container */
+    width: 100%;
+
+    text-align: justify;
+
+    .images-container {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
 
-        max-width: 1600px;
-        margin-top: 22.5185vh;
+        width: 50%;
+        /* Ajuste proporcional */
 
-        text-align: justify;
 
-        .images-container {
+        .main-image {
+            background-image: url('../../assets/images/main-image.png');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 420px;
+            border-radius: 6px;
+        }
+
+        .images-list {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            width: 100%;
+            gap: 24px;
 
-            width: 50vw;
-            margin-left: 3.1vw;
+            margin-top: 2.055498458376156vh;
 
-            .main-image {
-                background-image: url('../../assets/images/main-image.png');
+            div {
+                flex: 1;
+                min-width: 100px;
+                max-width: 250px;
+                height: 150px;
+                border-radius: 6px;
+            }
+
+            .second-image {
+                background-image: url('../../assets/images/second-image.png');
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
-                width: 37.7vw;
-                height: 47.24vh;
-                border-radius: 6px;
             }
 
-            .images-list {
-                display: flex;
-                justify-content: center;
-                flex-direction: row;
-
-                margin-top: 2.055498458376156vh;
-                gap: 1.25vw;
-
-                div {
-                    width: 11.72vw;
-                    height: 16.41vh;
-                    border-radius: 6px;
-                }
-
-                .second-image {
-                    background-image: url('../../assets/images/second-image.png');
-                    background-position: center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                }
-
-                .third-image {
-                    background-image: url('../../assets/images/third-image.png');
-                    background-position: center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                }
-
-                .fourth-image {
-                    background-image: url('../../assets/images/fourth-image.png');
-                    background-position: center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                }
+            .third-image {
+                background-image: url('../../assets/images/third-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
             }
+
+            .fourth-image {
+                background-image: url('../../assets/images/fourth-image.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+
+    .details-container {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 45%;
+        /* Ajuste proporcional */
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .price {
+            color: #5F1516;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 50px;
+        }
+
+        b,
+        .description-text {
+            color: #000;
+            text-align: justify;
+            font-size: 1.25rem;
+            font-style: normal;
+            line-height: 32px;
+            margin-bottom: 50px;
+        }
+
+        .more-details-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            text-align: start;
+
+            color: #248AFF;
+            font-size: 1.125rem;
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .request-quote {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+
+            border-radius: 6px;
+
+            padding: 17px 20px;
+
+            background: #67121B;
+            color: #FFFFFFFF;
+            gap: 0.5211047420531527vw;
+
+            transition: all 0.15s ease-in-out;
+
+            &:hover {
+                transition: all 0.15s ease-in-out;
+                background: #501213;
+            }
+        }
+    }
+}
+
+.more-details-list {
+    display: flex;
+    flex-direction: column;
+    margin: 80px 0;
+
+    h3 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        line-height: normal;
+    }
+
+    ul {
+        margin-top: 2.055498458376156vh;
+    }
+
+    li {
+        margin-left: 1.5633142261594581vw;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+}
+
+.related-products {
+    margin: 80px 0;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: normal;
+
+    h3{
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .hero-container {
+        flex-direction: column;
+
+        .images-container {
+            width: 100%;
         }
 
         .details-container {
-            display: flex;
-            flex-direction: column;
-            /* justify-content: center; */
-
-            padding: 0 3.12vw;
-            width: 50vw;
-            /* height: 712.368px; */
-
-            h2 {
-                font-size: 2.5rem;
-                font-weight: 800;
-            }
-
-            .price {
-                margin-bottom: 3.2407vh;
-                color: #5F1516;
-                font-size: 2rem;
-                font-weight: 500;
-            }
-
-            b,
-            .description-text {
-                width: 26.055237102657635vw;
-                color: #000;
-                text-align: justify;
-                font-size: 1.25rem;
-                font-style: normal;
-                line-height: 32px;
-            }
-
-            .more-details-button {
-                background: none;
-                border: none;
-                cursor: pointer;
-
-                text-align: start;
-                margin-top: 4.110996916752312vh;
-                width: 7.81657113079729vw;
-
-                color: #248AFF;
-                font-size: 1.125rem;
-                font-weight: 500;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
+            width: 100%;
+            margin-top: 20px;
 
             .request-quote {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-
-                width: 26.055237102657635vw;
-                border-radius: 6px;
-
-                margin-top: 4.110996916752312vh;
-                padding: 1.1305241521068858vh 7.3475768629494524vw;
-
-                background: #67121B;
-                color: #FFFFFFFF;
-                gap: 0.5211047420531527vw;
-
-                transition: all 0.15s ease-in-out;
-
-                &:hover {
-                    transition: all 0.15s ease-in-out;
-                    background: #501213;
-                }
+                margin-top: 30px;
+                position: initial;
             }
         }
-    }
 
-    .more-details-list {
-        display: flex;
-        flex-direction: column;
-        margin: 6.166495375128469vh 4.1vw;
-
-        h3 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: normal;
-        }
-
-        ul {
-            margin-top: 2.055498458376156vh;
-        }
-
-        li {
-            margin-left: 1.5633142261594581vw;
-            font-size: 1.25rem;
-            font-weight: 500;
-        }
     }
 
     .related-products {
-        margin: 5.166495375128469vh 4.1vw;
-        font-size: 3rem;
-        font-weight: 800;
-        line-height: normal;
+        margin: 40px 0;
     }
 }
