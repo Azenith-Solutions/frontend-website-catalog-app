@@ -10,6 +10,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
+import { ShoppingCart } from '@mui/icons-material'
+import Badge, { badgeClasses } from '@mui/material/Badge';
+
 
 
 import LogoWhite from '../../assets/hardwareTech/WhiteLogo/SIMBOLO.png';
@@ -28,9 +31,17 @@ const ContainerStyled = styled(Container)(({ theme }) => ({
   },
 }))
 
+const CartBadge = styled(Badge)`
+  & .${badgeClasses.badge} {
+    top: -25px;
+    right: -10px;
+    transform: scale(1.2); /* Aumenta o tamanho da notificação */
+  }
+`;
+
 
 function DrawerAppBar(props) {
-  const { window, menuItems, redirectButtonName  } = props;
+  const { window, menuItems, redirectButtonName } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -62,20 +73,25 @@ function DrawerAppBar(props) {
             <img src={LogoWhite} alt="" style={{ height: '50px' }} />
             <img className='logo-name-hardwareTech' src={LogoNomeWhite} alt="" style={{ height: '20px' }} />
           </Box>
-          <SearchInputNavBar />
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '600px'
+          }}>
+            <SearchInputNavBar />
+            <IconButton className='cart-button' sx={{
+              padding: '10px',
+              color: '#fff',
+              textTransform: 'none',
+              fontWeight: '400',
+            }}>
+              <ShoppingCart sx={{ fontSize: '35px', cursor: 'pointer' }} />
+              <CartBadge badgeContent={2} color="primary" overlap="circular" />
+            </IconButton>
+          </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', gap: '10px' }}>
             <img src={LogoWhite} alt="" style={{ height: '50px' }} />
           </Box>
-          <Button className='redirect-button' sx={{
-            color: '#fff',
-            display: { xs: 'none', md: 'flex' },
-            padding: '10px 4rem',
-            border: '1px solid #fff',
-            borderRadius: '300px',
-            textTransform: 'none'
-          }}>
-            {redirectButtonName}
-          </Button>
         </ContainerStyled>
       </AppBar>
       <AppBar component="nav" sx={{
@@ -104,13 +120,13 @@ function DrawerAppBar(props) {
         </Container>
       </AppBar>
       <nav>
-       <MobileMenu
-        container={container}
-        menuItems={navItems}
-        redirectButtonName={redirectButtonName}
-        handleDrawerToggle={handleDrawerToggle}
-        mobileOpen={mobileOpen}
-       />
+        <MobileMenu
+          container={container}
+          menuItems={navItems}
+          redirectButtonName={redirectButtonName}
+          handleDrawerToggle={handleDrawerToggle}
+          mobileOpen={mobileOpen}
+        />
       </nav>
     </Box>
   );

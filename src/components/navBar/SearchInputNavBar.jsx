@@ -15,7 +15,7 @@ function SearchInputNavBar() {
         },
         marginRight: theme.spacing(2),
         marginLeft: 0,
-        width: '517px',
+        flex: 1,
         height: '45px',
         display: 'flex',
         alignItems: 'center',
