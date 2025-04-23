@@ -3,7 +3,7 @@ import { useState } from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Container from '@mui/material/Container';
 
-import CarouselCard from "../CardCarousel/CarouselCard";
+import CarouselCard from "../cardCarousel/CarouselCard";
 import CardComponent from '../../components/cards/CardComponent';
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
