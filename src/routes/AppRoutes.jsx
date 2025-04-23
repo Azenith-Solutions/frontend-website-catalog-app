@@ -4,6 +4,7 @@ import CartPage from '../pages/CartPage/CartPage.jsx'
 import ServicePage from '../pages/servicePage/ServicePage.jsx'
 import { Routes, Route } from 'react-router-dom'
 import ProductPage from '../pages/ProductPage/ProductPage.jsx'
+import CatalogPage from '../pages/CatalogPage/CatalogPage.jsx'
 
 function AppRoutes() {
   return (
@@ -12,6 +13,7 @@ function AppRoutes() {
         <Route path="/cart" element={<CartPage/>} />
         <Route path="/service" element={<ServicePage/>} />
         <Route path="/component/details" element={<ProductPage />} />
+        <Route path="/CatalogPage" element={<CatalogPage />} />
     </Routes>
   )
 }
