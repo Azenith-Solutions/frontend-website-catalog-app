@@ -9,7 +9,7 @@ import './CardComponent.css'
 
 
 function CardComponent({props}) {
-  return (
+    return (
 
     <Card sx={{
       flex: 1,
