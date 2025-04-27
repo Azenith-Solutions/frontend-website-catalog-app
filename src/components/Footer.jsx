@@ -23,7 +23,7 @@ const styleIcons = {
     }
 }
 
-function Footer(props) {
+ export function Footer(props) {
     const { footerItems } = props;
     
     return (
