@@ -1,0 +1,854 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgba(255, 255, 255, 0.9); 
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/hardwareTech/LandingPageImgs/fundotriangulo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.4; /* Ajustando a opacidade para deixar o fundo um pouco menos claro */
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+:root {
+    --cor-primaria: #5F1516;
+    --cor-header: #FFFFFF;
+    --cor-font: #000000;
+}
+
+header {
+    display: flex;
+    width: 100vw;
+    flex-direction: row;
+    padding-inline: 6rem;
+    padding-block: 0.4rem;
+    justify-content: space-between;
+    top: 0;
+    z-index: 1;
+    background-color: var(--cor-primaria);
+
+    .hamburguer {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+    }
+
+    .hamburguer .bar {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+}
+
+
+.logo-container {
+    display: flex;
+    align-items: center;
+
+    .logo {
+        margin-right: 0.9rem;
+    }
+
+    .logo img {
+        width: 5.5vw;
+        height: auto;
+        flex-shrink: 1;
+    }
+
+    .logo-nome img {
+        width: 300px;
+        height: auto;
+    }
+}
+
+
+.header-option-wrapper {
+    display: flex;
+    gap: 4.7vw;
+    align-items: center;
+
+    .header-option a {
+        color: var(--cor-header);
+        text-decoration: none;
+        font-weight: 550;
+        font-size: 1.0625rem;
+        font-family: 'Inter', sans-serif;
+        padding: 0.1rem;
+        min-width: 300px;
+        flex-shrink: 1;
+    }
+
+    .header-option-border a {
+        color: var(--cor-header);
+        text-decoration: none;
+        font-weight: 550;
+        font-size: 17px;
+        font-family: 'Inter', sans-serif;
+        border: 1px solid white;
+        border-radius: 33px;
+        padding: 0.9rem 1.9rem;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+    }
+
+    .header-option-border a:hover {
+        padding: 0.7rem 2rem;
+        box-shadow: none;
+    }
+
+}
+
+
+.container {
+     /* background-image: url('../assets/hardwareTech/LandingPageImgs/fundotriangulo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2rem;  */
+
+
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    justify-content: center;
+    gap: 6rem;
+    padding-inline: 5rem;
+
+    .botao-padrao {
+        max-width: 255px;
+        background-color: var(--cor-primaria);
+        color: var(--cor-header);
+        border-radius: 6px;
+        padding: 0.9rem 1.5rem;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+    }
+
+    .botao-padrao:hover {
+        box-shadow: none;
+        transform: translateY(4px);
+    }
+
+    .titulo {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 64px;
+    }
+
+    .introduction {
+        color: var(--cor-font);
+        margin-top: 6.9rem;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        position: relative; /* Garante que os filhos sejam posicionados em relação à seção */
+
+        .intro-content {
+            width: 530px;
+            height: 167px;
+            display: flex;
+            flex-direction: column;
+            gap: 44px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            width: 678px;
+            height: 167px;
+            font-size: 44px;
+            line-height: 55px;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        p {
+            width: 530px;
+            height: 167px;
+        }
+
+
+        img {
+            width: 600px;
+            height: auto;
+        }
+
+        .intro-video {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+
+            .video-style{
+                width: 100%;
+                max-width: 600px;
+                border-radius: 20px;
+                box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.3);
+                border: none;
+                outline: none;
+            }
+        }
+    }
+
+    .quemSomos {
+        display: flex;
+        justify-content: center;
+        padding-top: 8rem;
+        gap: 100px;
+        position: relative; /* Garante que os filhos sejam posicionados em relação à seção */
+
+        .quemSomos-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+
+            .text {
+                width: 467px;
+                font-weight: bold;
+            }
+        }
+
+        .quemSomos-image img {
+            width: 100vw;
+            max-width: 525px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .quemSomos-content {
+            width: 530px;
+            height: 167px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+            gap: 30px;
+            max-width: 600px;
+            width: 100%;
+        }
+    }
+
+    .servicos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+        position: relative; /* Garante que os filhos sejam posicionados em relação à seção */
+
+        .servicos-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 5.44rem;
+            flex-wrap: wrap;
+        }
+    }
+
+    .servicos-container>div {
+        flex: 1 1 200px;
+        max-width: 300px;
+        min-width: 200px;
+    }
+
+    .contato {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+        gap: 2rem;
+
+        .box-contato {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            background-color: #FAFAFA;
+            box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+            gap: 123px;
+            border-radius: 10px;
+            width: 1300px;
+            height: 300px;
+
+            .input-container {
+                display: flex;
+                flex-direction: column;
+                text-align: start;
+            }
+
+            .input-container input {
+                display: flex;
+                padding-left: 30px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 496px;
+                height: 50px;
+            }
+
+            .esquerda {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .direita {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 23px;
+
+            }
+
+            .direita .input-container input {
+                display: flex;
+                height: 180px;
+            }
+
+            button {
+                width: 239px;
+            }
+        }
+
+        img {
+            width: 25px;
+        }
+    }
+
+    footer {
+        width: 100vw;
+        position: relative;
+    }
+}
+
+/* Ajuste para a meia-lua no lado esquerdo do #introduction */
+.meia-lua-esquerda {
+    top: 0; /* Alinha ao topo da tela */
+    left: 0; /* Alinha ao lado esquerdo da tela */
+    width: 200px;
+    height: 400px;
+    background-color: var(--cor-primaria);
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    z-index: 10; /* Garante que fique acima do background */
+}
+
+/* Ajuste para a meia-lua dentro do #introduction */
+.introduction .meia-lua-esquerda {
+    position: absolute; /* Posiciona em relação à seção */
+    top: 0;
+    left: -230px; /* Move para o canto da tela */
+    width: 200px;
+    height: 400px;
+    background-color: var(--cor-primaria);
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    z-index: -1; /* Fica atrás do conteúdo da seção */
+}
+
+/* Ajuste para a meia-lua dentro do #quem-somos */
+.quemSomos .meia-lua-direita {
+    position: absolute; /* Posiciona em relação à seção */
+    top: 20%;
+    right: -230px; /* Move para o canto da tela */
+    width: 200px;
+    height: 400px;
+    background-color: var(--cor-primaria);
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    z-index: -1; /* Fica atrás do conteúdo da seção */
+}
+
+/* Ajuste para a meia-lua dentro da seção serviços */
+.servicos .meia-lua-borda {
+    position: absolute; /* Posiciona em relação à seção */
+    top: 20%;
+    left: -200px; /* Move para o canto da tela */
+    width: 200px;
+    height: 430px;
+    border: 6px solid black; /* Define a borda preta grossa */
+    border-top-right-radius: 300px;
+    border-bottom-right-radius: 300px;
+    background-color: transparent; /* Sem preenchimento */
+    z-index: -1; /* Fica atrás do conteúdo da seção */
+}
+
+@media (min-width: 300px) and (max-width: 714px) {
+    header {
+        display: flex;
+        padding: 1rem;
+
+        .header-option-wrapper {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            flex-direction: column;
+            background-color: var(--cor-primaria);
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 10;
+            gap: 1rem;
+        }
+
+        .header-option-wrapper.active {
+            display: flex;
+        }
+
+        .hamburguer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+
+        .logo {
+            margin-right: 0.9rem;
+        }
+
+        .logo img {
+            width: 7vw;
+            height: auto;
+        }
+
+        .logo-nome img {
+            width: 15.25rem;
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+
+    .header-option-wrapper {
+        display: flex;
+        max-width: 400px;
+        align-items: center;
+
+        .header-option a {
+            font-size: 0.7rem;
+            font-weight: 550;
+            padding: 0.01rem;
+        }
+
+        .header-option-border a {
+            font-size: 0.65rem;
+            font-weight: 550;
+            padding: 0.5rem;
+        }
+
+        .header-option-border a:hover {
+            padding: 0.7rem 2rem;
+            box-shadow: none;
+        }
+    }
+
+    .container {
+
+        .titulo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 50px;
+        }
+    
+        .introduction {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20rem;
+
+            .intro-content {
+                align-items: center;
+                text-align: center;
+
+                h1 {
+                    width: 608px;
+                    height: 167px;
+                    font-size: 40px;
+                    line-height: 50px;
+                }
+            }
+            .intro-video {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                text-align: center;
+
+                .video-style{
+                    width: 100%;
+                    max-width: 500px;
+                    border-radius: 20px;
+                    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.3);
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+
+        .quemSomos {
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
+        padding-top: 1rem;
+            gap: 17rem;
+
+            .quemSomos-content {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .contato {
+            display: flex;
+
+            .box-contato {
+                display: flex;
+                flex-direction: column;
+                width: 450px;
+                height: 600px;
+                gap: 40px;
+
+                .input-container input {
+                    width: 320px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+    .introduction .meia-lua-esquerda,
+    .quemSomos .meia-lua-direita,
+    .servicos .meia-lua-borda {
+        display: none; /* Esconde as meias-luas em telas menores que 1024px */
+    }
+}
+
+
+@media (min-width: 714px) and (max-width: 1024px) {
+
+    header {
+        display: flex;
+        padding: 1rem;
+
+        .header-option-wrapper {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            flex-direction: column;
+            background-color: var(--cor-primaria);
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 10;
+            gap: 1rem;
+        }
+
+        .header-option-wrapper.active {
+            display: flex;
+        }
+
+        .hamburguer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+
+        .logo {
+            margin-right: 0.9rem;
+        }
+
+        .logo img {
+            width: 7vw;
+            height: auto;
+        }
+
+        .logo-nome img {
+            width: 15.25rem;
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+
+    .header-option-wrapper {
+        display: flex;
+        max-width: 400px;
+        align-items: center;
+
+        .header-option a {
+            font-size: 0.7rem;
+            font-weight: 550;
+            padding: 0.01rem;
+        }
+
+        .header-option-border a {
+            font-size: 0.65rem;
+            font-weight: 550;
+            padding: 0.5rem;
+        }
+
+        .header-option-border a:hover {
+            padding: 0.7rem 2rem;
+            box-shadow: none;
+        }
+    }
+
+
+    .container {
+        display: flex;
+
+        .introduction {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20rem;
+
+            .intro-content {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .quemSomos {
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
+            gap: 17rem;
+
+            .quemSomos-content {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .contato {
+
+            .box-contato {
+                width: 700px;
+                height: 300px;
+
+                .input-container input {
+                    width: 256px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+    .introduction .meia-lua-esquerda,
+    .quemSomos .meia-lua-direita,
+    .servicos .meia-lua-borda {
+        display: none; /* Esconde as meias-luas em telas menores que 1024px */
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1160px) {
+    header {
+        gap: 2rem;
+
+        .header-option-wrapper {
+            gap: 4vw;
+
+            .header-option a {
+                font-size: 0.9rem;
+            }
+
+            .header-option-border a {
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .container {
+
+        .quemSomos {
+            display: flex;
+            justify-content: center;
+            padding-top: 1rem;
+            gap: 100px;
+
+            .quemSomos-image {
+                gap: 1rem;
+                
+                .text {
+                    width: 467px;
+                    font-weight: bold;
+                }
+            }
+
+            .quemSomos-image img {
+                max-width: 525px;
+                height: auto;
+                object-fit: contain;
+                border-radius: 10px;
+            }
+
+            .quemSomos-content {
+                .titulo {
+                    font-size: 44px;
+                }
+            }
+        }
+    }    
+}
+
+@media (min-width: 1024px) and (max-width: 1332px) {
+    header {
+        padding-inline: 4rem;
+    }
+
+    .container {
+        gap: 9rem;
+
+        .introduction {
+
+
+            .intro-content {
+                width: 530px;
+                height: 167px;
+                gap: 60px;
+                max-width: 600px;
+                width: 100%;
+            }
+
+            .intro-video {
+                width: 100%;
+                max-width: 700px;
+                border-radius: 20px;
+                border: none;
+                outline: none;
+            }
+
+            h1 {
+                width: 608px;
+                height: 167px;
+                font-size: 40px;
+                line-height: 55px;
+            }
+
+            p {
+                width: 450px;
+                height: 167px;
+            }
+
+        }
+
+        .quemSomos {
+            padding-top: 8rem;
+
+            .quemSomos-image img {
+                width: 100vw;
+                max-width: 450px;
+                height: auto;
+                object-fit: contain;
+                border-radius: 10px;
+            }
+        }
+
+
+        .contato {
+
+
+            .box-contato {
+                width: 1000px;
+                height: 300px;
+
+                .input-container input {
+                    width: 400px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1660px)  {
+
+    .container {
+        gap: 9rem;
+
+        .introduction {
+
+
+            .intro-content {
+                width: 530px;
+                height: 167px;
+                gap: 60px;
+                max-width: 600px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (min-width: 1660px) {
+    .introduction .meia-lua-esquerda{
+        border-radius: 0; /* Remove o arredondamento para transformá-lo em coluna */
+        width: 10px; /* Ajusta a largura para parecer uma coluna */
+        height: 400px; /* Faz com que ocupe toda a altura da seção */
+        left: -60px; /* Garante alinhamento correto para a esquerda */
+    }
+    .quemSomos .meia-lua-direita{
+        border-radius: 0; /* Remove o arredondamento para transformá-lo em coluna */
+        width: 10px; /* Ajusta a largura para parecer uma coluna */
+        margin-top: 20px;
+        height: 400px; /* Faz com que ocupe toda a altura da seção */
+        right: -60px; /* Garante alinhamento correto para a direita */
+    }
+
+    .servicos .meia-lua-borda {
+        border: none; /* Remove todas as bordas */
+        border-right: 10px solid black; /* Adiciona borda apenas no lado direito */
+        border-radius: 0; /* Remove o arredondamento */
+        width: 40px; /* Ajusta a largura para parecer uma coluna */
+        height: 370px; /* Faz com que ocupe toda a altura da seção */
+        margin-top: 45px;
+        left: -60px; /* Alinha ao lado direito */
+    }
+}
