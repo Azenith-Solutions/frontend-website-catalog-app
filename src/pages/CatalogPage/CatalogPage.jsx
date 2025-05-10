@@ -19,7 +19,6 @@ const CatalogPage = () => {
     const sections = [
         { title: 'Componentes', anchor: 'componentes' },
         { title: 'Mais Vendidos', anchor: 'mais-vendidos' },
-        { title: 'Promoções', anchor: 'promocoes' },
         { title: 'Novidades', anchor: 'novidades' },
     ];
     return (
@@ -37,18 +36,6 @@ const CatalogPage = () => {
                 menuItems={sections}
             />
             <Carrosel />
-            <div id='componentes' style={{ marginTop: '5vh' }} className='section'>
-                <PaginatedFilterSection
-                    filters={[
-                        { label: 'Todos', value: 'todos' },
-                        { label: 'Promoções', value: 'promocoes' },
-                        { label: 'Novidades', value: 'novidades' },
-                    ]}
-                    CardComponent={CardComponent}
-                    priceFilterEnabled={true}
-                    uriEndPoint={'/products'}
-                />
-            </div>
             <Container
                 sx={{
                     maxWidth: { lg: '1600px' },
@@ -60,20 +47,6 @@ const CatalogPage = () => {
                             <ShoppingBagIcon className="w-4 h-4 text-[#5c1a1b]" />
                         </span>
                         <span className="text">Mais Vendidos</span>
-                        <div className="line"></div>
-                    </div>
-                    <CarouselCard
-                        CardComponent={CardComponent}
-                        filter="Processador"
-                        uriEndPoint="http://Localhost:8080/products"
-                    />
-                </div>
-                <div id='promocoes' className="section-Promocoes section">
-                    <div className="section-title">
-                        <span className="icon">
-                            <FireIcon className="w-4 h-4 text-[#5c1a1b]" />
-                        </span>
-                        <span className="text">Promoções</span>
                         <div className="line"></div>
                     </div>
                     <CarouselCard
@@ -96,16 +69,29 @@ const CatalogPage = () => {
                         uriEndPoint="http://Localhost:8080/products"
                     />
                 </div>
-                </Container>
-                <footer>
-                    <Footer
-                        footerItems={[
-                            'Sobre nós',
-                            'Contato',
-                            'Ajuda'
-                        ]}
-                    />
-                </footer>
+            </Container>
+
+            <div id='componentes' style={{ margin: '5vh 0' }} className='section'>
+                <PaginatedFilterSection
+                    filters={[
+                        { label: 'Todos', value: 'todos' },
+                        { label: 'Promoções', value: 'promocoes' },
+                        { label: 'Novidades', value: 'novidades' },
+                    ]}
+                    CardComponent={CardComponent}
+                    priceFilterEnabled={true}
+                    uriEndPoint={'/products'}
+                />
+            </div>
+            <footer>
+                <Footer
+                    footerItems={[
+                        'Sobre nós',
+                        'Contato',
+                        'Ajuda'
+                    ]}
+                />
+            </footer>
         </div>
     );
 };
