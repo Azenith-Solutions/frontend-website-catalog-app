@@ -12,7 +12,7 @@ function AppRoutes() {
         <Route path="/" element={<LandingPage/>} />
         <Route path="/cart" element={<CartPage/>} />
         <Route path="/service" element={<ServicePage/>} />
-        <Route path="/component/details" element={<ProductPage />} />
+        <Route path="/component/details/:idComponent" element={<ProductPage />} />
         <Route path="/catalogPage" element={<CatalogPage />} />
     </Routes>
   )

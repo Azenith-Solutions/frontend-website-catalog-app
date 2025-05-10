@@ -1,16 +1,27 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
 import WhatsAppButton from './WhatsAppButton';
 
+
+
 import './CardComponent.css'
 
 
-function CardComponent({props}) {
-    return (
+function CardComponent({ props }) {
+  const navigate = useNavigate();
 
+  const handleNavigation = (path) => {
+
+    // Verifica se o caminho contém um hash (#)
+    navigate(path);
+  };
+
+  return (
     <Card sx={{
       flex: 1,
       minWidth: 210,
@@ -34,7 +45,8 @@ function CardComponent({props}) {
         <p className='card-content-desc'>{props.desc}</p>
       </CardContent>
       <div className='card-button-container'>
-        <button className='card-button-more'>
+        {/*Trocar o price pelo id do component */}
+        <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.price}`)}> 
           Saiba mais
         </button>
         <WhatsAppButton />
