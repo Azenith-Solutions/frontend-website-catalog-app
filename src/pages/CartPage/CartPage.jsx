@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField'
 import components from "../../db/component.json";
 import "./CartPage.css"
 import { sendEmailCart } from '../../services/EmailCartService'
+import ReturnButton from '../../components/ReturnButton/ReturnButton'
 
 
 function CartPage() {
@@ -42,6 +43,10 @@ function CartPage() {
                 maxWidth: { lg: '1600px' },
                 marginTop: { xs: '120px', md: '200px' },
             }}>
+                <ReturnButton
+                    title={'Catálogo'}
+                    path={'/catalogPage'}
+                />
                 <div className="header-cart">
                     <ShoppingCart sx={{
                         fontSize: '50px',

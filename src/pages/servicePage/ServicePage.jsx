@@ -6,6 +6,8 @@ import CardService from '../../components/cards/CardService'
 import CardCarousel from '../../components/cardCarousel/CarouselCard'
 import './ServicePage.css'
 import NavBarInstitucional from '../../components/navBarInstitucional/navBarInstitucional.jsx';
+import ReturnButton from '../../components/ReturnButton/ReturnButton'
+
 
 
 import { Email } from '@mui/icons-material';
@@ -19,6 +21,10 @@ export default function ServicePage() {
                 maxWidth: { lg: '1600px' },
                 marginTop: { xs: '120px', md: '200px' },
             }}>
+                <ReturnButton
+                    title={'Início'}
+                    path={'/'}
+                />
                 <section className="image-text-section">
                     <div className="image-container">
                         <img
