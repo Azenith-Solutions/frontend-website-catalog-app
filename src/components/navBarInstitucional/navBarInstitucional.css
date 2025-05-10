@@ -1,0 +1,148 @@
+.nav-bar-institucional-container{
+    width: 100%;
+    background-color: var(--cor-primaria);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+header {
+    display: flex;
+    width: 1600px;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+
+    padding: 20px 0px;
+
+    .hamburguer {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+    }
+
+    .hamburguer .bar {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+}
+
+
+.logo-container {
+    display: flex;
+    align-items: center;
+
+    .logo {
+        margin-right: 0.9rem;
+    }
+
+    .logo img {
+        width: 50px;
+        height: auto;
+        flex-shrink: 1;
+    }
+
+    .logo-nome img {
+        width: 300px;
+        height: auto;
+    }
+}
+
+
+.header-option-wrapper {
+    display: flex;
+    gap: 3.3vw;
+    align-items: center;
+
+    .header-option a {
+        color: var(--cor-header);
+        text-decoration: none;
+        font-weight: 550;
+        font-size: 1.0625rem;
+        font-family: 'Inter', sans-serif;
+        padding: 0.1rem;
+        min-width: 300px;
+        flex-shrink: 1;
+    }
+
+    .header-option-border a {
+        color: var(--cor-header);
+        text-decoration: none;
+        font-weight: 550;
+        font-size: 17px;
+        font-family: 'Inter', sans-serif;
+        border: 1px solid white;
+        border-radius: 33px;
+        padding: 0.9rem 1.9rem;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+    }
+
+    .header-option-border a:hover {
+        padding: 0.7rem 2rem;
+        box-shadow: none;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    header {
+        padding: 1rem;
+
+        .header-option-wrapper {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            flex-direction: column;
+            background-color: var(--cor-primaria);
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 10;
+            gap: 1rem;
+        }
+
+        .header-option-wrapper.active {
+            display: flex;
+        }
+
+        .hamburguer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+
+
+
+
+    .header-option-wrapper {
+        display: flex;
+        max-width: 400px;
+        align-items: center;
+
+        .header-option a {
+            font-size: 0.7rem;
+            font-weight: 550;
+            padding: 0.01rem;
+        }
+
+        .header-option-border a {
+            font-size: 0.65rem;
+            font-weight: 550;
+            padding: 0.5rem;
+        }
+
+        .header-option-border a:hover {
+            padding: 0.7rem 2rem;
+            box-shadow: none;
+        }
+    }
+}

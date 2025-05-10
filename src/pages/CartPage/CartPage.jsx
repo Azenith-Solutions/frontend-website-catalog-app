@@ -35,7 +35,7 @@ function CartPage() {
     return (
         <>
             <NavBarCatalog
-                menuItems={['Componentes', 'Mais vendidos', 'Promoções', 'Novidades']}
+                menuItems={[]}
                 redirectButtonName={'Componentes'}
             />
             <Container sx={{

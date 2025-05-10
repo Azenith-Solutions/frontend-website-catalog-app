@@ -9,35 +9,13 @@ import CardComponent from '../../components/cards/CardComponent';
 import WhatsApp from "../../assets/hardwareTech/LandingPageImgs/whatsapp.png";
 import Footer from "../../components/footer/Footer.jsx";
 
+import NavBarInstitucional from '../../components/navBarInstitucional/navBarInstitucional.jsx';
+
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="page">
-      <header>
-
-        <div className="logo-container">
-          <div className="logo">
-            <img src={Logo} alt="Símbolo da marca" />
-          </div>
-          <div className="logo-nome">
-            <img src={Nome} alt="Nome marca" />
-          </div>
-        </div>
-
-        <div className="hamburguer" onClick={() => setMenuOpen(!menuOpen)}>
-          <div className="bar"></div>
-          <div className="bar"></div>
-          <div className="bar"></div>
-        </div>
-
-        <div className={`header-option-wrapper ${menuOpen ? 'active' : ''}`}>
-          <div className="header-option"><a href="#introduction">Sobre nós</a></div>
-          <div className="header-option"><a href="#quem-somos">Quem somos</a></div>
-          <div className="header-option-border"><a href="#servicos">Serviços</a></div>
-          <div className="header-option"><a href="#contato">Contato</a></div>
-        </div>
-      </header>
+      <NavBarInstitucional/>
 
       <div className="container">
         

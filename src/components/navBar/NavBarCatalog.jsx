@@ -57,15 +57,10 @@ function DrawerAppBar(props) {
         position: { xs: 'fixed', md: 'fixed' }
       }}>
         <ContainerStyled>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+          
+        <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', gap: '10px' }}>
+            <img src={LogoWhite} alt="" style={{ height: '50px' }} />
+          </Box>
           <Box sx={{
             display: { xs: 'none', md: 'flex' },
             alignItems: 'center', gap: '10px'
@@ -75,10 +70,12 @@ function DrawerAppBar(props) {
           </Box>
           <Box sx={{
             display: 'flex',
+            justifyContent: 'end',
             alignItems: 'center',
+            gap: '20px',
             width: '600px'
           }}>
-            <SearchInputNavBar />
+            {/* <SearchInputNavBar /> */}
             <IconButton className='cart-button' sx={{
               padding: '10px',
               color: '#fff',
@@ -88,41 +85,52 @@ function DrawerAppBar(props) {
               <ShoppingCart sx={{ fontSize: '35px', cursor: 'pointer' }} />
               <CartBadge badgeContent={2} color="primary" overlap="circular" />
             </IconButton>
+            {menuItems && menuItems.length > 0 && (
+            <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { md: 'none' } }}
+          >
+          <MenuIcon />
+          </IconButton>
+          )}
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', gap: '10px' }}>
-            <img src={LogoWhite} alt="" style={{ height: '50px' }} />
-          </Box>
+          
         </ContainerStyled>
       </AppBar>
-      <AppBar component="nav" sx={{
-        backgroundColor: '#4F1516',
-        display: { xs: 'none', md: 'block', top: '100px' }
-      }}>
-        <Container sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '60px'
+      {menuItems && menuItems.length > 0 && (
+        <AppBar component="nav" sx={{
+          backgroundColor: '#4F1516',
+          display: { xs: 'none', md: 'block', top: '100px' }
         }}>
-          <Box sx={{
-            display: { xs: 'none', sm: 'flex' }, gap: '40px'
+          <Container sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '60px'
           }}>
-            {menuItems.map((item) => (
-              <Button key={item} className='items items-animation' sx={{
-                color: '#fff',
-                textTransform: 'none',
-                fontWeight: '400'
-              }}>
-                {item}
-              </Button>
-            ))}
-          </Box>
-        </Container>
-      </AppBar>
+            <Box sx={{
+              display: { xs: 'none', sm: 'flex' }, gap: '40px'
+            }}>
+              {menuItems.map((item) => (
+                <Button key={item} className='items items-animation' sx={{
+                  color: '#fff',
+                  textTransform: 'none',
+                  fontWeight: '400'
+                }}>
+                  {item}
+                </Button>
+              ))}
+            </Box>
+          </Container>
+        </AppBar>
+      )}
       <nav>
         <MobileMenu
           container={container}
-          menuItems={navItems}
+          menuItems={menuItems}
           redirectButtonName={redirectButtonName}
           handleDrawerToggle={handleDrawerToggle}
           mobileOpen={mobileOpen}
