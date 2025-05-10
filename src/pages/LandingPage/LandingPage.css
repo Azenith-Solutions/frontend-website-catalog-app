@@ -40,90 +40,6 @@ body::before {
     --cor-font: #000000;
 }
 
-header {
-    display: flex;
-    width: 100vw;
-    flex-direction: row;
-    padding-inline: 6rem;
-    padding-block: 0.4rem;
-    justify-content: space-between;
-    top: 0;
-    z-index: 1;
-    background-color: var(--cor-primaria);
-
-    .hamburguer {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-        gap: 5px;
-    }
-
-    .hamburguer .bar {
-        width: 25px;
-        height: 3px;
-        background-color: white;
-        transition: all 0.3s ease;
-    }
-
-}
-
-
-.logo-container {
-    display: flex;
-    align-items: center;
-
-    .logo {
-        margin-right: 0.9rem;
-    }
-
-    .logo img {
-        width: 5.5vw;
-        height: auto;
-        flex-shrink: 1;
-    }
-
-    .logo-nome img {
-        width: 300px;
-        height: auto;
-    }
-}
-
-
-.header-option-wrapper {
-    display: flex;
-    gap: 4.7vw;
-    align-items: center;
-
-    .header-option a {
-        color: var(--cor-header);
-        text-decoration: none;
-        font-weight: 550;
-        font-size: 1.0625rem;
-        font-family: 'Inter', sans-serif;
-        padding: 0.1rem;
-        min-width: 300px;
-        flex-shrink: 1;
-    }
-
-    .header-option-border a {
-        color: var(--cor-header);
-        text-decoration: none;
-        font-weight: 550;
-        font-size: 17px;
-        font-family: 'Inter', sans-serif;
-        border: 1px solid white;
-        border-radius: 33px;
-        padding: 0.9rem 1.9rem;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
-        transition: all 0.3s ease;
-    }
-
-    .header-option-border a:hover {
-        padding: 0.7rem 2rem;
-        box-shadow: none;
-    }
-
-}
 
 
 .container {
@@ -135,6 +51,7 @@ header {
 
 
     display: flex;
+    margin-top: 80px;
     flex-wrap: wrap;
     overflow-x: hidden;
     justify-content: center;
@@ -161,6 +78,10 @@ header {
     .titulo {
         font-family: 'Rajdhani', sans-serif;
         font-size: 64px;
+    }
+
+    .introduction,.quemSomos,.servicos,.contato {
+        scroll-margin-top: 50px;
     }
 
     .introduction {
@@ -410,78 +331,6 @@ header {
 }
 
 @media (min-width: 300px) and (max-width: 714px) {
-    header {
-        display: flex;
-        padding: 1rem;
-
-        .header-option-wrapper {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            flex-direction: column;
-            background-color: var(--cor-primaria);
-            padding: 1rem;
-            border-radius: 8px;
-            z-index: 10;
-            gap: 1rem;
-        }
-
-        .header-option-wrapper.active {
-            display: flex;
-        }
-
-        .hamburguer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-
-        .logo {
-            margin-right: 0.9rem;
-        }
-
-        .logo img {
-            width: 7vw;
-            height: auto;
-        }
-
-        .logo-nome img {
-            width: 15.25rem;
-            max-width: 100%;
-            height: auto;
-        }
-    }
-
-
-    .header-option-wrapper {
-        display: flex;
-        max-width: 400px;
-        align-items: center;
-
-        .header-option a {
-            font-size: 0.7rem;
-            font-weight: 550;
-            padding: 0.01rem;
-        }
-
-        .header-option-border a {
-            font-size: 0.65rem;
-            font-weight: 550;
-            padding: 0.5rem;
-        }
-
-        .header-option-border a:hover {
-            padding: 0.7rem 2rem;
-            box-shadow: none;
-        }
-    }
 
     .container {
 
@@ -566,79 +415,6 @@ header {
 
 @media (min-width: 714px) and (max-width: 1024px) {
 
-    header {
-        display: flex;
-        padding: 1rem;
-
-        .header-option-wrapper {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            flex-direction: column;
-            background-color: var(--cor-primaria);
-            padding: 1rem;
-            border-radius: 8px;
-            z-index: 10;
-            gap: 1rem;
-        }
-
-        .header-option-wrapper.active {
-            display: flex;
-        }
-
-        .hamburguer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-
-        .logo {
-            margin-right: 0.9rem;
-        }
-
-        .logo img {
-            width: 7vw;
-            height: auto;
-        }
-
-        .logo-nome img {
-            width: 15.25rem;
-            max-width: 100%;
-            height: auto;
-        }
-    }
-
-
-    .header-option-wrapper {
-        display: flex;
-        max-width: 400px;
-        align-items: center;
-
-        .header-option a {
-            font-size: 0.7rem;
-            font-weight: 550;
-            padding: 0.01rem;
-        }
-
-        .header-option-border a {
-            font-size: 0.65rem;
-            font-weight: 550;
-            padding: 0.5rem;
-        }
-
-        .header-option-border a:hover {
-            padding: 0.7rem 2rem;
-            box-shadow: none;
-        }
-    }
-
 
     .container {
         display: flex;
@@ -689,21 +465,6 @@ header {
 }
 
 @media (min-width: 1024px) and (max-width: 1160px) {
-    header {
-        gap: 2rem;
-
-        .header-option-wrapper {
-            gap: 4vw;
-
-            .header-option a {
-                font-size: 0.9rem;
-            }
-
-            .header-option-border a {
-                font-size: 0.9rem;
-            }
-        }
-    }
 
     .container {
 
@@ -739,9 +500,6 @@ header {
 }
 
 @media (min-width: 1024px) and (max-width: 1332px) {
-    header {
-        padding-inline: 4rem;
-    }
 
     .container {
         gap: 9rem;

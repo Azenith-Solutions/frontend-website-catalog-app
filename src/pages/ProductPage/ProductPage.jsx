@@ -10,7 +10,7 @@ const ProductPage = () => {
 
     return (
         <>
-            <NavBarCatalog menuItems={navItems} redirectButtonName={"Serviços"} />
+            <NavBarCatalog menuItems={[]} redirectButtonName={"Serviços"} />
             <ProductDetail productName={"Nome do Produto"} price={"9999"} description={description} detailsList={["Placa de excelente qualidade.", "Micro-controlador Tmega328", "14 pinos de entrada/saída digital (dos quais 6 podem ser usados como saídas PWM)", "6 entradas analógicas", "Cristal oscilador de 16Mhz", "Uma conexão USB",
                 "Uma entrada de alimentação (7 a 12V)", "Botão de reset", "Não Acompanha Cabo USB"]} />
             <Footer

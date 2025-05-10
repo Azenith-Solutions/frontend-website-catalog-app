@@ -5,6 +5,8 @@ import Container from '@mui/material/Container'
 import CardService from '../../components/cards/CardService'
 import CardCarousel from '../../components/cardCarousel/CarouselCard'
 import './ServicePage.css'
+import NavBarInstitucional from '../../components/navBarInstitucional/navBarInstitucional.jsx';
+
 
 import { Email } from '@mui/icons-material';
 
@@ -12,10 +14,7 @@ import { Email } from '@mui/icons-material';
 export default function ServicePage() {
     return (
         <>
-            <NavBarCatalog
-                menuItems={['Home', 'Serviços', 'Relacionados']}
-                redirectButtonName='Componentes'
-            />
+            <NavBarInstitucional />
             <Container sx={{
                 maxWidth: { lg: '1600px' },
                 marginTop: { xs: '120px', md: '200px' },

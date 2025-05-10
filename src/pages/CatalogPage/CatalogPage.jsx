@@ -14,6 +14,12 @@ import background from './Styles/assets/background abstrato.png';
 import './Styles/CatalogPage.css';
 
 const CatalogPage = () => {
+    const sections = [
+        { title: 'Componentes', anchor: 'componentes' },
+        { title: 'Mais Vendidos', anchor: 'mais-vendidos' },
+        { title: 'Promoções', anchor: 'promocoes' },
+        { title: 'Novidades', anchor: 'novidades' },
+    ];
     return (
         <div
             className="catalog-background"
@@ -22,15 +28,14 @@ const CatalogPage = () => {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                minHeight: '200vh',
+                minHeight: '200vh'
             }}
         >
             <NavBarCatalog
-                menuItems={['Componentes', 'Mais vendidos', 'Promoções', 'Novidades']}
-                redirectButtonName={'Componentes'}
+                menuItems={sections}
             />
             <Carrosel />
-            <div style={{ marginTop: '5vh' }}>
+            <div id='componentes' style={{ marginTop: '5vh' } } className='section'>
                 <PaginatedFilterSection
                     filters={[
                         { label: 'Todos', value: 'todos' },
@@ -42,7 +47,7 @@ const CatalogPage = () => {
                     uriEndPoint={'/products'}
                 />
             </div>
-            <div className='Section-Mais-Vendidos'>
+            <div id='mais-vendidos' className='Section-Mais-Vendidos section'>
                 <div className="section-title">
                     <span className="icon">
                         <ShoppingBagIcon className="w-4 h-4 text-[#5c1a1b]" />
@@ -56,7 +61,7 @@ const CatalogPage = () => {
                 uriEndPoint="http://Localhost:8080/products"
                 />
             </div>
-            <div className="section-Promocoes">
+            <div id='promocoes' className="section-Promocoes section">
                 <div className="section-title">
                     <span className="icon">
                         <FireIcon className="w-4 h-4 text-[#5c1a1b]" />
@@ -70,7 +75,7 @@ const CatalogPage = () => {
                 uriEndPoint="http://Localhost:8080/products"
                 />
             </div>
-            <div className='Section-Novidades'>
+            <div id='novidades' className='Section-Novidades section'>
                 <div className="section-title">
                     <span className="icon">
                         <StarIcon className="w-4 h-4 text-[#5c1a1b]" />
