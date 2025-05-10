@@ -35,7 +35,7 @@ const CatalogPage = () => {
                 menuItems={sections}
             />
             <Carrosel />
-            <div id='componentes' style={{ marginTop: '5vh' }}>
+            <div id='componentes' style={{ marginTop: '5vh' } } className='section'>
                 <PaginatedFilterSection
                     filters={[
                         { label: 'Todos', value: 'todos' },
@@ -47,7 +47,7 @@ const CatalogPage = () => {
                     uriEndPoint={'/products'}
                 />
             </div>
-            <div id='mais-vendidos' className='Section-Mais-Vendidos'>
+            <div id='mais-vendidos' className='Section-Mais-Vendidos section'>
                 <div className="section-title">
                     <span className="icon">
                         <ShoppingBagIcon className="w-4 h-4 text-[#5c1a1b]" />
@@ -61,7 +61,7 @@ const CatalogPage = () => {
                 uriEndPoint="http://Localhost:8080/products"
                 />
             </div>
-            <div id='promocoes' className="section-Promocoes">
+            <div id='promocoes' className="section-Promocoes section">
                 <div className="section-title">
                     <span className="icon">
                         <FireIcon className="w-4 h-4 text-[#5c1a1b]" />
@@ -75,7 +75,7 @@ const CatalogPage = () => {
                 uriEndPoint="http://Localhost:8080/products"
                 />
             </div>
-            <div id='novidades' className='Section-Novidades'>
+            <div id='novidades' className='Section-Novidades section'>
                 <div className="section-title">
                     <span className="icon">
                         <StarIcon className="w-4 h-4 text-[#5c1a1b]" />

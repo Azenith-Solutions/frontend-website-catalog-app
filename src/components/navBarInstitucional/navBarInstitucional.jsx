@@ -44,8 +44,8 @@ function navBarInstitucional() {
                     <div className="bar"></div>
                 </div>
 
-                <div className={`header-option-wrapper ${menuOpen ? 'active' : ''}`}>
-                    <div className="header-option" >
+                <div className={`header-option-wrapper ${menuOpen ? 'active' : ''}`} >
+                    <div className="header-option" onClick={() => handleNavigation('/#introduction')}>
                         <a >Sobre nós</a>
                     </div>
                     <div className="header-option" onClick={() => handleNavigation('/#quem-somos')}>

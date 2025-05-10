@@ -80,6 +80,10 @@ body::before {
         font-size: 64px;
     }
 
+    .introduction,.quemSomos,.servicos,.contato {
+        scroll-margin-top: 50px;
+    }
+
     .introduction {
         color: var(--cor-font);
         margin-top: 6.9rem;
