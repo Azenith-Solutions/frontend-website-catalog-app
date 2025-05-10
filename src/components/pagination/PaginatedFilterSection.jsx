@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PaginationCatalog from './PaginationCatalog';
 import { Container, Box, Slider, Dialog, IconButton, Button } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import SearchInputNavBar from '../navBar/SearchInputNavBar';
 
 function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, uriEndPoint }) {
   // Estados principais
@@ -62,14 +63,16 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
           width: '250px',
           padding: '15px',
           borderRight: '1px solid #ccc',
-          display: { xs: 'none', md: 'block' }, // Esconde em resoluções menores
+          display: { xs: 'none', md: 'flex' },
+          flexDirection: 'column',
+          gap: '30px' // Esconde em resoluções menores
         }}
       >
         <h3 style={{ marginBottom: '30px', fontSize: '20px' }}>Categorias/Filtros</h3>
 
         {/* Filtro de Preço */}
         {priceFilterEnabled && (
-          <div style={{ marginBottom: '20px' }}>
+          <div>
             <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Preço</h4>
             <p style={{ fontSize: '14px', display: 'flex', justifyContent: 'space-between' }}>
               <span>R$ {tempPriceRange[0]}</span>
@@ -86,6 +89,7 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
             />
           </div>
         )}
+        <SearchInputNavBar />
 
         {/* Lista de Filtros */}
         <ul style={{ display: 'flex', flexDirection: 'column', gap: '30px', listStyle: 'none' }}>
@@ -124,14 +128,17 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
         <Box
           sx={{
             padding: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '30px'
           }}
         >
           <h3 style={{ marginBottom: '30px', fontSize: '20px' }}>Categorias/Filtros</h3>
 
           {/* Filtro de Preço */}
           {priceFilterEnabled && (
-            <div style={{ marginBottom: '20px' }}>
-              <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Preço</h4>
+            <div >
+              <h4 style={{ fontSize: '16px'}}>Preço</h4>
               <p style={{ fontSize: '14px', display: 'flex', justifyContent: 'space-between' }}>
                 <span>R$ {tempPriceRange[0]}</span>
                 <span>R$ {tempPriceRange[1]}</span>
@@ -147,6 +154,7 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
               />
             </div>
           )}
+        <SearchInputNavBar />
 
           {/* Lista de Filtros */}
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '30px', listStyle: 'none' }}>

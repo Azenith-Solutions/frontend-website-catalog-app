@@ -9,21 +9,15 @@ function SearchInputNavBar() {
         position: 'relative',
         borderRadius: '35px',
         backgroundColor: '#fff',
-        '&:focus-within': {
-            outline: '2px solid #fff',
-            outlineOffset: '5px',
-        },
-        marginRight: theme.spacing(2),
         marginLeft: 0,
-        flex: 1,
         height: '45px',
         display: 'flex',
         alignItems: 'center',
-        [theme.breakpoints.up('md')]: {
-            marginLeft: theme.spacing(3),
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Adiciona sombra ao input
+        [theme.breakpoints.down('md')]: {
+            backgroundColor: '#f2f2f2', // Change to gray on mobile
         },
     }));
-
 
     const SearchIconWrapper = styled('div')(({ theme }) => ({
         padding: theme.spacing(0, 2),
@@ -44,7 +38,7 @@ function SearchInputNavBar() {
             padding: theme.spacing(1, 1, 1, 0),
             paddingLeft: `calc(1em + ${theme.spacing(1)})`,
             paddingRight: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create('width')
+            transition: theme.transitions.create('width'),
         },
     }));
 
@@ -54,11 +48,11 @@ function SearchInputNavBar() {
                 <SearchIcon sx={{ fontSize: '24px' }} />
             </SearchIconWrapper>
             <StyledInputBase
-                placeholder="Search…"
+                placeholder="Pesquisar..."
                 inputProps={{ 'aria-label': 'search' }}
             />
         </Search>
-    )
+    );
 }
 
-export default SearchInputNavBar
+export default SearchInputNavBar;
