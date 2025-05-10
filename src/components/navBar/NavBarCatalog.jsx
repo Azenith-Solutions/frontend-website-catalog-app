@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './NavBarCatalog.css'
 import SearchInputNavBar from '../navBar/SearchInputNavBar';
 import MobileMenu from './MobileMenu';
@@ -43,6 +44,25 @@ const CartBadge = styled(Badge)`
 function DrawerAppBar(props) {
   const { window, menuItems, redirectButtonName } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    setMobileOpen(false);
+
+    // Verifica se o caminho contém um hash (#)
+    const [route, hash] = path.split('#');
+    navigate(route, { replace: true }); // Navega para a rota base
+
+    if (hash) {
+        // Aguarda a navegação e rola para a seção correspondente
+        setTimeout(() => {
+            const section = document.getElementById(hash);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100); // Pequeno atraso para garantir que a página seja carregada
+    }
+};
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -57,14 +77,17 @@ function DrawerAppBar(props) {
         position: { xs: 'fixed', md: 'fixed' }
       }}>
         <ContainerStyled>
-          
-        <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', gap: '10px' }}>
+
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', gap: '10px' }}>
             <img src={LogoWhite} alt="" style={{ height: '50px' }} />
           </Box>
-          <Box sx={{
-            display: { xs: 'none', md: 'flex' },
-            alignItems: 'center', gap: '10px'
-          }}>
+          <Box
+            onClick={() => handleNavigation('/catalogPage')}
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              alignItems: 'center', gap: '10px',
+              cursor: 'pointer'
+            }}>
             <img src={LogoWhite} alt="" style={{ height: '50px' }} />
             <img className='logo-name-hardwareTech' src={LogoNomeWhite} alt="" style={{ height: '20px' }} />
           </Box>
@@ -76,28 +99,30 @@ function DrawerAppBar(props) {
             width: '600px'
           }}>
             {/* <SearchInputNavBar /> */}
-            <IconButton className='cart-button' sx={{
-              padding: '10px',
-              color: '#fff',
-              textTransform: 'none',
-              fontWeight: '400',
-            }}>
+            <IconButton className='cart-button'
+              onClick={() => handleNavigation("/cart")}
+              sx={{
+                padding: '10px',
+                color: '#fff',
+                textTransform: 'none',
+                fontWeight: '400',
+              }}>
               <ShoppingCart sx={{ fontSize: '35px', cursor: 'pointer' }} />
               <CartBadge badgeContent={2} color="primary" overlap="circular" />
             </IconButton>
             {menuItems && menuItems.length > 0 && (
-            <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-          >
-          <MenuIcon />
-          </IconButton>
-          )}
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { md: 'none' } }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
           </Box>
-          
+
         </ContainerStyled>
       </AppBar>
       {menuItems && menuItems.length > 0 && (
@@ -115,12 +140,22 @@ function DrawerAppBar(props) {
               display: { xs: 'none', sm: 'flex' }, gap: '40px'
             }}>
               {menuItems.map((item) => (
-                <Button key={item} className='items items-animation' sx={{
-                  color: '#fff',
-                  textTransform: 'none',
-                  fontWeight: '400'
-                }}>
-                  {item}
+                <Button
+                  key={item.title}
+                  onClick={() => {
+                    const section = document.getElementById(item.anchor); // Obtém o elemento pelo ID
+                    if (section) {
+                      section.scrollIntoView({ behavior: 'smooth' }); // Rola suavemente até a seção
+                    }
+                  }}
+                  className="items items-animation"
+                  sx={{
+                    color: '#fff',
+                    textTransform: 'none',
+                    fontWeight: '400',
+                  }}
+                >
+                  {item.title}
                 </Button>
               ))}
             </Box>

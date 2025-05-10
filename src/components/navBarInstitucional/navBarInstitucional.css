@@ -59,6 +59,7 @@ header {
     display: flex;
     gap: 3.3vw;
     align-items: center;
+    cursor: pointer;
 
     .header-option a {
         color: var(--cor-header);

@@ -28,17 +28,18 @@ export default function MobileMenu(props) {
                 <img className='logo-name-hardwareTech' src={LogoNomeWhite} alt="" style={{ height: '10px' }} />
             </div>
             <List>
-                <ListItem disablePadding>
-                    <ListItemButton sx={{ textAlign: 'start' }}>
-                        <ListItemText primary={redirectButtonName} />
-                    </ListItemButton>
-                </ListItem>
-                <Divider />
                 {menuItems.map((item) => (
                     <>
-                    <ListItem key={item} disablePadding>
+                    <ListItem key={item} 
+                    onClick={() => {
+                        const section = document.getElementById(item.anchor); // Obtém o elemento pelo ID
+                        if (section) {
+                          section.scrollIntoView({ behavior: 'smooth' }); // Rola suavemente até a seção
+                        }
+                      }}
+                    disablePadding>
                         <ListItemButton sx={{ textAlign: 'start' }}>
-                            <ListItemText primary={item} />
+                            <ListItemText primary={item.title} />
                         </ListItemButton>
                     </ListItem>
                         <Divider />
