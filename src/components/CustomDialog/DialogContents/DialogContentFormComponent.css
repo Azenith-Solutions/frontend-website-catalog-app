@@ -1,0 +1,39 @@
+.form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.form-field {
+    border-radius: 4px;
+}
+
+
+.form-actions {
+    grid-column: span 2;
+    display: grid;
+    justify-content: end;
+    margin-top: 16px;
+}
+
+.submit-button {
+    background-color: #5F1516;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-transform: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #7a1d20;
+}

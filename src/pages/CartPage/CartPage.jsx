@@ -120,7 +120,7 @@ function CartPage() {
                 footerItems={['Componentes', 'Mais vendidos', 'Promoções', 'Novidades']}
             />
 
-            <CustomDialog open={open} onClose={() => setOpen(false)}>
+            <CustomDialog size={"sm"} open={open} onClose={() => setOpen(false)}>
                 <DialogContentMessage
                     icon={MarkEmailReadIcon}
                     title="Solicitação enviada com sucesso!"
