@@ -6,10 +6,14 @@ import Container from '@mui/material/Container';
 import CarouselCard from "../cardCarousel/CarouselCard";
 import CardComponent from '../../components/cards/CardComponent';
 import ReturnButton from '../../components/ReturnButton/ReturnButton'
+import CustomDialog from '../CustomDialog/CustomDialog';
+import DialogContentButton from '../CustomDialog/DialogContents/DialogContentButton';
 
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
+    const [open, setOpen] = useState(false);
+
 
     document.title = `Detalhes do ${productName}`;
 
@@ -18,64 +22,71 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
     }
 
     return (
-        <Container sx={{
-            maxWidth: { lg: '1600px' },
-            marginTop: { xs: '120px', md: '200px' }
-        }}>
-            <ReturnButton
-                title={'Catálogo'}
-                path={'/catalogPage'}
-            />
-            <div className="hero-container">
-                <aside className="images-container">
-                    <div className='main-image'></div>
+        <>
+            <Container sx={{
+                maxWidth: { lg: '1600px' },
+                marginTop: { xs: '120px', md: '200px' }
+            }}>
+                <ReturnButton
+                    title={'Catálogo'}
+                    path={'/catalogPage'}
+                />
+                <div className="hero-container">
+                    <aside className="images-container">
+                        <div className='main-image'></div>
 
-                    <div className="images-list">
-                        <div className="second-image"></div>
-                        <div className="third-image"></div>
-                        <div className="fourth-image"></div>
-                    </div>
-                </aside>
+                        <div className="images-list">
+                            <div className="second-image"></div>
+                            <div className="third-image"></div>
+                            <div className="fourth-image"></div>
+                        </div>
+                    </aside>
 
-                <aside className="details-container">
-                    <h2>{productName}</h2>
+                    <aside className="details-container">
+                        <h2>{productName}</h2>
 
-                    <p className="price">R$ {price}</p>
+                        <p className="price">R$ {price}</p>
 
-                    <>
-                        <p>
-                            <b>Descrição:</b>
-                        </p>
+                        <>
+                            <p>
+                                <b>Descrição:</b>
+                            </p>
 
-                        <p className='description-text'>{description}</p>
+                            <p className='description-text'>{description}</p>
 
-                        <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
-                    </>
+                            <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
+                        </>
 
-                    <button className='request-quote'><ShoppingCartIcon />Adicionar ao carrinho</button>
-                </aside>
+                        <button onClick={() => setOpen(true)} className='request-quote'><ShoppingCartIcon />Adicionar ao carrinho</button>
+                    </aside>
 
-            </div>
-
-            {(openMoreDetailsList) && (
-                <div className="more-details-list">
-                    <h3>Características do {productName}</h3>
-                    <ul>
-                        {detailsList.map((detail) => (
-                            <li>
-                                {detail}
-                            </li>
-                        ))}
-                    </ul>
                 </div>
-            )}
 
-            <div className="related-products">
-                <h3>Produtos Relacionados</h3>
-                <CarouselCard CardComponent={CardComponent} filter={"componentes"} uriEndPoint={"http://localhost:3000/produtos"} />
+                {(openMoreDetailsList) && (
+                    <div className="more-details-list">
+                        <h3>Características do {productName}</h3>
+                        <ul>
+                            {detailsList.map((detail) => (
+                                <li>
+                                    {detail}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
-            </div>
-        </Container>
+                <div className="related-products">
+                    <h3>Produtos Relacionados</h3>
+                    <CarouselCard CardComponent={CardComponent} filter={"componentes"} uriEndPoint={"http://localhost:3000/produtos"} />
+
+                </div>
+            </Container>
+
+            <CustomDialog open={open} onClose={() => setOpen(false)}>
+                <DialogContentButton onClose={() => setOpen(false)} />
+            </CustomDialog>
+        </>
+
     )
 }
 
