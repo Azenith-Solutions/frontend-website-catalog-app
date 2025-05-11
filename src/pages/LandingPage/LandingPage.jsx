@@ -57,8 +57,8 @@ function App() {
           </div >
 
           <div className='quemSomos-content'>
-            <p>
               <h1 className='titulo'>Quem somos?</h1>
+            <p>
               A <span style={{ color: '#5F1516' }}>HardwareTech</span> é especialista em reparo e manutenção de hardware industrial,
               com experiência na recuperação de placas eletrônicas, CLPs, inversores de frequência e fontes industriais.
               <br />

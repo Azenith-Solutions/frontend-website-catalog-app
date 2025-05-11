@@ -6,11 +6,13 @@ import { Routes, Route } from 'react-router-dom'
 import ProductPage from '../pages/ProductPage/ProductPage.jsx'
 import CatalogPage from '../pages/CatalogPage/CatalogPage.jsx'
 import ScrollTo from '../components/ScrollTo/ScrollTo.jsx'
+import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton.jsx'
 
 function AppRoutes() {
   return (
     <>
       <ScrollTo />
+      <ScrollToTopButton />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/cart" element={<CartPage />} />
