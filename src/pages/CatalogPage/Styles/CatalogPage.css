@@ -1,7 +1,6 @@
 .section-title {
   display: flex;
   align-items: center; 
-  width: 95%; 
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
@@ -42,10 +41,6 @@
 
 .Section-Novidades{
   margin-bottom: 10vh;
-  margin-top: 5vh;
-}
-
-.section-Promocoes{
   margin-top: 5vh;
 }
 

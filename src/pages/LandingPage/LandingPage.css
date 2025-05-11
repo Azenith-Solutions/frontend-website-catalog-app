@@ -8,6 +8,8 @@
 
 body {
     background-color: rgba(255, 255, 255, 0.9); 
+    overflow-x: hidden;
+
 }
 
 body::before {
@@ -53,7 +55,6 @@ body::before {
     display: flex;
     margin-top: 80px;
     flex-wrap: wrap;
-    overflow-x: hidden;
     justify-content: center;
     gap: 6rem;
     padding-inline: 5rem;

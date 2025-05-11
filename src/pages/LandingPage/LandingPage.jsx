@@ -1,17 +1,19 @@
 import './LandingPage.css'
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/hardwareTech/WhiteLogo/SIMBOLO.png";
 import Nome from "../../assets/hardwareTech/WhiteLogo/NOME.png";
 import Video from "../../assets/hardwareTech/LandingPageImgs/Apresentacao_Hardwaretech.mp4";
 import QS from "../../assets/hardwareTech/LandingPageImgs/quemSomos.jpg";
-import CardComponent from '../../components/cards/CardComponent';
+import CardService from '../../components/cards/CardService.jsx';
 import WhatsApp from "../../assets/hardwareTech/LandingPageImgs/whatsapp.png";
 import Footer from "../../components/footer/Footer.jsx";
 
 import NavBarInstitucional from '../../components/navBarInstitucional/navBarInstitucional.jsx';
 
 function App() {
+  const navigate = useNavigate();
 
   return (
     <div className="page">
@@ -31,7 +33,7 @@ function App() {
               <li>Peças originais e de alta performance</li>
               <li>Atendimento especializado para você</li>
             </p>
-            <button className='botao-padrao'>Gostou? <b>Entre em contato</b></button>
+            <button onClick={() => navigate('/#contato')} className='botao-padrao'>Gostou? <b>Entre em contato</b></button>
           </div>
 
           <div className="intro-video">
@@ -55,8 +57,8 @@ function App() {
           </div >
 
           <div className='quemSomos-content'>
-            <p>
               <h1 className='titulo'>Quem somos?</h1>
+            <p>
               A <span style={{ color: '#5F1516' }}>HardwareTech</span> é especialista em reparo e manutenção de hardware industrial,
               com experiência na recuperação de placas eletrônicas, CLPs, inversores de frequência e fontes industriais.
               <br />
@@ -65,7 +67,7 @@ function App() {
               Atende indústrias de diversos segmentos com agilidade, confiabilidade e suporte técnico especializado,
               oferecendo reparos, substituições e manutenção preventiva.
             </p>
-            <button className='botao-padrao'><b>Conheça nosso Catálogo</b></button>
+            <button onClick={() => navigate('/catalogPage')} className='botao-padrao'><b>Conheça nosso Catálogo</b></button>
           </div>
           <div className="meia-lua-direita"></div> {/* Meia-lua dentro do quem somos */}
         </div>
@@ -75,10 +77,10 @@ function App() {
           <p>Esses são apenas alguns dos incríveis serviços que oferecemos. Conte com a nossa expertise para muito mais!</p>
           <br />
           <div className="servicos-container">
-            <CardComponent props={{title: "Reparo de Placas", price: "R$ 150,00", desc: "Reparo de placas eletrônicas com garantia de qualidade." }} />
-            <CardComponent props={{title: "Reparo de Inversores", price: "R$ 250,00", desc: "Reparo de inversores de frequência com garantia de qualidade." }} />
-            <CardComponent props={{title: "Reparo de Fontes", price: "R$ 100,00", desc: "Reparo de fontes industriais com garantia de qualidade." }} />
-            <CardComponent props={{title: "Reparo de CLPs", price: "R$ 200,00", desc: "Reparo de CLPs com garantia de qualidade." }} />
+            <CardService props={{id: 1, title: "Reparo de Placas", desc: "Reparo de placas eletrônicas com garantia de qualidade." }} />
+            <CardService props={{id: 2, title: "Reparo de Inversores", desc: "Reparo de inversores de frequência com garantia de qualidade." }} />
+            <CardService props={{id: 3, title: "Reparo de Fontes", desc: "Reparo de fontes industriais com garantia de qualidade." }} />
+            <CardService props={{id: 4, title: "Reparo de CLPs", desc: "Reparo de CLPs com garantia de qualidade." }} />
           </div>
           <div className="meia-lua-borda"></div> {/* Meia-lua dentro da seção serviços */}
         </div>

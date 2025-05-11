@@ -19,7 +19,9 @@ function CardService({ props }) {
         <p className="card-content-desc">{props.desc}</p>
       </CardContent>
       <div className="card-button-container">
-        <SaibaMaisButton />
+        <SaibaMaisButton
+          idService={props.id}
+        />
       </div>
     </Card>
   );

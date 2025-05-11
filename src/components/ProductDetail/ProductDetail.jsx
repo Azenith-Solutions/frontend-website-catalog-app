@@ -5,6 +5,8 @@ import Container from '@mui/material/Container';
 
 import CarouselCard from "../cardCarousel/CarouselCard";
 import CardComponent from '../../components/cards/CardComponent';
+import ReturnButton from '../../components/ReturnButton/ReturnButton'
+
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
@@ -18,8 +20,12 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
     return (
         <Container sx={{
             maxWidth: { lg: '1600px' },
-            marginTop: {xs:'120px', md: '200px'}
+            marginTop: { xs: '120px', md: '200px' }
         }}>
+            <ReturnButton
+                title={'Catálogo'}
+                path={'/catalogPage'}
+            />
             <div className="hero-container">
                 <aside className="images-container">
                     <div className='main-image'></div>
