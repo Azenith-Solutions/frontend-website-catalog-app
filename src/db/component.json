@@ -1,100 +1,120 @@
 [
     {
+        "id": 1,
         "title": "Component",
         "price": 0,
         "desc": "A component is a reusable piece of code that can be used in multiple places in your application."
     },
     {
+        "id": 2,
         "title": "Button",
         "price": 5,
         "desc": "A button is an interactive element used to trigger actions or events when clicked by the user."
     },
     {
+        "id": 3,
         "title": "Card",
         "price": 8,
         "desc": "A card is a container used to group related information and can include media, text, and actions."
     },
     {
+        "id": 4,
         "title": "Modal",
         "price": 12,
         "desc": "A modal is a dialog box that appears over the main content, often used for user confirmation or form input."
     },
     {
+        "id": 5,
         "title": "Input Field",
         "price": 4,
         "desc": "An input field allows users to enter and edit text in a form."
     },
     {
+        "id": 6,
         "title": "Navbar",
         "price": 10,
         "desc": "A navbar provides a consistent navigation interface across different pages of an application."
     },
     {
+        "id": 7,
         "title": "Sidebar",
         "price": 9,
         "desc": "A sidebar is a vertical menu typically used to provide access to various sections of an application."
     },
     {
+        "id": 8,
         "title": "Tooltip",
         "price": 3,
         "desc": "A tooltip displays additional information when a user hovers over or focuses on an element."
     },
     {
+        "id": 9,
         "title": "Accordion",
         "price": 6,
         "desc": "An accordion is a vertically stacked list of items that can be expanded or collapsed to reveal content."
     },
     {
+        "id": 10,
         "title": "Dropdown",
         "price": 7,
         "desc": "A dropdown allows users to choose one option from a list that appears when activated."
     },
     {
+        "id": 11,
         "title": "Badge",
         "price": 2,
         "desc": "A badge is a small count or label that appears on an element to provide additional information."
     },
     {
+        "id": 12,
         "title": "Toast",
         "price": 3,
         "desc": "A toast is a small, non-intrusive message displayed temporarily to inform users of something."
     },
     {
+        "id": 13,
         "title": "Spinner",
         "price": 2,
         "desc": "A spinner indicates that a process or action is loading or taking place."
     },
     {
+        "id": 14,
         "title": "Progress Bar",
         "price": 4,
         "desc": "A progress bar visually represents the progress of a task or process."
     },
     {
+        "id": 15,
         "title": "Tabs",
         "price": 5,
         "desc": "Tabs allow navigation between different views or sections of content in the same space."
     },
     {
+        "id": 16,
         "title": "Avatar",
         "price": 3,
         "desc": "An avatar is a graphical representation of a user, often used in profiles or chat apps."
     },
     {
+        "id": 17,
         "title": "Slider",
         "price": 6,
         "desc": "A slider lets users select a value from a range by moving a handle along a track."
     },
     {
+        "id": 18,
         "title": "Checkbox",
         "price": 2,
         "desc": "A checkbox allows users to select one or more options from a set."
     },
     {
+        "id": 19,
         "title": "Radio Button",
         "price": 2,
         "desc": "A radio button allows users to select a single option from a group."
     },
     {
+        "id": 20,
         "title": "Table",
         "price": 7,
         "desc": "A table displays data in rows and columns, making it easier to read and compare."

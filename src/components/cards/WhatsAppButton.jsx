@@ -8,7 +8,7 @@ function WhatsAppButton() {
   return (
     <button className='whatsapp-button'>
       <ShoppingCart sx={{ color: '#fff', fontSize: '15px' }} />
-      Solicitar orçamento
+      Adicionar ao carrinho
     </button>
   )
 }

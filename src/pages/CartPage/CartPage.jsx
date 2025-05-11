@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import NavBarCatalog from '../../components/navBar/NavBarCatalog'
 import Footer from '../../components/footer/Footer'
 import Container from '@mui/material/Container'
@@ -17,6 +18,13 @@ function CartPage() {
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
     const [content, setContent] = useState('');
+
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+        navigate(path);
+    };
+
 
     async function sendEmail() {
         console.log("Entrando função de envio de email");
@@ -68,14 +76,16 @@ function CartPage() {
                             />
                         ))}
                     </section>
-                    <p style={{
-                        textAlign: 'center',
-                        color: '#5F1516',
-                        fontSize: '20px',
-                        fontWeight: 'bold',
-                        marginBottom: '20px',
-                        cursor: 'pointer'
-                    }}>Adicionar mais componentes</p>
+                    <p
+                        onClick={() => handleNavigation('/catalogPage#componentes')}
+                        style={{
+                            textAlign: 'center',
+                            color: '#5F1516',
+                            fontSize: '20px',
+                            fontWeight: 'bold',
+                            marginBottom: '20px',
+                            cursor: 'pointer'
+                        }}>Adicionar mais componentes</p>
                 </section>
 
                 <section>

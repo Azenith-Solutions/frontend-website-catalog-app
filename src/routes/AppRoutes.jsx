@@ -5,16 +5,20 @@ import ServicePage from '../pages/servicePage/ServicePage.jsx'
 import { Routes, Route } from 'react-router-dom'
 import ProductPage from '../pages/ProductPage/ProductPage.jsx'
 import CatalogPage from '../pages/CatalogPage/CatalogPage.jsx'
+import ScrollTo from '../components/ScrollTo/ScrollTo.jsx'
 
 function AppRoutes() {
   return (
-    <Routes>
-        <Route path="/" element={<LandingPage/>} />
-        <Route path="/cart" element={<CartPage/>} />
-        <Route path="/service" element={<ServicePage/>} />
+    <>
+      <ScrollTo />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/service/:idService" element={<ServicePage />} />
         <Route path="/component/details/:idComponent" element={<ProductPage />} />
         <Route path="/catalogPage" element={<CatalogPage />} />
-    </Routes>
+      </Routes>
+    </>
   )
 }
 

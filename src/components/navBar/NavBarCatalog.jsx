@@ -49,20 +49,8 @@ function DrawerAppBar(props) {
   const handleNavigation = (path) => {
     setMobileOpen(false);
 
-    // Verifica se o caminho contém um hash (#)
-    const [route, hash] = path.split('#');
-    navigate(route, { replace: true }); // Navega para a rota base
-
-    if (hash) {
-        // Aguarda a navegação e rola para a seção correspondente
-        setTimeout(() => {
-            const section = document.getElementById(hash);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 100); // Pequeno atraso para garantir que a página seja carregada
-    }
-};
+    navigate(path);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);

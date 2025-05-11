@@ -16,8 +16,6 @@ function CardComponent({ props }) {
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
-
-    // Verifica se o caminho contém um hash (#)
     navigate(path);
   };
 
@@ -46,7 +44,7 @@ function CardComponent({ props }) {
       </CardContent>
       <div className='card-button-container'>
         {/*Trocar o price pelo id do component */}
-        <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.price}`)}> 
+        <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.id}`)}>
           Saiba mais
         </button>
         <WhatsAppButton />
