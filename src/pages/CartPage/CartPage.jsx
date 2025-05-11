@@ -11,6 +11,13 @@ import "./CartPage.css"
 import { sendEmailCart } from '../../services/EmailCartService'
 import ReturnButton from '../../components/ReturnButton/ReturnButton'
 
+import CustomDialog from '../../components/CustomDialog/CustomDialog';
+import DialogContentMessage from '../../components/CustomDialog/DialogContents/DialogContentMessage';
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+
+
+
+
 
 function CartPage() {
     const [componentsList, setComponentsList] = useState(components.slice(0, 3)); // Exibe apenas os primeiros 3 componentes
@@ -18,6 +25,9 @@ function CartPage() {
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
     const [content, setContent] = useState('');
+
+    const [open, setOpen] = useState(false);
+
 
     const navigate = useNavigate();
 
@@ -36,6 +46,8 @@ function CartPage() {
             "content": content
         }
 
+        // Mostra o modal de sucesso
+        setOpen(true);
         console.log("Objeto a ser enviado: ", emailData);
 
         sendEmailCart(emailData);
@@ -107,6 +119,15 @@ function CartPage() {
             <Footer
                 footerItems={['Componentes', 'Mais vendidos', 'Promoções', 'Novidades']}
             />
+
+            <CustomDialog open={open} onClose={() => setOpen(false)}>
+                <DialogContentMessage
+                    icon={MarkEmailReadIcon}
+                    title="Solicitação enviada com sucesso!"
+                    description="Recebemos sua solicitação de cotação! Em breve, nossa equipe entrará em contato com você. Agradecemos por escolher a Hardwaretech."
+                />
+            </CustomDialog>
+
         </>
     )
 }
