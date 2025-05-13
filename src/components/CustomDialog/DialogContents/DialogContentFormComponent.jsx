@@ -23,58 +23,70 @@ const DialogContentFormComponent = ({ onSubmit }) => {
 
     return (
         <>
-            <h2 style={{textAlign: 'center'}}>Solicitação de Orçamento</h2>
+            <h2 style={{ textAlign: 'center' }}>Solicitação de Orçamento</h2>
             <div className="form-container">
-                <TextField
-                    label="Nome"
-                    name="nome"
-                    fullWidth
-                    onChange={handleChange}
-                    className="form-field"
-                />
-                <TextField
-                    label="Email"
-                    name="email"
-                    type="email"
-                    onChange={handleChange}
-                    className="form-field"
-                />
-                <TextField
-                    label="Nome do Componente"
-                    name="componente"
-                    fullWidth
-                    onChange={handleChange}
-                    className="form-field"
-                />
-                <TextField
-                    label="Telefone"
-                    name="telefone"
-                    fullWidth
-                    onChange={handleChange}
-                    className="form-field"
-                />
-                <TextField
-                    label="Quantidade"
-                    name="quantidade"
-                    type="number"
-                    fullWidth
-                    onChange={handleChange}
-                    className="form-field"
-                />
-                <TextField
-                    id="observer-input"
-                    label="Observações"
-                    name="observacoes"
-                    multiline
-                    fullWidth
-                    rows={5}
-                    onChange={handleChange}
-                    className="form-field"
-                />
+                <div className="form-section">
+                <h3 className='title-form'>Informações para contato</h3>
+                    <TextField
+                        id="nome"
+                        label="Nome"
+                        name="nome"
+                        fullWidth
+                        onChange={handleChange}
+                        className="form-field"
+                    />
+                    <TextField
+                        id="email"
+                        label="Email"
+                        name="email"
+                        type="email"
+                        fullWidth
+                        onChange={handleChange}
+                        className="form-field"
+                    />
+                    <TextField
+                        id="telefone"
+                        label="Telefone"
+                        name="telefone"
+                        fullWidth
+                        onChange={handleChange}
+                        className="form-field"
+                    />
+                </div>
+                <div className="form-section">
+                <h3 className='title-form'>Informações do Componente</h3>
+                    <TextField
+                        id="componente"
+                        label="Nome do Componente"
+                        name="componente"
+                        fullWidth
+                        onChange={handleChange}
+                        className="form-field form-componente"
+                    />
+                    <TextField
+                        id="quantidade"
+                        label="Quantidade"
+                        name="quantidade"
+                        type="number"
+                        fullWidth
+                        onChange={handleChange}
+                        className="form-field"
+                    />
+                    <TextField
+                        id="observacoes"
+                        label="Observações"
+                        name="observacoes"
+                        rows={5}
+                        multiline
+                        fullWidth
+                        onChange={handleChange}
+                        className="form-field form-observacoes"
+                    />
+                </div>
                 <div className="form-actions">
-                    <button onClick={handleSend} className="submit-button">
+                    <Button sx={{backgroundColor: '#5F1516'}} onClick={handleSend} variant="contained" className="submit-button">
                         Enviar
-                    </button>
+                    </Button>
                 </div>
             </div>
         </>
