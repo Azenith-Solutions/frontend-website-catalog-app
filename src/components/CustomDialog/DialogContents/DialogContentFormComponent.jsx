@@ -55,6 +55,31 @@ const DialogContentFormComponent = ({ onSubmit }) => {
                 </div>
                 <div className="form-section">
                 <h3 className='title-form'>Informações do Componente</h3>
+                    <div className="image-preview-container">
+                        <p style={{display: `${formData.imagem ? 'none' : 'block'}`}}>Selecione a imagem do componente</p>
+                        {formData.imagem && (
+                            <div className="image-preview">
+                                <img 
+                                    src={URL.createObjectURL(formData.imagem)} 
+                                    alt="Preview" 
+                                    className="preview-image" 
+                                    style={{ width: '150px', height: '150px', objectFit: 'cover' }} 
+                                />
+                            </div>
+                        )}
+                        <input
+                            accept="image/*"
+                            id="imagem"
+                            type="file"
+                            name="imagem"
+                            fullWidth
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                setFormData((prev) => ({ ...prev, imagem: file }));
+                            }}
+                            className="form-field form-imagem"
+                        />
+                    </div>
                     <TextField
                         id="componente"
                         label="Nome do Componente"
