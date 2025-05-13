@@ -8,7 +8,7 @@ import CartCard from '../../components/cartCard/CartCard'
 import TextField from '@mui/material/TextField'
 import components from "../../db/component.json";
 import "./CartPage.css"
-import { sendEmailCart } from '../../services/emailCartService'
+import { sendEmailCart, createOrderFromCart } from '../../services/emailCartService'
 import ReturnButton from '../../components/ReturnButton/ReturnButton'
 
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
@@ -51,6 +51,28 @@ function CartPage() {
         console.log("Objeto a ser enviado: ", emailData);
 
         sendEmailCart(emailData);
+    }
+
+    async function createOrder() {
+        console.log("Entrando função de criar pedido");
+
+        const newOrder = {
+            "codigo": "PED-2023-004",
+            "fkEmpresa": 1,
+            "nomeComprador": name,
+            "emailComprador": email,
+            "telCelular": telefone,
+            "status": "Pendente"
+        };
+
+        console.log("Objeto a ser inserido no banco: ", newOrder);
+
+        try {
+            const response = await createOrderFromCart(newOrder);
+            console.log("Response from creating order: ", response.data);
+        } catch (error) {
+            console.error('Error creating order from cart:', error);
+        }
     }
 
     return (
@@ -103,7 +125,7 @@ function CartPage() {
                 <section>
                     <h2>SOLICITAR COTAÇÃO</h2>
                     <div className="quotation-form">
-                        <TextField id="outlined-basic" label="name" variant="outlined" onChange={(event) => setName(event.target.value)} />
+                        <TextField id="outlined-basic" label="Nome Completo" variant="outlined" onChange={(event) => setName(event.target.value)} />
                         <TextField id="outlined-basic" label="Email" variant="outlined" onChange={(event) => setEmail(event.target.value)} />
                         <TextField id="outlined-basic" label="Telefone (Opcional)" variant="outlined" onChange={(event) => setTelefone(event.target.value)} />
                         <TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" rows={7} multiline
@@ -111,7 +133,7 @@ function CartPage() {
                                 gridColumn: 'span 3', /* Ocupa toda a largura (3 colunas) */
                                 resize: 'none', /* Remove o redimensionamento */
                             }} onChange={(event) => setContent(event.target.value)} />
-                        <button type="submit" onClick={sendEmail} >ENVIAR SOLICITAÇÃO</button>
+                        <button type="submit" onClick={() => { sendEmail(); createOrder(); }}>ENVIAR SOLICITAÇÃO</button>
                     </div>
                 </section>
 

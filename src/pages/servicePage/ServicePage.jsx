@@ -1,14 +1,12 @@
-import React from 'react'
-import NavBarCatalog from "../../components/navBar/NavBarCatalog"
-import Footer from "../../components/footer/Footer"
-import Container from '@mui/material/Container'
-import CardService from '../../components/cards/CardService'
-import CardCarousel from '../../components/cardCarousel/CarouselCard'
-import './ServicePage.css'
+import React from 'react';
+import NavBarCatalog from "../../components/navBar/NavBarCatalog";
+import Footer from "../../components/footer/Footer";
+import Container from '@mui/material/Container';
+import CardService from '../../components/cards/CardService';
+import CardCarousel from '../../components/cardCarousel/CarouselCard';
+import './ServicePage.css';
 import NavBarInstitucional from '../../components/navBarInstitucional/navBarInstitucional.jsx';
-import ReturnButton from '../../components/ReturnButton/ReturnButton'
-
-
+import ReturnButton from '../../components/ReturnButton/ReturnButton';
 
 import { Email } from '@mui/icons-material';
 
@@ -55,7 +53,7 @@ export default function ServicePage() {
                         </button>
                     </div>
                 </section>
-                
+
                 <section className='carousel-container'>
                     <h1>Serviços Realizados</h1>
                     <CardCarousel
