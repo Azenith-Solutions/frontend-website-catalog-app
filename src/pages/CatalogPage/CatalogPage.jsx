@@ -75,8 +75,20 @@ const CatalogPage = () => {
                 <PaginatedFilterSection
                     filters={[
                         { label: 'Todos', value: 'todos' },
-                        { label: 'Promoções', value: 'promocoes' },
-                        { label: 'Novidades', value: 'novidades' },
+                        { label: 'Resistores', value: '1' },
+                        { label: 'Capacitores', value: '2' },
+                        { label: 'Indutores', value: '3' },
+                        { label: 'Diodos', value: '4' },
+                        { label: 'Transistores', value: '5' },
+                        { label: 'Tiristores e Retificadores Controlados', value: '6' },
+                        { label: 'Optoeletrônicos', value: '7' },
+                        { label: 'Eletromecânicos', value: '8' },
+                        { label: 'Sensores', value: '9' },
+                        { label: 'Circuitos Integrados', value: '10' },
+                        { label: 'RF e Comunicação', value: '11' },
+                        { label: 'Potência', value: '12' },
+                        { label: 'Prototipagem', value: '13' },
+                        { label: 'Outros', value: '14' }
                     ]}
                     CardComponent={CardComponent}
                     priceFilterEnabled={true}
