@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import './DialogContentFormComponent.css';
+import SendIcon from '@mui/icons-material/Send';
 
 const DialogContentFormComponent = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -23,17 +24,17 @@ const DialogContentFormComponent = ({ onSubmit }) => {
 
     return (
         <>
-            <h2 style={{ textAlign: 'center' }}>Solicitação de Orçamento</h2>
+            <h2 style={{ textAlign: 'center', color: '#5F1516', fontWeight: 'bold' }}>Solicitar Cotação</h2>
             <div className="form-container">
+                <h3 className='title-form'>Informações para Contato</h3>
                 <div className="form-section">
-                <h3 className='title-form'>Informações para contato</h3>
                     <TextField
                         id="nome"
                         label="Nome"
                         name="nome"
                         fullWidth
                         onChange={handleChange}
-                        className="form-field"
+                        className="form-field-personal"
                     />
                     <TextField
                         id="email"
@@ -42,7 +43,7 @@ const DialogContentFormComponent = ({ onSubmit }) => {
                         type="email"
                         fullWidth
                         onChange={handleChange}
-                        className="form-field"
+                        className="form-field-personal"
                     />
                     <TextField
                         id="telefone"
@@ -50,20 +51,19 @@ const DialogContentFormComponent = ({ onSubmit }) => {
                         name="telefone"
                         fullWidth
                         onChange={handleChange}
-                        className="form-field"
+                        className="form-field-personal"
                     />
                 </div>
-                <div className="form-section">
                 <h3 className='title-form'>Informações do Componente</h3>
+                <div className="form-section">
                     <div className="image-preview-container">
-                        <p style={{display: `${formData.imagem ? 'none' : 'block'}`}}>Selecione a imagem do componente</p>
+                        <p style={{ display: `${formData.imagem ? 'none' : 'block'}` }}>Selecione a imagem do componente</p>
                         {formData.imagem && (
                             <div className="image-preview">
-                                <img 
-                                    src={URL.createObjectURL(formData.imagem)} 
-                                    alt="Preview" 
-                                    className="preview-image" 
-                                    style={{ width: '150px', height: '150px', objectFit: 'cover' }} 
+                                <img
+                                    src={URL.createObjectURL(formData.imagem)}
+                                    alt="Preview"
+                                    className="preview-image"
                                 />
                             </div>
                         )}
@@ -80,37 +80,41 @@ const DialogContentFormComponent = ({ onSubmit }) => {
                             className="form-field form-imagem"
                         />
                     </div>
-                    <TextField
-                        id="componente"
-                        label="Nome do Componente"
-                        name="componente"
-                        fullWidth
-                        onChange={handleChange}
-                        className="form-field form-componente"
-                    />
-                    <TextField
-                        id="quantidade"
-                        label="Quantidade"
-                        name="quantidade"
-                        type="number"
-                        fullWidth
-                        onChange={handleChange}
-                        className="form-field"
-                    />
-                    <TextField
-                        id="observacoes"
-                        label="Observações"
-                        name="observacoes"
-                        rows={5}
-                        multiline
-                        fullWidth
-                        onChange={handleChange}
-                        className="form-field form-observacoes"
-                    />
+                    <div className='form-inputs-componente'>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <TextField
+                                id="componente"
+                                label="Nome do Componente"
+                                name="componente"
+                                fullWidth
+                                onChange={handleChange}
+                                className="form-field-componente"
+                            />
+                            <TextField
+                                id="quantidade"
+                                label="Quantidade"
+                                name="quantidade"
+                                type="number"
+                                fullWidth
+                                onChange={handleChange}
+                                className="form-field-componente"
+                            />
+                        </div>
+                        <TextField
+                            id="observacoes"
+                            label="Observações"
+                            name="observacoes"
+                            rows={7}
+                            multiline
+                            fullWidth
+                            onChange={handleChange}
+                            className="form-field-componente"
+                        />
+                    </div>
                 </div>
                 <div className="form-actions">
-                    <Button sx={{backgroundColor: '#5F1516'}} onClick={handleSend} variant="contained" className="submit-button">
-                        Enviar
+                    <Button sx={{ backgroundColor: '#5F1516', padding: '10px 25px', display: 'flex', alignItems: 'center', gap: '10px' }} onClick={handleSend} variant="contained" className="submit-button">
+                        Enviar <SendIcon sx={{fontSize: '18px'}}/>
                     </Button>
                 </div>
             </div>
