@@ -98,6 +98,7 @@ const DialogContentFormComponent = ({ onSubmit }) => {
                                 fullWidth
                                 onChange={handleChange}
                                 className="form-field-componente"
+                                inputProps={{ min: 1 }}
                             />
                         </div>
                         <TextField
