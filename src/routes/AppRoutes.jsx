@@ -9,6 +9,7 @@ import ScrollTo from '../components/ScrollTo/ScrollTo.jsx'
 import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton.jsx'
 import DialogContentFormComponent from '../components/CustomDialog/DialogContents/DialogContentFormComponent.jsx'
 import CustomDialog from '../components/CustomDialog/CustomDialog.jsx'
+import DialogContentFormService from '../components/CustomDialog/DialogContents/DialogContentFormService.jsx'
 
 function AppRoutes() {
   return (
@@ -26,6 +27,16 @@ function AppRoutes() {
             size={"md"}
             open={true}>
             <DialogContentFormComponent
+              onSubmit={(data) => {
+                console.log("Dados do formulário:", data);
+              }} />
+          </CustomDialog>
+        } />
+        <Route path="/dailogTest2" element={
+          <CustomDialog
+            size={"md"}
+            open={true}>
+            <DialogContentFormService
               onSubmit={(data) => {
                 console.log("Dados do formulário:", data);
               }} />
