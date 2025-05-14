@@ -91,8 +91,31 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
         )}
         <SearchInputNavBar />
 
-        {/* Lista de Filtros */}
-        <ul style={{ display: 'flex', flexDirection: 'column', gap: '30px', listStyle: 'none' }}>
+        {/* Lista de Filtros com scroll */}
+        <ul style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '30px', 
+          listStyle: 'none',
+          maxHeight: '300px', 
+          overflowY: 'auto',
+          paddingRight: '10px',
+          /* Estilização do scrollbar */
+          scrollbarWidth: 'thin',
+          scrollbarColor: '#a0a0a0 transparent',
+          '&::-webkit-scrollbar': {
+            width: '6px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#a0a0a0',
+            borderRadius: '20px',
+            border: 'none',
+          },
+          msOverflowStyle: 'none',  /* IE and Edge */
+        }}>
           {filters.map((filter) => (
             <li
               key={filter.value}
@@ -156,8 +179,30 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
           )}
         <SearchInputNavBar />
 
-          {/* Lista de Filtros */}
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '30px', listStyle: 'none' }}>
+          {/* Lista de Filtros com scroll */}
+          <ul style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '30px', 
+            listStyle: 'none',
+            maxHeight: '250px', 
+            overflowY: 'auto',
+            paddingRight: '10px',
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#a0a0a0 transparent',
+            '&::-webkit-scrollbar': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'transparent',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#a0a0a0',
+              borderRadius: '20px',
+              border: 'none',
+            },
+            msOverflowStyle: 'none',  
+          }}>
             {filters.map((filter) => (
               <li
                 key={filter.value}

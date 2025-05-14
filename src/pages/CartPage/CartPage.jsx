@@ -8,7 +8,7 @@ import CartCard from '../../components/cartCard/CartCard'
 import TextField from '@mui/material/TextField'
 import components from "../../db/component.json";
 import "./CartPage.css"
-import { sendEmailCart } from '../../services/EmailCartService'
+import { sendEmailCart } from '../../services/emailCartService'
 import ReturnButton from '../../components/ReturnButton/ReturnButton'
 
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
