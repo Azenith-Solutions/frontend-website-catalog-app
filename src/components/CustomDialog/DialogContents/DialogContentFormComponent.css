@@ -107,6 +107,16 @@
   border: none;
 }
 
+.MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: #5F1516 !important; /* Cor ao focar no campo */
+}
+
+
+/* Estilo para a label ao focar */
+.MuiInputLabel-root.Mui-focused {
+    color: #5F1516 !important; /* Cor da label ao focar */
+}
+
 /* Regras de mídia para responsividade */
 @media screen and (max-width: 768px) {
   .form-section {

@@ -114,7 +114,7 @@ const DialogContentFormComponent = ({ onSubmit }) => {
                 </div>
                 <div className="form-actions">
                     <Button sx={{ backgroundColor: '#5F1516', padding: '10px 25px', display: 'flex', alignItems: 'center', gap: '10px' }} onClick={handleSend} variant="contained" className="submit-button">
-                        Enviar <SendIcon sx={{fontSize: '18px'}}/>
+                        SOLICITAR <SendIcon sx={{fontSize: '18px'}}/>
                     </Button>
                 </div>
             </div>

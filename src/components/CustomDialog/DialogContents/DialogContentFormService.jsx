@@ -22,21 +22,21 @@ const DialogContentFormService = ({ onSubmit }) => {
 
     return (
         <>
-            <h2 className="form-title">Solicitação de Serviço</h2>
-            
+            <h2 className="form-title">Solicitar Serviço</h2>
+
             <div className="service-form-container">
                 <h3 className='title-form'>Servilço Solicitado</h3>
                 <div className="form-content">
-                        <TextField
-                            id="nome"
-                            label="Serviço 1"
-                            name="nome"
-                            fullWidth
-                            onChange={handleChange}
-                            className="form-field"
-                            disabled
-                        />
-                    </div>
+                    <TextField
+                        id="nome"
+                        label="Serviço 1"
+                        name="nome"
+                        fullWidth
+                        onChange={handleChange}
+                        className="form-field"
+                        disabled
+                    />
+                </div>
                 <h3 className='title-form'>Informações para Contato</h3>
                 <div className="form-content">
                     {/* Coluna esquerda */}
@@ -48,6 +48,16 @@ const DialogContentFormService = ({ onSubmit }) => {
                             fullWidth
                             onChange={handleChange}
                             className="form-field"
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#5F1516', // Cor ao focar no campo
+                                    },
+                                },
+                                '& .MuiInputLabel-root.Mui-focused': {
+                                    color: '#5F1516', // Cor da label ao focar no campo
+                                },
+                            }}
                         />
                         <TextField
                             id="email"
