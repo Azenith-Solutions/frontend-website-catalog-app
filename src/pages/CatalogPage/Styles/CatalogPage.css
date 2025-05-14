@@ -1,21 +1,21 @@
 .section-title {
   display: flex;
-  align-items: center; 
+  align-items: center;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
 
 .section-title .icon {
-    margin-right: 0.5rem;
-    font-size: 1.1rem;
-    color: #5c1a1b;
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  color: #5c1a1b;
 }
 
 .section-title .text {
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: #5c1a1b;
-    white-space: nowrap;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #5c1a1b;
+  white-space: nowrap;
 }
 
 .section-title .line {
@@ -30,7 +30,8 @@
 }
 
 .section {
-  scroll-margin-top: 250px; /* ajuste com a altura da sua navbar */
+  scroll-margin-top: 250px;
+  /* ajuste com a altura da sua navbar */
 }
 
 
@@ -39,11 +40,59 @@
   height: 32px;
 }
 
-.Section-Novidades{
+.Section-Novidades {
   margin-bottom: 10vh;
   margin-top: 5vh;
 }
 
-.Section-Mais-Vendidos{
+.Section-Mais-Vendidos {
   margin-top: 5vh;
+}
+
+
+.section-call-to-action {
+  background-color: #555454;
+}
+
+.section-title-action {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1600px;
+  margin: auto;
+  padding: 30px 24px;
+}
+
+.section-title-action h2 {
+  color: #fff;
+}
+
+.section-title-action button {
+  border: none;
+  background-color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 20px 50px;
+  cursor: pointer;
+}
+
+/* Responsividade para telas menores */
+@media screen and (max-width: 900px) {
+  .section-title-action {
+    flex-direction: column; /* Alinha os elementos em coluna */
+    justify-content: center; /* Centraliza os elementos */
+    text-align: center; /* Centraliza o texto */
+    gap: 20px; /* Adiciona espaçamento entre os elementos */
+  }
+
+  .section-title-action h2 {
+    font-size: 24px; /* Ajusta o tamanho da fonte do título */
+  }
+
+  .section-title-action button {
+    width: 100%; /* Faz o botão ocupar toda a largura */
+    max-width: 300px; /* Define uma largura máxima para o botão */
+  }
 }
