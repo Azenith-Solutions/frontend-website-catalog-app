@@ -2,9 +2,9 @@ import React from 'react';
 import { Dialog, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const CustomDialog = ({ open, onClose, children }) => {
+const CustomDialog = ({ open, onClose, children, size }) => {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth={size} fullWidth>
       <div
         style={{
           display: 'flex',
