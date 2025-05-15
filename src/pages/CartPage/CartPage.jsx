@@ -14,42 +14,57 @@ import ReturnButton from '../../components/ReturnButton/ReturnButton';
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
 import DialogContentMessage from '../../components/CustomDialog/DialogContents/DialogContentMessage';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+import { ORDER_STATUS } from '../../enums/orderStatus';
+import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMasks';
 
 function CartPage() {
     const [componentsList, setComponentsList] = useState(components.slice(0, 3)); // Exibe apenas os primeiros 3 componentes
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [content, setContent] = useState('');
-    const [isPJ, setIsPJ] = useState(false); // 'pessoaFisica' ou 'pessoaJuridica'
-    const [cnpj, setCnpj] = useState('');
-
+    const [formattedPhone, setFormattedPhone] = useState(''); // Valor formatado para exibição
+    const [content, setContent] = useState(''); const [isPJ, setIsPJ] = useState(false); // 'pessoaFisica' ou 'pessoaJuridica'
+    const [formattedCNPJ, setFormattedCNPJ] = useState('');
     const [open, setOpen] = useState(false);
-
     const navigate = useNavigate();
+
+    const handlePhoneChange = (event) => {
+        // Gerar e armazenar valor formatado para exibição
+        const formattedValue = formatPhoneNumber(event.target.value);
+        setFormattedPhone(formattedValue);
+
+        console.log("Telefone (formatado): ", formattedValue);
+    };
+
+    const handleCNPJChange = (event) => {
+        // Gerar e armazenar valor formatado para exibição
+        const formattedValue = formatCNPJ(event.target.value);
+        setFormattedCNPJ(formattedValue);
+
+        console.log("CNPJ (formatado): ", formattedValue);
+    };
 
     const handleNavigation = (path) => {
         navigate(path);
-    }; async function sendEmail() {
+    };
+
+    async function sendEmail() {
         console.log("Entrando função de envio de email");
 
         // Generate a unique quote ID
-        const quoteId = `AZT-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+        const quoteId = `AZT-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`; // TO-DO 🙌: ID atualmente mockado, questionar sobre como será feito.
 
         // Format current date in Brazilian format
         const currentDate = new Date().toLocaleDateString('pt-BR');
-        const currentTime = new Date().toLocaleTimeString('pt-BR');
-
-        // Prepare template data
+        const currentTime = new Date().toLocaleTimeString('pt-BR');        // Prepare template data
         const templateData = {
             quoteId,
             currentDate,
             currentTime,
             name,
             email,
-            telefone,
+            formattedPhone,
             isPJ,
-            cnpj,
+            cnpj: formattedCNPJ,
             content,
             items: componentsList
         };
@@ -76,14 +91,16 @@ function CartPage() {
     async function createOrder() {
         console.log("Entrando função de criar pedido");
 
+
+        const unformattedPhone = formattedPhone.replace(/\D/g, ''); // Insere o valor bruto sem formatação
+        const unformattedCNPJ = formattedCNPJ.replace(/\D/g, ''); // Insere o valor bruto sem formatação
         const newOrder = {
             "codigo": "PED-2023-004",
-            "fkEmpresa": 1,
-            // ...(isPJ && { "cnpj": cnpj }),
+            "CNPJ": isPJ ? unformattedCNPJ : null,
             "nomeComprador": name,
             "emailComprador": email,
-            "telCelular": telefone,
-            "status": "Pendente"
+            "telCelular": unformattedPhone,
+            "status": ORDER_STATUS.UNDER_REVIEW
         };
 
         console.log("Objeto a ser inserido no banco: ", newOrder);
@@ -118,6 +135,7 @@ function CartPage() {
                     <h1>Carrinho</h1>
                 </div>
 
+                {formattedPhone.replace(/\D/g, '')}
                 <section>
                     <h2 className='cart-title'>TODOS OS ITEMS</h2>
 
@@ -179,16 +197,32 @@ function CartPage() {
                             </div>
                         </div>
 
-                        <TextField id="outlined-basic" label="Nome Completo" variant="outlined" onChange={(event) => setName(event.target.value)} />
-                        <TextField id="outlined-basic" label="Email" variant="outlined" onChange={(event) => setEmail(event.target.value)} />
-                        <TextField id="outlined-basic" label="Telefone (Opcional)" variant="outlined" onChange={(event) => setTelefone(event.target.value)} />
-
-                        {isPJ && (
+                        <TextField
+                            id="outlined-basic"
+                            label="Nome Completo"
+                            variant="outlined"
+                            onChange={(event) => setName(event.target.value)}
+                        />
+                        <TextField
+                            id="outlined-basic"
+                            label="Email"
+                            variant="outlined"
+                            onChange={(event) => setEmail(event.target.value)}
+                        />
+                        <TextField
+                            id="outlined-telefone"
+                            label="DDD +  Telefone Celular (Opcional)"
+                            variant="outlined"
+                            sx={{ flex: 1 }}
+                            value={formattedPhone}
+                            onChange={handlePhoneChange}
+                        />                        {isPJ && (
                             <TextField
                                 id="outlined-basic"
                                 label="CNPJ"
                                 variant="outlined"
-                                onChange={(event) => setCnpj(event.target.value)}
+                                value={formattedCNPJ}
+                                onChange={handleCNPJChange}
                                 sx={{
                                     gridColumn: isPJ ? 'span 3' : 'auto',
                                 }}
