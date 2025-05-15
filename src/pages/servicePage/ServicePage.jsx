@@ -29,7 +29,7 @@ export default function ServicePage() {
             <Container
                 sx={{
                     maxWidth: { lg: '1600px' },
-                    marginTop: { xs: '120px', md: '200px' },
+                    marginTop: { xs: '120px', md: '150px' },
                 }}
             >
                 <ReturnButton title={'Início'} path={'/'} />
