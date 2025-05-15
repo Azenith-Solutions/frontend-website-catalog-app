@@ -1,4 +1,4 @@
-import apiClient from './api.js';
+import apiClient from '../api';
 
 export const sendEmailCart = async (emailData) => {
     console.log("Service foi chamada e iniciou envio de email");

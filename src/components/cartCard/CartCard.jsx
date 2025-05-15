@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TrashIcon from '@mui/icons-material/DeleteForever';
+import DeleteIcon from '@mui/icons-material/Delete';
 import "./CartCard.css"; // Importa o arquivo CSS
 
 
@@ -9,7 +9,7 @@ export default function CartCard(props) {
     return (
         <div className="card-container">
             <div className="card-header">
-                <TrashIcon className="trash-icon" sx={{ fontSize: '40px' }} />
+                <DeleteIcon className="delete-icon" sx={{ fontSize: '40px' }} />
                 <div className="product-details">
                     <img
                         src="https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg"
@@ -21,7 +21,7 @@ export default function CartCard(props) {
                             <h3 className="product-name">{nome}</h3>
                             <p className="product-description">{descricao}</p>
                         </div>
-                        <p className="product-price">R$ {preco}</p>
+                        <p className="product-price">R${preco}</p>
                     </div>
                 </div>
             </div>
