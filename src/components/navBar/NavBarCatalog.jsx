@@ -59,10 +59,10 @@ function DrawerAppBar(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <>
       <AppBar component="nav" sx={{
         backgroundColor: '#5F1516',
-        position: { xs: 'fixed', md: 'fixed' }
+        position: 'static',
       }}>
         <ContainerStyled>
 
@@ -116,7 +116,9 @@ function DrawerAppBar(props) {
       {menuItems && menuItems.length > 0 && (
         <AppBar component="nav" sx={{
           backgroundColor: '#4F1516',
-          display: { xs: 'none', md: 'block', top: '100px' }
+          display: { xs: 'none', md: 'block' },
+          position: 'sticky',
+          top: '0',
         }}>
           <Container sx={{
             display: 'flex',
@@ -159,7 +161,7 @@ function DrawerAppBar(props) {
           mobileOpen={mobileOpen}
         />
       </nav>
-    </Box>
+    </>
   );
 }
 

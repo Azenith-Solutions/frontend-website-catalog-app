@@ -61,7 +61,7 @@ function CartPage() {
             />
             <Container sx={{
                 maxWidth: { lg: '1600px' },
-                marginTop: { xs: '120px', md: '200px' },
+                marginTop: '50px'
             }}>
                 <ReturnButton
                     title={'Catálogo'}
