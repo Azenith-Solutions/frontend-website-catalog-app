@@ -113,6 +113,16 @@ function CartPage() {
         }
     }
 
+    // async function createItemFromTheOrder() {
+    //     console.log("Entrando função de criar item do pedido");
+
+    //     const newItem = {
+    //         "fkComponente": 0,
+    //         "fkPedido": 0,
+    //         "quantidade": 0
+    //     }
+    // }
+
     return (
         <>
             <NavBarCatalog

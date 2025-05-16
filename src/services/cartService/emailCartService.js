@@ -26,3 +26,8 @@ export const createOrderFromCart = async (newOrder) => {
         throw new Error(error.response?.data?.message || 'Falha ao criar pedido.');
     }
 }
+
+export const getListOfItemsFromLocalStorage = () => {
+    const listOfItems = localStorage.getItem("listOfItems");
+    return listOfItems ? JSON.parse(listOfItems) : [];
+}
