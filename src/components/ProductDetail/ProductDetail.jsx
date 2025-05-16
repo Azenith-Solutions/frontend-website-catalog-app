@@ -25,7 +25,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
         <>
             <Container sx={{
                 maxWidth: { lg: '1600px' },
-                marginTop: { xs: '120px', md: '200px' }
+                marginTop: '50px',
             }}>
                 <ReturnButton
                     title={'Catálogo'}
@@ -82,7 +82,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                 </div>
             </Container>
 
-            <CustomDialog open={open} onClose={() => setOpen(false)}>
+            <CustomDialog size={"sm"} open={open} onClose={() => setOpen(false)}>
                 <DialogContentButton onClose={() => setOpen(false)} />
             </CustomDialog>
         </>

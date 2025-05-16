@@ -21,7 +21,7 @@ function WhatsAppButton() {
 
   return (
     <>
-      <CustomDialog open={open} onClose={() => setOpen(false)}>
+      <CustomDialog size={"sm"} open={open} onClose={() => setOpen(false)}>
         <DialogContentButton onClose={() => setOpen(false)} />
       </CustomDialog>
 

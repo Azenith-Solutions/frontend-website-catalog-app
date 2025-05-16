@@ -131,7 +131,7 @@ function CartPage() {
             />
             <Container sx={{
                 maxWidth: { lg: '1600px' },
-                marginTop: { xs: '120px', md: '200px' },
+                marginTop: '50px'
             }}>
                 <ReturnButton
                     title={'Catálogo'}
@@ -253,7 +253,7 @@ function CartPage() {
                 footerItems={['Componentes', 'Mais vendidos', 'Promoções', 'Novidades']}
             />
 
-            <CustomDialog open={open} onClose={() => setOpen(false)}>
+            <CustomDialog size={"sm"} open={open} onClose={() => setOpen(false)}>
                 <DialogContentMessage
                     icon={MarkEmailReadIcon}
                     title="Solicitação enviada com sucesso!"

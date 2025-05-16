@@ -1,0 +1,85 @@
+
+.service-form-container {
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  }
+
+.form-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-title {
+  text-align: center;
+  color: #5F1516;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.form-content {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+}
+
+.form-left,
+.form-right {
+  flex: 1; /* Cada coluna ocupa metade do espaço */
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.submit-button {
+  background-color: #5F1516;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-transform: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #7a1d20;
+}
+
+
+/* Estilo para a borda padrão */
+.MuiOutlinedInput-root {
+    border-radius: 4px; /* Bordas arredondadas */
+}
+
+/* Estilo para a borda ao focar */
+.MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: #5F1516 !important; /* Cor ao focar no campo */
+}
+
+
+/* Estilo para a label ao focar */
+.MuiInputLabel-root.Mui-focused {
+    color: #5F1516 !important; /* Cor da label ao focar */
+}
+/* Responsividade */
+@media (max-width: 768px) {
+  .form-content {
+    flex-direction: column; /* Ajusta para uma única coluna em telas menores */
+  }
+
+  .form-left{
+    gap: 16px;
+  }
+
+}
