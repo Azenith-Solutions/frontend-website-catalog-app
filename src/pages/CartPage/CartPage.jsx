@@ -8,14 +8,14 @@ import CartCard from '../../components/cartCard/CartCard';
 import TextField from '@mui/material/TextField';
 import components from "../../db/component.json";
 import "./CartPage.css";
-import { sendEmailCart, createOrderFromCart } from '../../services/cartService/emailCartService';
+import { sendEmailCart, createOrderFromCart, insertItems } from '../../services/cartService/cartService';
 import { generateQuoteEmailTemplate, prepareQuoteEmailData } from '../../services/emailTemplates/quoteTemplate';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
 import DialogContentMessage from '../../components/CustomDialog/DialogContents/DialogContentMessage';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import { ORDER_STATUS } from '../../enums/orderStatus';
-import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMasks';
+import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMask/inputMasks';
 
 function CartPage() {
     const [componentsList, setComponentsList] = useState(components.slice(0, 3)); // Exibe apenas os primeiros 3 componentes
@@ -91,9 +91,10 @@ function CartPage() {
     async function createOrder() {
         console.log("Entrando função de criar pedido");
 
+        // Insere o valor bruto sem formatação
+        const unformattedPhone = formattedPhone.replace(/\D/g, '');
+        const unformattedCNPJ = formattedCNPJ.replace(/\D/g, '');
 
-        const unformattedPhone = formattedPhone.replace(/\D/g, ''); // Insere o valor bruto sem formatação
-        const unformattedCNPJ = formattedCNPJ.replace(/\D/g, ''); // Insere o valor bruto sem formatação
         const newOrder = {
             "codigo": "PED-2023-004",
             "CNPJ": isPJ ? unformattedCNPJ : null,
@@ -113,15 +114,11 @@ function CartPage() {
         }
     }
 
-    // async function createItemFromTheOrder() {
-    //     console.log("Entrando função de criar item do pedido");
+    async function insertItemsFromTheOrder() {
+        console.log("Entrando função de criar item do pedido");
 
-    //     const newItem = {
-    //         "fkComponente": 0,
-    //         "fkPedido": 0,
-    //         "quantidade": 0
-    //     }
-    // }
+        insertItems();
+    }
 
     return (
         <>
@@ -244,7 +241,13 @@ function CartPage() {
                                 gridColumn: 'span 3', /* Ocupa toda a largura (3 colunas) */
                                 resize: 'none', /* Remove o redimensionamento */
                             }} onChange={(event) => setContent(event.target.value)} />
-                        <button type="submit" onClick={() => { sendEmail(); createOrder(); }}>ENVIAR SOLICITAÇÃO</button>
+                        <button type="submit" onClick={() => {
+                            sendEmail();
+                            createOrder();
+                            insertItemsFromTheOrder();
+                        }}>
+                            ENVIAR SOLICITAÇÃO
+                        </button>
                     </div>
                 </section>
 
