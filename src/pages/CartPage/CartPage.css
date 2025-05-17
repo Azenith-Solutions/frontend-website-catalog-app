@@ -11,10 +11,9 @@
     }
 }
 
-
-.cart-list{
-    margin: 20px auto; 
-    max-height: 700px; 
+.cart-list {
+    margin: 20px auto;
+    max-height: 700px;
     overflow-y: auto;
 }
 

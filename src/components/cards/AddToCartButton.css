@@ -1,4 +1,4 @@
-.whatsapp-button{
+.add-to-cart-button {
     border: none;
     cursor: pointer;
     display: flex;
@@ -13,7 +13,7 @@
     font-size: 10px;
     transition: all 0.3s ease;
 
-    &:hover{
+    &:hover {
         background-color: #75141e;
         color: #fff;
     }

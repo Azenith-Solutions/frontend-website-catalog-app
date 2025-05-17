@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-import WhatsAppButton from './WhatsAppButton';
+import AddToCartButton from './AddToCartButton';
 
 
 
@@ -47,7 +47,7 @@ function CardComponent({ props }) {
         <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.id}`)}>
           Saiba mais
         </button>
-        <WhatsAppButton />
+        <AddToCartButton />
       </div>
     </Card>
   )
