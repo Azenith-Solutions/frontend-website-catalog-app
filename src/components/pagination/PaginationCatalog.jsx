@@ -2,11 +2,13 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { Pagination } from "@mui/material";
 import components from "../../db/component.json";
+import { getComponent } from "../../services/componentService.js";
+
 // import axios from "axios";
 
 function PaginationCatalog({ CardComponent, filter, uriEndPoint, priceRange }) {
 
-  const [listaComponentes, setListaComponentes] = useState(components);
+  const [listaComponentes, setListaComponentes] = useState([]);
   const [totalPaginas, setTotalPaginas] = useState();
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [itemsPaginaAtual, setItemsPaginaAtual] = useState([]);
@@ -14,10 +16,13 @@ function PaginationCatalog({ CardComponent, filter, uriEndPoint, priceRange }) {
 
   //Observa a lista de componentes e atualiza a paginação
   useEffect(() => {
-    setTotalPaginas(Math.ceil(listaComponentes.length / limitePorPagina));
-    const inicio = (paginaAtual - 1) * limitePorPagina;
-    const fim = inicio + limitePorPagina;
-    setItemsPaginaAtual(listaComponentes.slice(inicio, fim));
+     getComponent(paginaAtual - 1, limitePorPagina).then((response) => {
+      console.log(response.data)
+      setTotalPaginas(response.data.totalPages);
+      setListaComponentes(response.data.content);
+    }).catch((error) => {
+      console.error('Error fetching components:', error);
+    });
   }, [paginaAtual, limitePorPagina])
 
   // Altera a quantidade de items por pagina de acordo com a tela
@@ -44,20 +49,6 @@ function PaginationCatalog({ CardComponent, filter, uriEndPoint, priceRange }) {
     window.addEventListener('resize', handleResize); // Adiciona o listener
   }, []);
 
-
-  // Para requisião no banco de dados
-  /** 
-  useEffect(() => {
-          const fetchProdutos = async () => {
-                const response = await axios.get(`{uriEndPoint}?page=${paginaAtual}&limit=${limitePorPagina&filter=${filter}`);
-                setListaComponentes(response.data.produtos);
-        setTotalPaginas(Math.ceil(response.data.total / limitePorPagina));
-      };
-  
-      fetchProdutos();
-    }, [paginaAtual]);  
-  */
-
   return (
     <div style={{
       display: 'flex',
@@ -73,8 +64,9 @@ function PaginationCatalog({ CardComponent, filter, uriEndPoint, priceRange }) {
         alignSelf: 'flex-end',
         justifyContent: 'center'
       }}>
-        {itemsPaginaAtual.map((item) => (
-          <CardComponent
+        {listaComponentes.map((item, index) => (
+          <CardComponent 
+            key={index}
             props={item}
           />
         ))}
