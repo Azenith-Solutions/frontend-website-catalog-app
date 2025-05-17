@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import NavBarCatalog from '../../components/navBar/NavBarCatalog';
 import Footer from '../../components/footer/Footer';
 import Container from '@mui/material/Container';
-import { ShoppingCart } from '@mui/icons-material';
+import { ConnectingAirportsOutlined, ShoppingCart } from '@mui/icons-material';
 import CartCard from '../../components/cartCard/CartCard';
 import TextField from '@mui/material/TextField';
 import components from "../../db/component.json";
 import "./CartPage.css";
-import { sendEmailCart, createOrderFromCart, insertItems } from '../../services/cartService/cartService';
+import { sendEmailCart, createOrder, insertItems } from '../../services/cartService/cartService';
 import { generateQuoteEmailTemplate, prepareQuoteEmailData } from '../../services/emailTemplates/quoteTemplate';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
@@ -26,6 +26,7 @@ function CartPage() {
     const [formattedCNPJ, setFormattedCNPJ] = useState('');
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handlePhoneChange = (event) => {
         // Gerar e armazenar valor formatado para exibição
@@ -88,36 +89,37 @@ function CartPage() {
         sendEmailCart(emailData);
     }
 
-    async function createOrder() {
+    async function createOrderFromCart() {
         console.log("Entrando função de criar pedido");
 
         // Insere o valor bruto sem formatação
-        const unformattedPhone = formattedPhone.replace(/\D/g, '');
         const unformattedCNPJ = formattedCNPJ.replace(/\D/g, '');
+        const unformattedPhone = formattedPhone.replace(/\D/g, '');
+        const DDD = unformattedPhone.slice(0, 2);
+        const phoneNumber = unformattedPhone.slice(2);
+
+        console.log("DDD:", DDD);
 
         const newOrder = {
             "codigo": "PED-2023-004",
             "CNPJ": isPJ ? unformattedCNPJ : null,
             "nomeComprador": name,
             "emailComprador": email,
-            "telCelular": unformattedPhone,
+            "DDD": DDD,
+            "telCelular": phoneNumber,
             "status": ORDER_STATUS.UNDER_REVIEW
         };
 
         console.log("Objeto a ser inserido no banco: ", newOrder);
 
         try {
-            const response = await createOrderFromCart(newOrder);
+            const response = await createOrder(newOrder);
             console.log("Response from creating order: ", response.data);
+
+            insertItems(response.data.data.idPedido);
         } catch (error) {
             console.error('Error creating order from cart:', error);
         }
-    }
-
-    async function insertItemsFromTheOrder() {
-        console.log("Entrando função de criar item do pedido");
-
-        insertItems();
     }
 
     return (
@@ -241,12 +243,18 @@ function CartPage() {
                                 gridColumn: 'span 3', /* Ocupa toda a largura (3 colunas) */
                                 resize: 'none', /* Remove o redimensionamento */
                             }} onChange={(event) => setContent(event.target.value)} />
-                        <button type="submit" onClick={() => {
-                            sendEmail();
-                            createOrder();
-                            insertItemsFromTheOrder();
+                        <button type="submit" disabled={isSubmitting} onClick={() => {
+                            try {
+                                setIsSubmitting(true);
+                                sendEmail();
+                                createOrderFromCart();
+                            } catch (error) {
+                                console.error("Error occurred while submitting:", error);
+                            } finally {
+                                setIsSubmitting(false);
+                            }
                         }}>
-                            ENVIAR SOLICITAÇÃO
+                            {isSubmitting ? 'ENVIANDO...' : 'ENVIAR SOLICITAÇÃO'}
                         </button>
                     </div>
                 </section>

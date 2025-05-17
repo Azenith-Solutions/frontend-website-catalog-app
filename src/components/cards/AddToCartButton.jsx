@@ -7,7 +7,6 @@ import { addItemToCart } from '../../services/catalogService/catalogService';
 
 function AddToCartButton() {
   const [open, setOpen] = useState(false);
-
   function addItemToLocalCart() {
     // Observação - João: cenário real deve passar apenas um item por vez
     const componentId1 = 1;
@@ -18,8 +17,6 @@ function AddToCartButton() {
 
     const componentId3 = 5;
     const quantity3 = 4;
-
-    // Adding each item to cart
     addItemToCart(componentId1, quantity1);
     addItemToCart(componentId2, quantity2);
     addItemToCart(componentId3, quantity3);

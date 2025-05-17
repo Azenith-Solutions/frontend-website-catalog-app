@@ -7,7 +7,7 @@ export const addItemToCart = (componentId) => {
     if (item) {
         item.quantidade += 1;
     } else {
-        listOfItems.push({ componente: componentId, quantidade: 1 });
+        listOfItems.push({ fkComponente: componentId, quantidade: 1 });
     }
 
     localStorage.setItem('listOfItems', JSON.stringify(listOfItems));
