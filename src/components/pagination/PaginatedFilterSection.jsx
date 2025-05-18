@@ -3,35 +3,34 @@ import PaginationCatalog from './PaginationCatalog';
 import { Container, Box, Slider, Dialog, IconButton, Button } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchInputNavBar from '../navBar/SearchInputNavBar';
+import './PaginatedFilterSection.css';
 
-function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, uriEndPoint }) {
-  // Estados principais
-  const [selectedFilter, setSelectedFilter] = useState(filters[0].value); // Filtro principal
-  const [priceRange, setPriceRange] = useState([0, 100]); // Faixa de preço principal
+function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Estados temporários para alterações
-  const [tempSelectedFilter, setTempSelectedFilter] = useState(selectedFilter);
-  const [tempPriceRange, setTempPriceRange] = useState(priceRange);
+  const [filterState, setFilterState] = useState({
+    selectedFilter: filters[0].value,
+    priceRange: [0, 100],
+    searchValue: '',
+    filterUri: {},
+  });
 
-  // Estado para abrir/fechar o Dialog
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const toggleDialog = (open) => () => {
-    setIsDialogOpen(open);
-  };
-
-  const handleTempPriceChange = (event, newValue) => {
-    setTempPriceRange(newValue); // Atualiza o estado temporário
-  };
-
-  const handleTempFilterChange = (filterValue) => {
-    setTempSelectedFilter(filterValue); // Atualiza o estado temporário
+  const updateFilterState = (key, value) => {
+    setFilterState((prev) => ({ ...prev, [key]: value }));
   };
 
   const applyFilters = () => {
-    setSelectedFilter(tempSelectedFilter); // Aplica o filtro temporário ao principal
-    setPriceRange(tempPriceRange); // Aplica a faixa de preço temporária ao principal
-    setIsDialogOpen(false); // Fecha o Dialog
+    setFilterState((prev) => ({
+      ...prev,
+      filterUri: {
+        search: prev.searchValue,
+        filter: prev.selectedFilter,
+      },
+    }));
+    console.log('Filters applied:', filterState);
+    setIsSidebarOpen(false);
   };
 
   return (
@@ -43,44 +42,57 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
         maxWidth: { lg: '1600px' },
       }}
     >
-      {/* Botão para abrir o Dialog em resoluções menores */}
-      <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
-        <h3 style={{ fontSize: '20px' }}>Categorias/Filtros</h3>
-        <IconButton
-          color="inherit"
-          aria-label="open filters"
-          edge="start"
-          onClick={toggleDialog(true)}
-          sx={{ display: { md: 'none' } }}
-        >
+      <Box
+        sx={{
+          display: { xs: 'flex', md: 'none' },
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '10px',
+        }}
+      >
+        <h3 className="pfs-title">Categorias/Filtros</h3>
+        <IconButton onClick={toggleSidebar}>
           <FilterAltIcon />
         </IconButton>
       </Box>
 
-      {/* Sidebar de Filtros para resoluções maiores */}
       <Box
+        className={`pfs-sidebar ${isSidebarOpen ? 'pfs-sidebar--open' : ''}`}
         sx={{
-          width: '250px',
-          padding: '15px',
-          borderRight: '1px solid #ccc',
-          display: { xs: 'none', md: 'flex' },
+          width: { xs: '60%', md: '250px' },
+          position: { xs: 'fixed', md: 'static' },
+          top: 0,
+          left: 0,
+          height: '100%',
+          backgroundColor: '#fff',
+          zIndex: 1,
+          transform: { xs: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)', md: 'none' },
+          transition: 'transform 0.3s ease-in-out',
+          padding: '20px',
+          borderRight: { md: '1px solid #ccc' },
+          display: 'flex',
           flexDirection: 'column',
-          gap: '30px' // Esconde em resoluções menores
+          gap: '30px',
         }}
       >
-        <h3 style={{ marginBottom: '30px', fontSize: '20px' }}>Categorias/Filtros</h3>
+        {isSidebarOpen && (
+          <IconButton onClick={toggleSidebar} sx={{ alignSelf: 'flex-end', display: { md: 'none' } }}>
+            X
+          </IconButton>
+        )}
 
-        {/* Filtro de Preço */}
+        <h3 className="pfs-title pfs-sidebar-title">Categorias/Filtros</h3>
+
         {priceFilterEnabled && (
           <div>
-            <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Preço</h4>
-            <p style={{ fontSize: '14px', display: 'flex', justifyContent: 'space-between' }}>
-              <span>R$ {tempPriceRange[0]}</span>
-              <span>R$ {tempPriceRange[1]}</span>
+            <h4 className="pfs-price-title">Preço</h4>
+            <p className="pfs-price-range">
+              <span>R$ {filterState.priceRange[0]}</span>
+              <span>R$ {filterState.priceRange[1]}</span>
             </p>
             <Slider
-              value={tempPriceRange} // Usa o estado temporário
-              onChange={handleTempPriceChange} // Atualiza o estado temporário
+              value={filterState.priceRange}
+              onChange={(e, value) => updateFilterState('priceRange', value)}
               valueLabelDisplay="auto"
               min={0}
               max={100}
@@ -89,157 +101,54 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled, ur
             />
           </div>
         )}
-        <SearchInputNavBar />
 
-        {/* Lista de Filtros com scroll */}
-        <ul style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: '30px', 
-          listStyle: 'none',
-          maxHeight: '300px', 
-          overflowY: 'auto',
-          paddingRight: '10px',
-          /* Estilização do scrollbar */
-          scrollbarWidth: 'thin',
-          scrollbarColor: '#a0a0a0 transparent',
-          '&::-webkit-scrollbar': {
-            width: '6px',
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'transparent',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#a0a0a0',
-            borderRadius: '20px',
-            border: 'none',
-          },
-          msOverflowStyle: 'none',  /* IE and Edge */
-        }}>
+        <SearchInputNavBar
+          value={filterState.searchValue}
+          setSearchValue={(value) => updateFilterState('searchValue', value)}
+        />
+
+        <ul className="pfs-filter-list">
           {filters.map((filter) => (
             <li
               key={filter.value}
-              onClick={() => handleTempFilterChange(filter.value)} // Atualiza o estado temporário
-              style={{
-                paddingLeft: '10px',
-                fontSize: '18px',
-                cursor: 'pointer',
-                borderLeft: tempSelectedFilter === filter.value ? '5px solid #67121B' : 'none',
-              }}
+              onClick={() => updateFilterState('selectedFilter', filter.value)}
+              className={`pfs-filter-item${filterState.selectedFilter === filter.value ? ' pfs-filter-item--active' : ''}`}
             >
               {filter.label}
             </li>
           ))}
         </ul>
 
-        {/* Botão Aplicar Filtros */}
-        <Button
-          variant="contained"
-          onClick={applyFilters} // Aplica os filtros ao clicar
-          sx={{
-            marginTop: '30px',
-            backgroundColor: '#67121B',
-            color: '#fff',
-          }}
-        >
-          Aplicar Filtros
-        </Button>
-      </Box>
-
-      {/* Dialog para resoluções menores */}
-      <Dialog open={isDialogOpen} onClose={toggleDialog(false)} fullWidth>
-        <Box
-          sx={{
-            padding: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '30px'
-          }}
-        >
-          <h3 style={{ marginBottom: '30px', fontSize: '20px' }}>Categorias/Filtros</h3>
-
-          {/* Filtro de Preço */}
-          {priceFilterEnabled && (
-            <div >
-              <h4 style={{ fontSize: '16px'}}>Preço</h4>
-              <p style={{ fontSize: '14px', display: 'flex', justifyContent: 'space-between' }}>
-                <span>R$ {tempPriceRange[0]}</span>
-                <span>R$ {tempPriceRange[1]}</span>
-              </p>
-              <Slider
-                value={tempPriceRange}
-                onChange={handleTempPriceChange} // Atualiza o estado temporário
-                valueLabelDisplay="auto"
-                min={0}
-                max={100}
-                step={10}
-                sx={{ color: '#67121B' }}
-              />
-            </div>
-          )}
-        <SearchInputNavBar />
-
-          {/* Lista de Filtros com scroll */}
-          <ul style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: '30px', 
-            listStyle: 'none',
-            maxHeight: '250px', 
-            overflowY: 'auto',
-            paddingRight: '10px',
-            scrollbarWidth: 'thin',
-            scrollbarColor: '#a0a0a0 transparent',
-            '&::-webkit-scrollbar': {
-              width: '6px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: 'transparent',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#a0a0a0',
-              borderRadius: '20px',
-              border: 'none',
-            },
-            msOverflowStyle: 'none',  
-          }}>
-            {filters.map((filter) => (
-              <li
-                key={filter.value}
-                onClick={() => handleTempFilterChange(filter.value)} // Atualiza o estado temporário
-                style={{
-                  paddingLeft: '10px',
-                  fontSize: '18px',
-                  cursor: 'pointer',
-                  borderLeft: tempSelectedFilter === filter.value ? '5px solid #67121B' : 'none',
-                }}
-              >
-              {filter.label}
-              </li>
-            ))}
-          </ul>
-
-          {/* Botão Aplicar Filtros */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <Button
+            fullWidth
             variant="contained"
             onClick={applyFilters}
-            sx={{
-              marginTop: '20px',
-              backgroundColor: '#67121B',
-              color: '#fff',
-            }}
+            sx={{ marginTop: '20px', backgroundColor: '#67121B', color: '#fff' }}
           >
             Aplicar Filtros
           </Button>
+          <Button
+            fullWidth
+            variant="outlined"
+            onClick={() => setFilterState({
+              selectedFilter: filters[0].value,
+              priceRange: [0, 100],
+              searchValue: '',
+              filterUri: {},
+            })}
+            sx={{ borderColor: '#67121B', color: '#67121B' }}
+          >
+            Limpar Filtros
+          </Button>
         </Box>
-      </Dialog>
+      </Box>
 
-      {/* Componente de Paginação */}
       <PaginationCatalog
-        filter={selectedFilter} // Passa o filtro selecionado
-        priceRange={priceRange} // Passa a faixa de preço selecionada
-        CardComponent={CardComponent} // Passa o componente de cartão
-        uriEndPoint={uriEndPoint} // Passa o endpoint da API
+        filter={filterState.selectedFilter}
+        priceRange={filterState.priceRange}
+        CardComponent={CardComponent}
+        filterUri={filterState.filterUri}
       />
     </Container>
   );

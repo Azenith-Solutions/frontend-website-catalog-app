@@ -1,57 +1,61 @@
-import React from 'react'
-import { styled } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
+import React from 'react';
 
-function SearchInputNavBar() {
-
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: '35px',
-        backgroundColor: '#fff',
-        marginLeft: 0,
-        height: '45px',
-        display: 'flex',
-        alignItems: 'center',
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Adiciona sombra ao input
-        [theme.breakpoints.down('md')]: {
-            backgroundColor: '#f2f2f2', // Change to gray on mobile
+function SearchInputNavBar(props) {
+    
+    const styles = {
+        search: {
+            position: 'relative',
+            borderRadius: '35px',
+            backgroundColor: '#fff',
+            marginLeft: 0,
+            height: '45px',
+            display: 'flex',
+            alignItems: 'center',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
         },
-    }));
-
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        right: 0,
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#000',
-    }));
-
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: '#000',
-        width: '100%',
-        '& .MuiInputBase-input': {
-            padding: theme.spacing(1, 1, 1, 0),
-            paddingLeft: `calc(1em + ${theme.spacing(1)})`,
-            paddingRight: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create('width'),
+        searchIconWrapper: {
+            padding: '0 16px',
+            height: '100%',
+            position: 'absolute',
+            right: 0,
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#000',
         },
-    }));
+        input: {
+            color: '#000',
+            width: '100%',
+            border: 'none',
+            outline: 'none',
+            background: 'transparent',
+            fontSize: '16px',
+            padding: '8px 40px 8px 12px',
+            borderRadius: '35px',
+            boxSizing: 'border-box',
+            transition: 'width 0.2s',
+        }
+    };
 
     return (
-        <Search>
-            <SearchIconWrapper>
-                <SearchIcon sx={{ fontSize: '24px' }} />
-            </SearchIconWrapper>
-            <StyledInputBase
+        <div style={styles.search}>
+            <input
+                type="text"
                 placeholder="Pesquisar..."
-                inputProps={{ 'aria-label': 'search' }}
+                aria-label="search"
+                value={props.value}
+                onChange={e => props.setSearchValue(e.target.value)}
+                style={styles.input}
             />
-        </Search>
+            <div style={styles.searchIconWrapper}>
+                {/* SVG de lupa */}
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+            </div>
+        </div>
     );
 }
 

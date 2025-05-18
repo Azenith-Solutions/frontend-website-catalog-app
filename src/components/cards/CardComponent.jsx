@@ -38,8 +38,8 @@ function CardComponent({ props }) {
         title="component"
       />
       <CardContent sx={{ padding: '9px 16px 0px 16px' }}>
-        <p className='card-content-title'>{props.title}</p>
-        <p className='card-content-price'>{props.price}</p>
+        <p className='card-content-price'>Em estoque: {props.quantidade}</p>
+        <p className='card-content-title'>{props.descricao}</p>
         <p className='card-content-desc'>{props.desc}</p>
       </CardContent>
       <div className='card-button-container'>

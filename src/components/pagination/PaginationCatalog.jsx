@@ -6,7 +6,7 @@ import { getComponent } from "../../services/componentService.js";
 
 // import axios from "axios";
 
-function PaginationCatalog({ CardComponent, filter, uriEndPoint, priceRange }) {
+function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
 
   const [listaComponentes, setListaComponentes] = useState([]);
   const [totalPaginas, setTotalPaginas] = useState();
@@ -14,16 +14,18 @@ function PaginationCatalog({ CardComponent, filter, uriEndPoint, priceRange }) {
   const [itemsPaginaAtual, setItemsPaginaAtual] = useState([]);
   const [limitePorPagina, setLimitePorPagina] = useState(10);
 
-  //Observa a lista de componentes e atualiza a paginação
+  //Observa os filtros e pagina atual
   useEffect(() => {
-     getComponent(paginaAtual - 1, limitePorPagina).then((response) => {
+    const currentFiltersUri = `?page=${paginaAtual - 1}&size=${limitePorPagina}&descricao=${filterUri.search ? filterUri.search : ''}`;
+    
+    getComponent(currentFiltersUri).then((response) => {
       console.log(response.data)
       setTotalPaginas(response.data.totalPages);
       setListaComponentes(response.data.content);
     }).catch((error) => {
       console.error('Error fetching components:', error);
     });
-  }, [paginaAtual, limitePorPagina])
+  }, [paginaAtual, limitePorPagina, filterUri])
 
   // Altera a quantidade de items por pagina de acordo com a tela
   useEffect(() => {
@@ -65,7 +67,7 @@ function PaginationCatalog({ CardComponent, filter, uriEndPoint, priceRange }) {
         justifyContent: 'center'
       }}>
         {listaComponentes.map((item, index) => (
-          <CardComponent 
+          <CardComponent
             key={index}
             props={item}
           />

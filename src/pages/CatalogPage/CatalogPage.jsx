@@ -104,7 +104,7 @@ const CatalogPage = () => {
                         { label: 'Outros', value: '14' }
                     ]}
                     CardComponent={CardComponent}
-                    priceFilterEnabled={true}
+                    priceFilterEnabled={false}
                     uriEndPoint={'/products'}
                 />
             </div>
