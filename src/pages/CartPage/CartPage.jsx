@@ -16,6 +16,7 @@ import DialogContentMessage from '../../components/CustomDialog/DialogContents/D
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import { ORDER_STATUS } from '../../enums/orderStatus';
 import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMask/inputMasks';
+import { getListOfItemsFromLocalStorage } from '../../utils/storage/storage';
 
 function CartPage() {
     const [componentsList, setComponentsList] = useState(components.slice(0, 3)); // Exibe apenas os primeiros 3 componentes
@@ -27,6 +28,8 @@ function CartPage() {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const listOfItems = getListOfItemsFromLocalStorage();
+    console.log(listOfItems)
 
     const handlePhoneChange = (event) => {
         // Gerar e armazenar valor formatado para exibição
@@ -149,13 +152,19 @@ function CartPage() {
                     <h2 className='cart-title'>TODOS OS ITEMS</h2>
 
                     <section className="cart-list">
-                        {componentsList.map((component, index) => (
-                            <CartCard
-                                key={index}
-                                name={component.title}
-                                descricao={component.desc}
-                                preco={component.price}
-                            />))}                    </section>
+                        {listOfItems.length > 0 ? (
+                            <> {listOfItems.map((component, index) => (
+                                <CartCard
+                                    key={index}
+                                    idComponente={component.fkComponente}
+                                    descricao={component.descricao}
+                                    estoque={component.emEstoque}
+                                    quantidadeComponent={component.quantidade}
+                                />))
+                            }
+                            </>
+                        ) : (<h2 style={{textAlign: 'center'}}>Seu Carrinho Vazio!</h2>)}
+                    </section>
                     <div style={{ display: 'flex', justifyContent: 'center', margin: '30px 0' }}>
                         <p onClick={() => handleNavigation('/catalogPage#componentes')}
                             style={{
@@ -164,7 +173,8 @@ function CartPage() {
                                 fontSize: '20px',
                                 fontWeight: 'bold',
                                 marginBottom: '20px',
-                                cursor: 'pointer'
+                                cursor: 'pointer',
+                                textDecoration: 'underline'
                             }}>Adicionar mais componentes</p>
                     </div>
                 </section>

@@ -31,3 +31,68 @@
 .filter-scroll {
   -ms-overflow-style: none;
 }
+
+
+.pfs-title {
+  font-size: 20px;
+}
+
+.pfs-sidebar-title {
+  margin-bottom: 10px;
+}
+
+.pfs-price-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.pfs-price-range {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pfs-filter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #a0a0a0 transparent;
+}
+
+.pfs-filter-list--dialog {
+  max-height: 250px;
+}
+
+.pfs-filter-item {
+  padding-left: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-left: none;
+  transition: border-left 0.2s;
+}
+
+.pfs-filter-item--active {
+  border-left: 5px solid #67121B;
+}
+
+/* Scrollbar customização para Webkit */
+.pfs-filter-list::-webkit-scrollbar,
+.pfs-filter-list--dialog::-webkit-scrollbar {
+  width: 6px;
+}
+.pfs-filter-list::-webkit-scrollbar-track,
+.pfs-filter-list--dialog::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pfs-filter-list::-webkit-scrollbar-thumb,
+.pfs-filter-list--dialog::-webkit-scrollbar-thumb {
+  background-color: #a0a0a0;
+  border-radius: 20px;
+  border: none;
+}
+
