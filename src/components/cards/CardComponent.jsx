@@ -44,10 +44,12 @@ function CardComponent({ props }) {
       </CardContent>
       <div className='card-button-container'>
         {/*Trocar o price pelo id do component */}
-        <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.id}`)}>
+        <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.idComponente}`)}>
           Saiba mais
         </button>
-        <AddToCartButton />
+        <AddToCartButton 
+        componente={props}
+        />
       </div>
     </Card>
   )
