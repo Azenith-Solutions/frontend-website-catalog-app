@@ -17,7 +17,7 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
   //Observa os filtros e pagina atual
   useEffect(() => {
     const currentFiltersUri = `?page=${paginaAtual - 1}&size=${limitePorPagina}&descricao=${filterUri.search ? filterUri.search : ''}`;
-    
+
     getComponent(currentFiltersUri).then((response) => {
       console.log(response.data)
       setTotalPaginas(response.data.totalPages);
@@ -26,6 +26,10 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
       console.error('Error fetching components:', error);
     });
   }, [paginaAtual, limitePorPagina, filterUri])
+
+  useEffect(() => {
+    setPaginaAtual(1)
+  }, [filterUri])
 
   // Altera a quantidade de items por pagina de acordo com a tela
   useEffect(() => {
@@ -56,15 +60,16 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
+      position: 'relative'
     }}>
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
         marginBottom: '20px',
         maxWidth: '1400px',
+        height: '100%',
         gap: '20px',
-        alignSelf: 'flex-end',
-        justifyContent: 'center'
+        alignSelf: 'flex-start',
       }}>
         {listaComponentes.map((item, index) => (
           <CardComponent
@@ -77,8 +82,21 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
         count={totalPaginas}
         page={paginaAtual}
         onChange={(event, value) => setPaginaAtual(value)}
+        size="large"
         sx={{
           alignSelf: 'end',
+          bgcolor: '#f5f5f5',
+          borderRadius: '16px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+          p: 1,
+          '& .MuiPaginationItem-root': {
+            color: '#5F1516',
+            borderColor: '#5F1516',
+          },
+          '& .Mui-selected': {
+            backgroundColor: '#5F1516 !important',
+            color: '#fff !important',
+          },
         }}
       />
     </div>
