@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import { Pagination } from "@mui/material";
-import components from "../../db/component.json";
 import { getComponent } from "../../services/componentService.js";
 
 // import axios from "axios";
@@ -11,7 +10,6 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
   const [listaComponentes, setListaComponentes] = useState([]);
   const [totalPaginas, setTotalPaginas] = useState();
   const [paginaAtual, setPaginaAtual] = useState(1);
-  const [itemsPaginaAtual, setItemsPaginaAtual] = useState([]);
   const [limitePorPagina, setLimitePorPagina] = useState(10);
 
   //Observa os filtros e pagina atual
