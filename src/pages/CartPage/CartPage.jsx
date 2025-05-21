@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import NavBarCatalog from '../../components/navBar/NavBarCatalog';
 import Footer from '../../components/footer/Footer';
 import Container from '@mui/material/Container';
-import { ConnectingAirportsOutlined, ShoppingCart } from '@mui/icons-material';
+import { ShoppingCart } from '@mui/icons-material';
 import CartCard from '../../components/cartCard/CartCard';
 import TextField from '@mui/material/TextField';
-import components from "../../db/component.json";
 import "./CartPage.css";
 import { sendEmailCart, createOrder, insertItems } from '../../services/cartService/cartService';
 import { generateQuoteEmailTemplate, prepareQuoteEmailData } from '../../services/emailTemplates/quoteTemplate';
@@ -19,17 +18,17 @@ import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMask/inputMasks'
 import { getListOfItemsFromLocalStorage } from '../../utils/storage/storage';
 
 function CartPage() {
-    const [componentsList, setComponentsList] = useState(components.slice(0, 3)); // Exibe apenas os primeiros 3 componentes
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [content, setContent] = useState('');
+    const [isPJ, setIsPJ] = useState(false); // 'pessoaFisica' ou 'pessoaJuridica'
     const [formattedPhone, setFormattedPhone] = useState(''); // Valor formatado para exibição
-    const [content, setContent] = useState(''); const [isPJ, setIsPJ] = useState(false); // 'pessoaFisica' ou 'pessoaJuridica'
     const [formattedCNPJ, setFormattedCNPJ] = useState('');
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const listOfItems = getListOfItemsFromLocalStorage();
-    console.log(listOfItems)
+    const navigate = useNavigate();
+    const componentsList = getListOfItemsFromLocalStorage();
+
 
     const handlePhoneChange = (event) => {
         // Gerar e armazenar valor formatado para exibição
@@ -66,7 +65,7 @@ function CartPage() {
             currentTime,
             name,
             email,
-            formattedPhone,
+            telefone: formattedPhone,
             isPJ,
             cnpj: formattedCNPJ,
             content,
@@ -147,13 +146,12 @@ function CartPage() {
                     <h1>Carrinho</h1>
                 </div>
 
-                {formattedPhone.replace(/\D/g, '')}
                 <section>
                     <h2 className='cart-title'>TODOS OS ITEMS</h2>
 
                     <section className="cart-list">
-                        {listOfItems.length > 0 ? (
-                            <> {listOfItems.map((component, index) => (
+                        {componentsList.length > 0 ? (
+                            <> {componentsList.map((component, index) => (
                                 <CartCard
                                     key={index}
                                     idComponente={component.fkComponente}
@@ -163,7 +161,7 @@ function CartPage() {
                                 />))
                             }
                             </>
-                        ) : (<h2 style={{textAlign: 'center'}}>Seu Carrinho Vazio!</h2>)}
+                        ) : (<h2 style={{ textAlign: 'center' }}>Seu Carrinho Vazio!</h2>)}
                     </section>
                     <div style={{ display: 'flex', justifyContent: 'center', margin: '30px 0' }}>
                         <p onClick={() => handleNavigation('/catalogPage#componentes')}

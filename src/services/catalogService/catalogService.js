@@ -7,11 +7,12 @@ export const addItemToCart = (component) => {
     if (item) {
         item.quantidade += 1;
     } else {
-        listOfItems.push({ 
-            fkComponente: component.idComponente, 
-            descricao: component.descricao, 
-            emEstoque: component.quantidade, 
-            quantidade: 1 });
+        listOfItems.push({
+            fkComponente: component.idComponente,
+            descricao: component.descricao,
+            emEstoque: component.quantidade,
+            quantidade: 1
+        });
     }
 
     localStorage.setItem('listOfItems', JSON.stringify(listOfItems));
