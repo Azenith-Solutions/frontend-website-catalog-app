@@ -1,9 +1,8 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './NavBarCatalog.css'
-import SearchInputNavBar from '../navBar/SearchInputNavBar';
+import './NavBarCatalog.css';
 import MobileMenu from './MobileMenu';
-
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
@@ -13,15 +12,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import { ShoppingCart } from '@mui/icons-material'
 import Badge, { badgeClasses } from '@mui/material/Badge';
-
-
-
 import LogoWhite from '../../assets/hardwareTech/WhiteLogo/SIMBOLO.png';
 import LogoNomeWhite from '../../assets/hardwareTech/WhiteLogo/NOME.png';
-
+import { getListOfItemsFromLocalStorage } from '../../utils/storage/storage';
 
 const navItems = ['Componentes', 'Mais vendidos', 'Promoções', 'Novidades'];
-
 const ContainerStyled = styled(Container)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
@@ -46,6 +41,8 @@ function DrawerAppBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const navigate = useNavigate();
 
+
+
   const handleNavigation = (path) => {
     setMobileOpen(false);
 
@@ -57,6 +54,32 @@ function DrawerAppBar(props) {
   };
 
   const container = window !== undefined ? () => window().document.body : undefined;
+  // Contador de itens no carrinho
+  const [numberOfItemsInCart, setNumberOfItemsInCart] = useState(getListOfItemsFromLocalStorage().length);
+
+  // Atualizar o contador sempre que houver mudanças no localStorage
+  useEffect(() => {
+    // Função para atualizar o contador
+    function updateCartCount() {
+      setNumberOfItemsInCart(getListOfItemsFromLocalStorage().length);
+    }
+
+    // Inicializa contador na montagem
+    updateCartCount();
+
+    // Adiciona event listener para o evento 'storage'
+    window.addEventListener('storage', updateCartCount);
+
+    // Adiciona um intervalo para verificar periodicamente por mudanças
+    const intervalId = setInterval(updateCartCount, 1000);
+
+    // Cleanup na desmontagem do componente
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+      clearInterval(intervalId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -96,7 +119,7 @@ function DrawerAppBar(props) {
                 fontWeight: '400',
               }}>
               <ShoppingCart sx={{ fontSize: '35px', cursor: 'pointer' }} />
-              <CartBadge badgeContent={2} color="primary" overlap="circular" />
+              <CartBadge badgeContent={numberOfItemsInCart && numberOfItemsInCart} color="primary" overlap="circular" />
             </IconButton>
             {menuItems && menuItems.length > 0 && (
               <IconButton

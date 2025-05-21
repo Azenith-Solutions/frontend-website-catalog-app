@@ -41,7 +41,7 @@ export async function insertItems(orderId) {
         };
     });
 
-    console.log("List of items to insert NUMBER:", processedList);
+    console.log("Processed items to insert:", processedList);
 
     try {
         const response = await apiClient.post('/items', processedList);
