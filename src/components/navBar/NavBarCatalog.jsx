@@ -59,23 +59,23 @@ function DrawerAppBar(props) {
 
   // Atualizar o contador sempre que houver mudanças no localStorage
   useEffect(() => {
-    // Função para atualizar o contador
     function updateCartCount() {
       setNumberOfItemsInCart(getListOfItemsFromLocalStorage().length);
     }
 
-    // Inicializa contador na montagem
     updateCartCount();
 
     // Adiciona event listener para o evento 'storage'
-    window.addEventListener('storage', updateCartCount);
+    if (typeof window !== "undefined") {
+      window.addEventListener('storage', updateCartCount);
+    }
 
-    // Adiciona um intervalo para verificar periodicamente por mudanças
     const intervalId = setInterval(updateCartCount, 1000);
 
-    // Cleanup na desmontagem do componente
     return () => {
-      window.removeEventListener('storage', updateCartCount);
+      if (typeof window !== "undefined") {
+        window.removeEventListener('storage', updateCartCount);
+      }
       clearInterval(intervalId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
