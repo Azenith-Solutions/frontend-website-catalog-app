@@ -15,7 +15,7 @@ header {
     gap: 20px;
     justify-content: space-between;
 
-    padding: 20px 0px;
+    padding: 20px;
 
     .hamburguer {
         display: none;
