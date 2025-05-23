@@ -10,7 +10,7 @@
     border-radius: 6px;
     background: #67121B;
     color: #fff;
-    font-size: 10px;
+    font-size: 0.8rem;
     transition: all 0.3s ease;
 
     &:hover {

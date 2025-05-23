@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
 import AddToCartButton from './AddToCartButton';
+import Tooltip from '@mui/material/Tooltip';
 
 
 
@@ -39,7 +40,9 @@ function CardComponent({ props }) {
       />
       <CardContent sx={{ padding: '9px 16px 0px 16px' }}>
         <p className='card-content-price'>Em estoque: {props.quantidade}</p>
-        <p className='card-content-title'>{props.descricao}</p>
+        <Tooltip title={props.descricao}>
+          <p className='card-content-title'>{props.descricao}</p>
+        </Tooltip>
         <p className='card-content-desc'>{props.desc}</p>
       </CardContent>
       <div className='card-button-container'>
@@ -47,8 +50,8 @@ function CardComponent({ props }) {
         <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.idComponente}`)}>
           Saiba mais
         </button>
-        <AddToCartButton 
-        componente={props}
+        <AddToCartButton
+          componente={props}
         />
       </div>
     </Card>

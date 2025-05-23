@@ -15,7 +15,7 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
-    font-size: 11px;
+    font-size: 0.8rem;
     border-radius: 6px; 
     transition: all 0.3s ease;
 
@@ -26,7 +26,12 @@
 
 .card-content-title{
     font-size: 16px;
-    line-height: 1;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-content-price{
