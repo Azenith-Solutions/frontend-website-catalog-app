@@ -29,6 +29,22 @@ const CatalogPage = () => {
         setIsDialogOpen(false);
     };
 
+    const moreSellersFilter = {
+        where: "",
+        whereValue: "",
+        orderBy: "quantidadeVendido",
+        ASC: false,
+        limit: 10
+    }
+
+    const newsComponentsFilter = {
+        where: "",
+        whereValue: "",
+        orderBy: "createdAt",
+        ASC: true,
+        limit: 10
+    }
+
     const sections = [
         { title: 'Componentes', anchor: 'componentes' },
         { title: 'Mais Vendidos', anchor: 'mais-vendidos' },
@@ -65,8 +81,7 @@ const CatalogPage = () => {
                         </div>
                         <CarouselCard
                             CardComponent={CardComponent}
-                            filter="Processador"
-                            uriEndPoint="http://Localhost:8080/products"
+                            filter={moreSellersFilter}
                         />
                     </div>
                     <div id='novidades' className='Section-Novidades section'>
@@ -79,35 +94,34 @@ const CatalogPage = () => {
                         </div>
                         <CarouselCard
                             CardComponent={CardComponent}
-                            filter="Processador"
-                            uriEndPoint="http://Localhost:8080/products"
+                            filter={newsComponentsFilter}
                         />
                     </div>
                 </Container>
-                            <div id='componentes' style={{ margin: '5vh 0' }} className='section'>
-                <PaginatedFilterSection
-                    filters={[
-                        { label: 'Todos', value: 'todos' },
-                        { label: 'Resistores', value: '1' },
-                        { label: 'Capacitores', value: '2' },
-                        { label: 'Indutores', value: '3' },
-                        { label: 'Diodos', value: '4' },
-                        { label: 'Transistores', value: '5' },
-                        { label: 'Tiristores e Retificadores Controlados', value: '6' },
-                        { label: 'Optoeletrônicos', value: '7' },
-                        { label: 'Eletromecânicos', value: '8' },
-                        { label: 'Sensores', value: '9' },
-                        { label: 'Circuitos Integrados', value: '10' },
-                        { label: 'RF e Comunicação', value: '11' },
-                        { label: 'Potência', value: '12' },
-                        { label: 'Prototipagem', value: '13' },
-                        { label: 'Outros', value: '14' }
-                    ]}
-                    CardComponent={CardComponent}
-                    priceFilterEnabled={false}
-                    uriEndPoint={'/products'}
-                />
-            </div>
+                <div id='componentes' style={{ margin: '5vh 0' }} className='section'>
+                    <PaginatedFilterSection
+                        filters={[
+                            { label: 'Todos', value: 'todos' },
+                            { label: 'Resistores', value: '1' },
+                            { label: 'Capacitores', value: '2' },
+                            { label: 'Indutores', value: '3' },
+                            { label: 'Diodos', value: '4' },
+                            { label: 'Transistores', value: '5' },
+                            { label: 'Tiristores e Retificadores Controlados', value: '6' },
+                            { label: 'Optoeletrônicos', value: '7' },
+                            { label: 'Eletromecânicos', value: '8' },
+                            { label: 'Sensores', value: '9' },
+                            { label: 'Circuitos Integrados', value: '10' },
+                            { label: 'RF e Comunicação', value: '11' },
+                            { label: 'Potência', value: '12' },
+                            { label: 'Prototipagem', value: '13' },
+                            { label: 'Outros', value: '14' }
+                        ]}
+                        CardComponent={CardComponent}
+                        priceFilterEnabled={false}
+                        uriEndPoint={'/products'}
+                    />
+                </div>
                 <div className='section-call-to-action'>
                     <div className="section-title-action">
                         <h2>Não encontrou o componente que deseja? Fale conosco!</h2>
@@ -123,18 +137,18 @@ const CatalogPage = () => {
                         ]}
                     />
                 </footer>
-            <CustomDialog
-                size={"md"}
-                open={isDialogOpen}
-                onClose={handleCloseDialog} // Passa o controlador para fechar o modal
-            >
-                <DialogContentFormComponent
-                    onSubmit={(data) => {
-                        console.log("Dados do formulário:", data);
-                        handleCloseDialog(); // Fecha o modal após o envio
-                    }}
-                />
-            </CustomDialog>
+                <CustomDialog
+                    size={"md"}
+                    open={isDialogOpen}
+                    onClose={handleCloseDialog} // Passa o controlador para fechar o modal
+                >
+                    <DialogContentFormComponent
+                        onSubmit={(data) => {
+                            console.log("Dados do formulário:", data);
+                            handleCloseDialog(); // Fecha o modal após o envio
+                        }}
+                    />
+                </CustomDialog>
             </div>
         </>
     );

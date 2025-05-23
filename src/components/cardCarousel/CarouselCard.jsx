@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import components from "../../db/component.json";
 // import axios from "axios";
 
@@ -13,22 +13,23 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import { getWhereComponentFilter } from "../../services/componentService.js";
+
+
 import './CarouselCard.css';
 
-function CarouselCard({CardComponent, filter, uriEndPoint}) {
+function CarouselCard({ CardComponent, filter }) {
     const [listaComponentes, setListaComponentes] = useState(components.slice(0, 10));
 
-    // Requisição no banco para pegar os 10 primeiros items de um filtro
-    /** 
     useEffect(() => {
-            const fetchProdutos = async () => {
-                  const response = await axios.get(`{uriEndPoint}?limit=10&filter=${filter}`);
-                  setListaComponentes(response.data.produtos);
-        };
-    
-        fetchProdutos();
-      }, []);  
-    */
+        getWhereComponentFilter(filter).then((response) => {
+            console.log(response.data)
+            setListaComponentes(response.data);
+        }).catch((error) => {
+            console.error('Error fetching components:', error);
+        });
+    }, []);
+
     return (
         <>
             <Swiper
@@ -60,7 +61,7 @@ function CarouselCard({CardComponent, filter, uriEndPoint}) {
                     },
                 }}
             >
-                {listaComponentes.map((item, index) => (
+                {listaComponentes?.map((item, index) => (
                     <SwiperSlide key={index}>
                         <CardComponent props={item} />
                     </SwiperSlide>
