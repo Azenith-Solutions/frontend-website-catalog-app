@@ -60,7 +60,6 @@ export default function CartCard(props) {
                     <button
                         className="quantity-button"
                         onClick={handleAdd}
-                        disabled={quantidade >= estoque}
                     >+</button>
                 </div>
             </div>

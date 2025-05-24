@@ -27,3 +27,17 @@ export async function getWhereComponentFilter(filters) {
     }
     
 }
+
+export async function getComponentById(id) {
+    console.log("Service foi chamada e iniciou a recuperação do componente");
+
+    try {
+        const response = await apiClient.get(`/components/details/${id}`);
+        console.log("Resposta componente by id: ", response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error(error.response?.data?.message || 'Falha ao processar');
+    }
+    
+}

@@ -80,13 +80,15 @@
         h2 {
             font-size: 2.5rem;
             font-weight: 800;
+            margin-bottom: 50px;
+
         }
 
         .price {
             color: #5F1516;
             font-size: 2rem;
             font-weight: 500;
-            margin-bottom: 50px;
+            font-weight: bold;
         }
 
         b,
@@ -139,6 +141,19 @@
                 transition: all 0.15s ease-in-out;
                 background: #501213;
             }
+        }
+
+        .span-message{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            font-size: 1.5rem;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            color: #501213;
+            font-weight: bold;
         }
     }
 }

@@ -1,6 +1,8 @@
 import './ProductDetail.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import Container from '@mui/material/Container';
 
 import CarouselCard from "../cardCarousel/CarouselCard";
@@ -9,10 +11,42 @@ import ReturnButton from '../../components/ReturnButton/ReturnButton'
 import CustomDialog from '../CustomDialog/CustomDialog';
 import DialogContentButton from '../CustomDialog/DialogContents/DialogContentButton';
 
+import { getComponentById } from '../../services/componentService'
+import { addItemToCart } from '../../services/catalogService/catalogService';
+
+
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
+    const [component, setComponent] = useState({});
+    const [categoryFilter, setCategoryFilter] = useState()
     const [open, setOpen] = useState(false);
+    const { idComponent } = useParams();
+
+    function addItemToLocalCart(component) {
+        addItemToCart(component);
+    }
+
+    useEffect(() => {
+        console.log(idComponent)
+        if (idComponent) {
+            getComponentById(idComponent).then((response) => {
+                console.log(response.data)
+                setComponent(response.data)
+                setCategoryFilter({
+                    where: "fkCategoria",
+                    whereValue: response.data.categoria.idCategoria,
+                    orderBy: "quantidadeVendido",
+                    ASC: false,
+                    limit: 10
+                })
+            }).catch((error) => {
+                console.error('Error fetching components:', error);
+            });
+        }
+
+    }, [idComponent]);
+
 
 
     document.title = `Detalhes do ${productName}`;
@@ -43,21 +77,26 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                     </aside>
 
                     <aside className="details-container">
-                        <h2>{productName}</h2>
+                        <p className="price">Em estoque: {component.quantidade}</p>
 
-                        <p className="price">R$ {price}</p>
+                        <h2>{component.descricao}</h2>
 
-                        <>
-                            <p>
-                                <b>Descrição:</b>
-                            </p>
 
-                            <p className='description-text'>{description}</p>
+                        <p>
+                            <b>Descrição:</b>
+                        </p>
 
-                            <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
-                        </>
+                        <p className='description-text'>{description}</p>
 
-                        <button onClick={() => setOpen(true)} className='request-quote'><ShoppingCartIcon />Adicionar ao carrinho</button>
+                        <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
+
+
+                        <button onClick={() => {
+                            addItemToLocalCart(component);
+                            setOpen(true)
+                        }} className='request-quote'>
+                            <ShoppingCartIcon />Adicionar ao carrinho
+                        </button>
                     </aside>
 
                 </div>
@@ -77,7 +116,12 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
 
                 <div className="related-products">
                     <h3>Produtos Relacionados</h3>
-                    <CarouselCard CardComponent={CardComponent} filter={"componentes"} uriEndPoint={"http://localhost:3000/produtos"} />
+                    {categoryFilter && (
+                        <CarouselCard
+                            CardComponent={CardComponent}
+                            filter={categoryFilter}
+                        />
+                    )}
 
                 </div>
             </Container>
