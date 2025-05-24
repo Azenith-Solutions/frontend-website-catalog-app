@@ -4,14 +4,17 @@ export const addItemToCart = (component) => {
     const listOfItems = getListOfItemsFromLocalStorage();
     const item = listOfItems.find((item) => item.fkComponente === component.idComponente);
 
+    // Usa a quantidade recebida ou 1 como padrão
+    const quantidadeAdicionar = Number(component.quantidade) > 0 ? Number(component.quantidade) : 1;
+
     if (item) {
-        item.quantidade += 1;
+        item.quantidade += quantidadeAdicionar;
     } else {
         listOfItems.push({
             fkComponente: component.idComponente,
             descricao: component.descricao,
             emEstoque: component.quantidade,
-            quantidade: 1
+            quantidade: quantidadeAdicionar
         });
     }
 

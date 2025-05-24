@@ -2,6 +2,8 @@ import './ProductDetail.css';
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { ShoppingCart, Add, Remove } from '@mui/icons-material'
+
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import Container from '@mui/material/Container';
 
@@ -14,24 +16,21 @@ import DialogContentButton from '../CustomDialog/DialogContents/DialogContentBut
 import { getComponentById } from '../../services/componentService'
 import { addItemToCart } from '../../services/catalogService/catalogService';
 
-
-
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
     const [component, setComponent] = useState({});
     const [categoryFilter, setCategoryFilter] = useState()
     const [open, setOpen] = useState(false);
+    const [quantity, setQuantity] = useState(1);
     const { idComponent } = useParams();
 
-    function addItemToLocalCart(component) {
-        addItemToCart(component);
+    function addItemToLocalCart(component, qty) {
+        addItemToCart({ ...component, quantidade: qty });
     }
 
     useEffect(() => {
-        console.log(idComponent)
         if (idComponent) {
             getComponentById(idComponent).then((response) => {
-                console.log(response.data)
                 setComponent(response.data)
                 setCategoryFilter({
                     where: "fkCategoria",
@@ -44,16 +43,21 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                 console.error('Error fetching components:', error);
             });
         }
-
     }, [idComponent]);
-
-
 
     document.title = `Detalhes do ${productName}`;
 
     function handleOpenMoreDetailsList() {
         setOpenMoreDetailsList(!openMoreDetailsList);
     }
+
+    const handleDecrease = () => {
+        setQuantity((prev) => Math.max(1, prev - 1));
+    };
+
+    const handleIncrease = () => {
+        setQuantity((prev) => prev + 1);
+    };
 
     return (
         <>
@@ -68,7 +72,6 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                 <div className="hero-container">
                     <aside className="images-container">
                         <div className='main-image'></div>
-
                         <div className="images-list">
                             <div className="second-image"></div>
                             <div className="third-image"></div>
@@ -78,35 +81,54 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
 
                     <aside className="details-container">
                         <p className="price">Em estoque: {component.quantidade}</p>
-
                         <h2>{component.descricao}</h2>
-
-
                         <p>
                             <b>Descrição:</b>
                         </p>
-
                         <p className='description-text'>{description}</p>
-
                         <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
 
+                        <div className="add-to-cart-detail-row">
 
-                        <button onClick={() => {
-                            addItemToLocalCart(component);
-                            setOpen(true)
-                        }} className='request-quote'>
-                            <ShoppingCartIcon />Adicionar ao carrinho
-                        </button>
+                            <div className="qty-control-detail">
+                                <button
+                                    type="button"
+                                    className="qty-btn-detail left-border-radius"
+                                    onClick={handleDecrease}
+                                    disabled={quantity === 1}
+                                    aria-label="Diminuir quantidade"
+                                >
+                                    <Remove fontSize="small" />
+                                </button>
+                                <span className="qty-value-detail">{quantity}</span>
+                                <button
+                                    type="button"
+                                    className="qty-btn-detail right-border-radius"
+                                    onClick={handleIncrease}
+                                    aria-label="Aumentar quantidade"
+                                >
+                                    <Add fontSize="small" />
+                                </button>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    addItemToLocalCart(component, quantity);
+                                    setOpen(true)
+                                }}
+                                className='request-quote'
+                            >
+                                <ShoppingCartIcon />Adicionar ao carrinho
+                            </button>
+                        </div>
                     </aside>
-
                 </div>
 
                 {(openMoreDetailsList) && (
                     <div className="more-details-list">
                         <h3>Características do {productName}</h3>
                         <ul>
-                            {detailsList.map((detail) => (
-                                <li>
+                            {detailsList.map((detail, idx) => (
+                                <li key={idx}>
                                     {detail}
                                 </li>
                             ))}
@@ -122,7 +144,6 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                             filter={categoryFilter}
                         />
                     )}
-
                 </div>
             </Container>
 
@@ -130,7 +151,6 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                 <DialogContentButton onClose={() => setOpen(false)} />
             </CustomDialog>
         </>
-
     )
 }
 
