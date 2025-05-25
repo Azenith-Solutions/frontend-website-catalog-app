@@ -13,6 +13,7 @@ import ReturnButton from '../../components/ReturnButton/ReturnButton';
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
 import DialogContentMessage from '../../components/CustomDialog/DialogContents/DialogContentMessage';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+import ErrorIcon from '@mui/icons-material/Error';
 import { ORDER_STATUS } from '../../enums/orderStatus';
 import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMask/inputMasks';
 import { getListOfItemsFromLocalStorage } from '../../utils/storage/storage';
@@ -25,6 +26,8 @@ function CartPage() {
     const [formattedPhone, setFormattedPhone] = useState(''); // Valor formatado para exibição
     const [formattedCNPJ, setFormattedCNPJ] = useState('');
     const [open, setOpen] = useState(false);
+    const [errorOpen, setErrorOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const componentsList = getListOfItemsFromLocalStorage();
@@ -123,6 +126,39 @@ function CartPage() {
             console.error('Error creating order from cart:', error);
         }
     }
+
+    const validateForm = () => {
+        // Check if cart is empty
+        if (!componentsList || componentsList.length === 0) {
+            setErrorMessage('Você precisa selecionar algum item para poder enviar um formulário de cotação');
+            setErrorOpen(true);
+            return false;
+        }
+        
+        // Validate required fields
+        if (!name || !email) {
+            setErrorMessage('Por favor, preencha todos os campos obrigatórios');
+            setErrorOpen(true);
+            return false;
+        }
+        
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setErrorMessage('Por favor, informe um email válido');
+            setErrorOpen(true);
+            return false;
+        }
+        
+        // Validate CNPJ if person is PJ
+        if (isPJ && (!formattedCNPJ || formattedCNPJ.replace(/\D/g, '').length !== 14)) {
+            setErrorMessage('Por favor, informe um CNPJ válido');
+            setErrorOpen(true);
+            return false;
+        }
+        
+        return true;
+    };
 
     return (
         <>
@@ -251,18 +287,31 @@ function CartPage() {
                                 gridColumn: 'span 3', /* Ocupa toda a largura (3 colunas) */
                                 resize: 'none', /* Remove o redimensionamento */
                             }} onChange={(event) => setContent(event.target.value)} />
-                        <button type="submit" disabled={isSubmitting} onClick={() => {
-                            try {
-                                setIsSubmitting(true);
-                                sendEmail();
-                                createOrderFromCart();
-                            } catch (error) {
-                                console.error("Error occurred while submitting:", error);
-                            } finally {
-                                setIsSubmitting(false);
-                            }
-                        }}>
-                            {isSubmitting ? 'ENVIANDO...' : 'ENVIAR SOLICITAÇÃO'}
+                        <button 
+                            type="submit" 
+                            disabled={isSubmitting || !componentsList || componentsList.length === 0} 
+                            onClick={() => {
+                                try {
+                                    if (validateForm()) {
+                                        setIsSubmitting(true);
+                                        sendEmail();
+                                        createOrderFromCart();
+                                    }
+                                } catch (error) {
+                                    console.error("Error occurred while submitting:", error);
+                                    setErrorMessage('Ocorreu um erro ao enviar sua solicitação. Tente novamente mais tarde.');
+                                    setErrorOpen(true);
+                                } finally {
+                                    setIsSubmitting(false);
+                                }
+                            }}
+                            style={{
+                                opacity: (!componentsList || componentsList.length === 0) ? 0.6 : 1,
+                                cursor: (!componentsList || componentsList.length === 0) ? 'not-allowed' : 'pointer'
+                            }}
+                        >
+                            {isSubmitting ? 'ENVIANDO...' : 
+                             (!componentsList || componentsList.length === 0) ? 'CARRINHO VAZIO' : 'ENVIAR SOLICITAÇÃO'}
                         </button>
                     </div>
                 </section>
@@ -280,6 +329,13 @@ function CartPage() {
                 />
             </CustomDialog>
 
+            <CustomDialog size={"sm"} open={errorOpen} onClose={() => setErrorOpen(false)}>
+                <DialogContentMessage
+                    icon={() => <ErrorIcon style={{ color: 'red', fontSize: '4rem' }} />}
+                    title="Atenção!"
+                    description={errorMessage}
+                />
+            </CustomDialog>
         </>
     )
 }
