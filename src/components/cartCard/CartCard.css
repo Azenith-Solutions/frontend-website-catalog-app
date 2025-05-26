@@ -9,11 +9,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     background-color: #fff;
+    transition: border-bottom-color 0.2s;
+}
+
+.card-container:hover,
+.card-container:focus {
+    border-bottom-color: #5F1516;
+    outline: none;
 }
 
 .card-header {
     display: flex;
     align-items: center;
+    flex: 1;
     gap: 20px;
 }
 

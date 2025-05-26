@@ -13,22 +13,20 @@ import { addItemToCart, removeItemFromCart, decreaseItemQuantity, updateItemQuan
 import CustomDialog from '../CustomDialog/CustomDialog';
 
 export default function CartCard(props) {
-    const { descricao, estoque, quantidadeComponent } = props;
+    const { descricao, estoque, quantidadeComponent, idComponente } = props;
     const [quantidade, setQuantidade] = useState(quantidadeComponent);
     const [openModal, setOpenModal] = useState(false);
-    const inputRef = useRef();
+    const navigate = useNavigate();
 
     const handleAdd = () => {
         addItemToCart(props);
-        setQuantidade(quantidade + 1);
-        inputRef.current.value = quantidade + 1;
+        setQuantidade(q => q + 1);
     };
 
     const handleDecrease = () => {
         if (quantidade > 1) {
             decreaseItemQuantity(props);
-            setQuantidade(quantidade - 1);
-            inputRef.current.value = quantidade - 1;
+            setQuantidade(q => q - 1);
         } else if (quantidade === 1) {
             setOpenModal(true);
         }
@@ -40,7 +38,6 @@ export default function CartCard(props) {
 
     const confirmRemove = () => {
         removeItemFromCart(props);
-        setQuantidade(0);
         setOpenModal(false);
         props.onRemove(); // Notifica o pai para remover visualmente
     };
@@ -48,96 +45,112 @@ export default function CartCard(props) {
     const cancelRemove = () => {
         setOpenModal(false);
         // Se o valor atual for 0 ou vazio, retorna para 1
-        if (inputRef.current.value === "" || parseInt(inputRef.current.value, 10) === 0) {
+        if (quantidade === "" || parseInt(quantidade, 10) === 0) {
             setQuantidade(1);
-            inputRef.current.value = 1;
             updateItemQuantity(props, 1);
         }
     };
 
     const handleInputChange = (e) => {
-        // Permite vazio ou 0 no input
         let value = e.target.value;
         setQuantidade(value === "" ? "" : parseInt(value, 10));
-        inputRef.current.value = value;
     };
 
     const handleInputBlur = () => {
-        let value = inputRef.current.value;
-        if (value === "" || parseInt(value, 10) === 0) {
+        if (quantidade === "" || parseInt(quantidade, 10) === 0) {
             setOpenModal(true); // Mostra o modal se vazio ou 0
         } else {
-            let parsed = parseInt(value, 10);
+            let parsed = parseInt(quantidade, 10);
             setQuantidade(parsed);
-            inputRef.current.value = parsed;
-            updateItemQuantity(props, quantidade); // Atualiza a quantidade no carrinho
+            updateItemQuantity(props, parsed); // Atualiza a quantidade no carrinho
         }
     };
 
+    // Clique no card leva para detalhes
+    const handleCardClick = () => {
+        navigate(`/component/details/${idComponente}`);
+    };
+
+    // Impede propagação do clique do card nos botões e input
+    const stopPropagation = (e) => e.stopPropagation();
 
     return (
-        <div className="card-container">
+        <>
             <CustomDialog size={'sm'} open={openModal} onClose={cancelRemove}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-                    <WarningAmberIcon sx={{ color: '#b71c1c',
-                            fontSize: '5rem',
-                            marginBottom: '10px',
-                            backgroundColor: '#FFF3E3',
-                            borderRadius: '30%',
-                            padding: '5px', }} />
+                    <WarningAmberIcon sx={{
+                        color: '#b71c1c',
+                        fontSize: '5rem',
+                        marginBottom: '10px',
+                        backgroundColor: '#FFF3E3',
+                        borderRadius: '30%',
+                        padding: '5px',
+                    }} />
                 </div>
-                <DialogTitle sx={{textAlign: 'center'}}>Deseja remover este item do carrinho?</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>Deseja remover este item do carrinho?</DialogTitle>
                 <DialogActions sx={{ justifyContent: 'center', marginBottom: 4 }}>
                     <Button onClick={cancelRemove} color="primary">Cancelar</Button>
                     <Button onClick={confirmRemove} variant='contained' color="error">Remover</Button>
                 </DialogActions>
             </CustomDialog>
-            <div className="card-header">
-                <DeleteIcon className="delete-icon" sx={{ fontSize: '40px' }} onClick={handleRemove} />
-                <div className="product-details">
-                    <img
-                        src="https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg"
-                        alt="Product"
-                        className="product-image"
+            <div
+                className="card-container"
+                onClick={handleCardClick}
+                tabIndex={0}
+                style={{ cursor: 'pointer' }}
+            >
+
+                <div className="card-header">
+                    <DeleteIcon
+                        className="delete-icon"
+                        sx={{ fontSize: '40px' }}
+                        onClick={e => { stopPropagation(e); handleRemove(); }}
                     />
-                    <div className="product-info">
-                        <div>
-                            <h3 className="product-name">{descricao}</h3>
+                    <div className="product-details">
+                        <img
+                            src="https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg"
+                            alt="Product"
+                            className="product-image"
+                        />
+                        <div className="product-info">
+                            <div>
+                                <h3 className="product-name">{descricao}</h3>
+                            </div>
+                            <p className="product-price">Em estoque: {estoque}</p>
                         </div>
-                        <p className="product-price">Em estoque: {estoque}</p>
+                    </div>
+                </div>
+
+                <div className="quantity-control">
+                    <p className="quantity-label">Quantidade</p>
+                    <div className="quantity-buttons">
+                        <button
+                            className="quantity-button left-border-radius"
+                            onClick={e => { stopPropagation(e); handleDecrease(); }}
+                            disabled={quantidade === 0}
+                        >
+                            <Remove fontSize='small' />
+                        </button>
+                        <input
+                            type="number"
+                            min="0"
+                            max={estoque}
+                            value={quantidade}
+                            onChange={e => { stopPropagation(e); handleInputChange(e); }}
+                            onBlur={handleInputBlur}
+                            className="quantity-input"
+                            style={{ width: "50px", textAlign: "center" }}
+                            onClick={stopPropagation}
+                        />
+                        <button
+                            className="quantity-button right-border-radius"
+                            onClick={e => { stopPropagation(e); handleAdd(); }}
+                        >
+                            <Add fontSize='small' />
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div className="quantity-control">
-                <p className="quantity-label">Quantidade</p>
-                <div className="quantity-buttons">
-                    <button
-                        className="quantity-button left-border-radius"
-                        onClick={handleDecrease}
-                        disabled={quantidade === 0}
-                    >
-                        <Remove fontSize='small'/>
-                    </button>
-                    <input
-                        type="number"
-                        min="0"
-                        max={estoque}
-                        ref={inputRef}
-                        value={quantidade}
-                        onChange={handleInputChange}
-                        onBlur={handleInputBlur}
-                        className="quantity-input"
-                        style={{ width: "50px", textAlign: "center" }}
-                    />
-                    <button
-                        className="quantity-button right-border-radius"
-                        onClick={handleAdd}
-                    >
-                        <Add fontSize='small'/>
-                    </button>
-                </div>
-            </div>
-        </div>
+        </>
     );
 }

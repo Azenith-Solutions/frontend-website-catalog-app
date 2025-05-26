@@ -153,7 +153,7 @@ function CartPage() {
                         {componentsList.length > 0 ? (
                             <> {componentsList.map((component, index) => (
                                 <CartCard
-                                    key={index}
+                                    key={component.fkComponente}
                                     idComponente={component.fkComponente}
                                     descricao={component.descricao}
                                     estoque={component.emEstoque}
