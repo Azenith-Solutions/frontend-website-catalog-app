@@ -25,7 +25,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
     const { idComponent } = useParams();
 
     function addItemToLocalCart(component, qty) {
-        addItemToCart({ ...component, quantidade: qty });
+        addItemToCart({ ...component, quantidadeCarrinho: qty });
     }
 
     useEffect(() => {

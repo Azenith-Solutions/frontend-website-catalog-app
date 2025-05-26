@@ -10,7 +10,7 @@ function AddToCartButton({ componente }) {
   const [quantity, setQuantity] = useState(1);
 
   function addItemToLocalCart(component, qty) {
-    addItemToCart({ ...component, quantidade: qty });
+    addItemToCart({ ...component, quantidadeCarrinho: qty });
   }
 
   const handleDecrease = () => {

@@ -157,7 +157,7 @@ function CartPage() {
                                     idComponente={component.fkComponente}
                                     descricao={component.descricao}
                                     estoque={component.emEstoque}
-                                    quantidadeComponent={component.quantidade}
+                                    quantidadeComponent={component.quantidadeCarrinho}
                                 />))
                             }
                             </>
