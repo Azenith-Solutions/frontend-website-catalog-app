@@ -96,3 +96,64 @@
   color: #fff;
   outline: none;
 }
+
+.qty-value {
+  width: 40px;
+  min-width: 24px;
+  text-align: center;
+  font-weight: bold;
+  color: #5F1516;
+  font-size: 1.1rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  user-select: none;
+  height: 100%;
+  padding: 0;
+}
+
+/* Remove as setas do input type="number" no Chrome, Safari, Edge, Opera */
+.qty-value::-webkit-inner-spin-button,
+.qty-value::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove as setas do input type="number" no Firefox */
+.qty-value[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Custom diolog invalid */
+.invalid-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25px;
+  text-align: center;
+}
+
+.invalid-dialog-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+
+.dialog-button {
+  background-color: #751A1C;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 32px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 5px;
+  transition: all 0.2s;
+}
+
+.dialog-button:hover,
+.dialog-button:focus {
+  background-color: #a32a2a;
+}
