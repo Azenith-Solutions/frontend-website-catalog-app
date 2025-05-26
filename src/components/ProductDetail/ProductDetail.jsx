@@ -1,6 +1,6 @@
 import './ProductDetail.css';
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ShoppingCart, Add, Remove } from '@mui/icons-material'
 
@@ -12,6 +12,8 @@ import CardComponent from '../../components/cards/CardComponent';
 import ReturnButton from '../../components/ReturnButton/ReturnButton'
 import CustomDialog from '../CustomDialog/CustomDialog';
 import DialogContentButton from '../CustomDialog/DialogContents/DialogContentButton';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import WarningIcon from '@mui/icons-material/Warning';
 
 import { getComponentById } from '../../services/componentService'
 import { addItemToCart } from '../../services/catalogService/catalogService';
@@ -21,12 +23,25 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [component, setComponent] = useState({});
     const [categoryFilter, setCategoryFilter] = useState()
     const [open, setOpen] = useState(false);
+    const [invalidDialog, setInvalidDialog] = useState(false);
+
     const [quantity, setQuantity] = useState(1);
     const { idComponent } = useParams();
+    const navigate = useNavigate();
 
     function addItemToLocalCart(component, qty) {
-        addItemToCart({ ...component, quantidadeCarrinho: qty });
+        if (isNaN(qty) || qty < 1) {
+            setInvalidDialog(true);
+        } else {
+            setOpen(true)
+            addItemToCart({ ...component, quantidadeCarrinho: qty });
+        }
     }
+
+    const handleInvalidDialogClose = () => {
+        setInvalidDialog(false);
+        setQuantity(1);
+    };
 
     useEffect(() => {
         if (idComponent) {
@@ -100,7 +115,18 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                                 >
                                     <Remove fontSize="small" />
                                 </button>
-                                <span className="qty-value-detail">{quantity}</span>
+                                <input
+                                    type="number"
+                                    className="qty-value-detail"
+                                    min={1}
+                                    value={quantity}
+                                    onChange={e => {
+                                        const val = parseInt(e.target.value, 10);
+                                        setQuantity(isNaN(val) || val < 1 ? '' : val);
+                                    }}
+                                    style={{ width: "50px", textAlign: "center" }}
+                                    aria-label="Quantidade"
+                                />
                                 <button
                                     type="button"
                                     className="qty-btn-detail right-border-radius"
@@ -113,7 +139,6 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                             <button
                                 onClick={() => {
                                     addItemToLocalCart(component, quantity);
-                                    setOpen(true)
                                 }}
                                 className='request-quote'
                             >
@@ -148,7 +173,44 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
             </Container>
 
             <CustomDialog size={"sm"} open={open} onClose={() => setOpen(false)}>
-                <DialogContentButton onClose={() => setOpen(false)} />
+                <DialogContentButton icon={CheckCircleIcon}
+                    iconProps={{
+                        sx: {
+                            color: '#4caf50',
+                            fontSize: '5rem',
+                            marginBottom: '10px',
+                            backgroundColor: '#E3FFE3',
+                            borderRadius: '30%',
+                            padding: '5px',
+                        }
+                    }}
+                    text="Componente adicionado ao carrinho"
+                    buttonLabel="Ir ao Carrinho"
+                    buttonIcon={ShoppingCart}
+                    onButtonClick={() => {
+                        setOpen(false);
+                        navigate('/cart');
+                    }} />
+            </CustomDialog>
+
+            <CustomDialog size={"xs"} open={invalidDialog} onClose={handleInvalidDialogClose}>
+                <DialogContentButton
+                    icon={WarningIcon}
+                    iconProps={{
+                        sx: {
+                            color: '#b71c1c',
+                            fontSize: '5rem',
+                            marginBottom: '10px',
+                            backgroundColor: '#FFF3E3',
+                            borderRadius: '30%',
+                            padding: '5px',
+                        }
+                    }}
+                    text="Insira uma quantidade válida!"
+                    buttonLabel="OK"
+                    onButtonClick={handleInvalidDialogClose}
+                    textStyle={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '20px' }}
+                />
             </CustomDialog>
         </>
     )

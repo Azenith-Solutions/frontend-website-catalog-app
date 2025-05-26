@@ -135,6 +135,13 @@
             justify-content: center;
         }
 
+        .request-quote:hover {
+            background: #7a1c22;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(95, 21, 22, 0.15);
+            outline: none;
+        }
+
         .span-message {
             display: flex;
             align-items: center;
@@ -198,11 +205,6 @@
     justify-content: stretch;
 }
 
-.request-quote:hover,
-.request-quote:focus {
-    background: #7a1c22;
-}
-
 .qty-control-detail {
     display: flex;
     align-items: center;
@@ -258,6 +260,24 @@
     color: #5F1516;
     font-size: 1.1rem;
     user-select: none;
+    border: none;
+    background: transparent;
+}
+
+
+.qty-value-detail:focus {
+    outline: none;
+}
+
+.qty-value-detail::-webkit-inner-spin-button,
+.qty-value-detail::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove as setas do input type="number" no Firefox */
+.qty-value[type="number"] {
+    -moz-appearance: textfield;
 }
 
 @media screen and (max-width: 900px) {
