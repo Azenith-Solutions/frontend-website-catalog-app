@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -9,6 +10,7 @@ import Button from '@mui/material/Button';
 import { Add, Remove } from '@mui/icons-material'
 import "./CartCard.css";
 import { addItemToCart, removeItemFromCart, decreaseItemQuantity, updateItemQuantity } from '../../services/catalogService/catalogService';
+import CustomDialog from '../CustomDialog/CustomDialog';
 
 export default function CartCard(props) {
     const { descricao, estoque, quantidadeComponent } = props;
@@ -75,16 +77,21 @@ export default function CartCard(props) {
 
     return (
         <div className="card-container">
-            <Dialog open={openModal} onClose={cancelRemove}>
+            <CustomDialog size={'sm'} open={openModal} onClose={cancelRemove}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-                    <WarningAmberIcon sx={{ fontSize: '60px', color: '#751A1C' }} />
+                    <WarningAmberIcon sx={{ color: '#b71c1c',
+                            fontSize: '5rem',
+                            marginBottom: '10px',
+                            backgroundColor: '#FFF3E3',
+                            borderRadius: '30%',
+                            padding: '5px', }} />
                 </div>
-                <DialogTitle>Deseja remover este item do carrinho?</DialogTitle>
-                <DialogActions>
+                <DialogTitle sx={{textAlign: 'center'}}>Deseja remover este item do carrinho?</DialogTitle>
+                <DialogActions sx={{ justifyContent: 'center', marginBottom: 4 }}>
                     <Button onClick={cancelRemove} color="primary">Cancelar</Button>
                     <Button onClick={confirmRemove} variant='contained' color="error">Remover</Button>
                 </DialogActions>
-            </Dialog>
+            </CustomDialog>
             <div className="card-header">
                 <DeleteIcon className="delete-icon" sx={{ fontSize: '40px' }} onClick={handleRemove} />
                 <div className="product-details">
