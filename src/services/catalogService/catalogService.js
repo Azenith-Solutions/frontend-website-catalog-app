@@ -38,6 +38,21 @@ export const decreaseItemQuantity = (component) => {
     localStorage.setItem('listOfItems', JSON.stringify(listOfItems));
 }
 
+export const updateItemQuantity = (component, newQuantity) => {
+    const listOfItems = getListOfItemsFromLocalStorage();
+    const item = listOfItems.find((item) => item.fkComponente === component.idComponente);
+
+    if (item) {
+        item.quantidadeCarrinho = Number(newQuantity); 
+        if (item.quantidadeCarrinho <= 0) {
+            const updatedList = listOfItems.filter((i) => i.fkComponente !== component.idComponente);
+            localStorage.setItem('listOfItems', JSON.stringify(updatedList));
+            return;
+        }
+        localStorage.setItem('listOfItems', JSON.stringify(listOfItems));
+    }
+}
+
 // Remove completamente um item do carrinho
 export const removeItemFromCart = (component) => {
     const listOfItems = getListOfItemsFromLocalStorage();

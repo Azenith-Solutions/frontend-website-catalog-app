@@ -1,36 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import Button from '@mui/material/Button';
+import { Add, Remove } from '@mui/icons-material'
 import "./CartCard.css";
-import { addItemToCart, removeItemFromCart, decreaseItemQuantity } from '../../services/catalogService/catalogService';
+import { addItemToCart, removeItemFromCart, decreaseItemQuantity, updateItemQuantity } from '../../services/catalogService/catalogService';
 
 export default function CartCard(props) {
     const { descricao, estoque, quantidadeComponent } = props;
     const [quantidade, setQuantidade] = useState(quantidadeComponent);
+    const [openModal, setOpenModal] = useState(false);
+    const inputRef = useRef();
 
     const handleAdd = () => {
         addItemToCart(props);
         setQuantidade(quantidade + 1);
+        inputRef.current.value = quantidade + 1;
     };
 
     const handleDecrease = () => {
         if (quantidade > 1) {
             decreaseItemQuantity(props);
             setQuantidade(quantidade - 1);
+            inputRef.current.value = quantidade - 1;
         } else if (quantidade === 1) {
-            removeItemFromCart(props);
-            setQuantidade(0);
+            setOpenModal(true);
         }
     };
 
     const handleRemove = () => {
-        removeItemFromCart(props);
-        setQuantidade(0);
+        setOpenModal(true);
     };
 
-    if(quantidade === 0) return null;
+    const confirmRemove = () => {
+        removeItemFromCart(props);
+        setQuantidade(0);
+        setOpenModal(false);
+        props.onRemove(); // Notifica o pai para remover visualmente
+    };
+
+    const cancelRemove = () => {
+        setOpenModal(false);
+        // Se o valor atual for 0 ou vazio, retorna para 1
+        if (inputRef.current.value === "" || parseInt(inputRef.current.value, 10) === 0) {
+            setQuantidade(1);
+            inputRef.current.value = 1;
+            updateItemQuantity(props, 1);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        // Permite vazio ou 0 no input
+        let value = e.target.value;
+        setQuantidade(value === "" ? "" : parseInt(value, 10));
+        inputRef.current.value = value;
+    };
+
+    const handleInputBlur = () => {
+        let value = inputRef.current.value;
+        if (value === "" || parseInt(value, 10) === 0) {
+            setOpenModal(true); // Mostra o modal se vazio ou 0
+        } else {
+            let parsed = parseInt(value, 10);
+            setQuantidade(parsed);
+            inputRef.current.value = parsed;
+            updateItemQuantity(props, quantidade); // Atualiza a quantidade no carrinho
+        }
+    };
+
 
     return (
         <div className="card-container">
+            <Dialog open={openModal} onClose={cancelRemove}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+                    <WarningAmberIcon sx={{ fontSize: '60px', color: '#751A1C' }} />
+                </div>
+                <DialogTitle>Deseja remover este item do carrinho?</DialogTitle>
+                <DialogActions>
+                    <Button onClick={cancelRemove} color="primary">Cancelar</Button>
+                    <Button onClick={confirmRemove} variant='contained' color="error">Remover</Button>
+                </DialogActions>
+            </Dialog>
             <div className="card-header">
                 <DeleteIcon className="delete-icon" sx={{ fontSize: '40px' }} onClick={handleRemove} />
                 <div className="product-details">
@@ -52,15 +106,29 @@ export default function CartCard(props) {
                 <p className="quantity-label">Quantidade</p>
                 <div className="quantity-buttons">
                     <button
-                        className="quantity-button"
+                        className="quantity-button left-border-radius"
                         onClick={handleDecrease}
                         disabled={quantidade === 0}
-                    >-</button>
-                    <span className="quantity-value">{quantidade}</span>
+                    >
+                        <Remove fontSize='small'/>
+                    </button>
+                    <input
+                        type="number"
+                        min="0"
+                        max={estoque}
+                        ref={inputRef}
+                        value={quantidade}
+                        onChange={handleInputChange}
+                        onBlur={handleInputBlur}
+                        className="quantity-input"
+                        style={{ width: "50px", textAlign: "center" }}
+                    />
                     <button
-                        className="quantity-button"
+                        className="quantity-button right-border-radius"
                         onClick={handleAdd}
-                    >+</button>
+                    >
+                        <Add fontSize='small'/>
+                    </button>
                 </div>
             </div>
         </div>

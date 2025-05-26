@@ -27,7 +27,7 @@ function CartPage() {
     const [open, setOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
-    const componentsList = getListOfItemsFromLocalStorage();
+    const [componentsList, setComponentList] = useState(getListOfItemsFromLocalStorage());
 
 
     const handlePhoneChange = (event) => {
@@ -158,6 +158,7 @@ function CartPage() {
                                     descricao={component.descricao}
                                     estoque={component.emEstoque}
                                     quantidadeComponent={component.quantidadeCarrinho}
+                                    onRemove={() => setComponentList(prev => prev.filter(i => i.fkComponente !== component.fkComponente))}
                                 />))
                             }
                             </>
