@@ -141,6 +141,7 @@
 
 /* Remove as setas do input type="number" no Firefox */
 .quantity-input[type="number"] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
@@ -167,5 +168,6 @@
 
 /* Remove as setas do input type="number" no Firefox */
 .quantity-input[type="number"] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }

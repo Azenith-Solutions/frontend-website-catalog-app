@@ -278,6 +278,7 @@
 /* Remove as setas do input type="number" no Firefox */
 .qty-value[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 @media screen and (max-width: 900px) {
