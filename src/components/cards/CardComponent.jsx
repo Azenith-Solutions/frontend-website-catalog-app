@@ -8,31 +8,37 @@ import CardMedia from '@mui/material/CardMedia';
 import AddToCartButton from './AddToCartButton';
 import Tooltip from '@mui/material/Tooltip';
 
-
-
 import './CardComponent.css'
-
 
 function CardComponent({ props }) {
   const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
-    navigate(path);
+  const handleCardClick = () => {
+    navigate(`/component/details/${props.idComponente}`);
   };
 
   return (
-    <Card sx={{
-      flex: 1,
-      minWidth: 210,
-      maxWidth: 250,
-      height: 300,
-      borderRadius: '6px',
-      boxShadow: '-5px 5px 18px 10px rgba(0, 0, 0, 0.1)',
-      fontFamily: 'Inter, sans-serif',
-      display: 'flex',
-      flexDirection: 'column',
-      position: 'relative'
-    }}>
+    <Card
+      className="card-hover"
+      sx={{
+        flex: 1,
+        minWidth: 210,
+        maxWidth: 250,
+        height: 300,
+        borderRadius: '6px',
+        boxShadow: '-5px 5px 18px 10px rgba(0, 0, 0, 0.1)',
+        fontFamily: 'Inter, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        cursor: 'pointer',
+        transition: 'transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s cubic-bezier(.4,2,.6,1)'
+      }}
+      onClick={handleCardClick}
+      tabIndex={0}
+      role="button"
+      onKeyPress={e => { if (e.key === 'Enter') handleCardClick(); }}
+    >
       <CardMedia
         sx={{ height: 136, backgroundSize: 'cover' }}
         image="https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg"
@@ -45,14 +51,8 @@ function CardComponent({ props }) {
         </Tooltip>
         <p className='card-content-desc'>{props.desc}</p>
       </CardContent>
-      <div className='card-button-container'>
-        {/*Trocar o price pelo id do component */}
-        <button className='card-button-more' onClick={() => handleNavigation(`/component/details/${props.idComponente}`)}>
-          Saiba mais
-        </button>
-        <AddToCartButton
-          componente={props}
-        />
+      <div className='card-button-container' onClick={e => e.stopPropagation()}>
+        <AddToCartButton componente={props} />
       </div>
     </Card>
   )

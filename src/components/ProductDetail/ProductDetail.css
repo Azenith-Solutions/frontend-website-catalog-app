@@ -118,32 +118,31 @@
         }
 
         .request-quote {
+            flex: 1;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            right: 0;
+            gap: 6px;
+            background: #5F1516;
+            color: #fff;
             border: none;
-            border-radius: 6px;
-
-            padding: 17px 20px;
-
-            background: #67121B;
-            color: #FFFFFFFF;
-            gap: 0.5211047420531527vw;
-
-            transition: all 0.15s ease-in-out;
-
-            &:hover {
-                transition: all 0.15s ease-in-out;
-                background: #501213;
-            }
+            border-radius: 8px;
+            height: 60px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            transition: all 0.2s;
+            justify-content: center;
         }
 
-        .span-message{
+        .request-quote:hover {
+            background: #7a1c22;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(95, 21, 22, 0.15);
+            outline: none;
+        }
+
+        .span-message {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -186,9 +185,99 @@
     font-weight: 800;
     line-height: normal;
 
-    h3{
+    h3 {
         font-size: 2.5rem;
     }
+}
+
+/* Adicione ao final de ProductDetail.css */
+/* ProductDetail.css */
+.add-to-cart-detail-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+    width: 100%;
+    position: absolute;
+    left: unset;
+    bottom: 0;
+    right: unset;
+    justify-content: stretch;
+}
+
+.qty-control-detail {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    height: 60px;
+    min-width: 80px;
+    max-width: 90px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.qty-btn-detail {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #5F1516;
+    padding: 4px;
+    height: 100%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.left-border-radius {
+    border-radius: 8px 0 0 8px;
+}
+
+.right-border-radius {
+    border-radius: 0 8px 8px 0;
+}
+
+.qty-btn-detail:hover,
+.qty-btn-detail:focus {
+    background: #e6e6e6;
+    color: #7a1c22;
+    outline: none;
+}
+
+.qty-btn-detail:disabled {
+    color: #bbb;
+    cursor: not-allowed;
+    background: transparent;
+}
+
+.qty-value-detail {
+    min-width: 28px;
+    text-align: center;
+    font-weight: bold;
+    color: #5F1516;
+    font-size: 1.1rem;
+    user-select: none;
+    border: none;
+    background: transparent;
+}
+
+
+.qty-value-detail:focus {
+    outline: none;
+}
+
+.qty-value-detail::-webkit-inner-spin-button,
+.qty-value-detail::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove as setas do input type="number" no Firefox */
+.qty-value[type="number"] {
+    -moz-appearance: textfield;
 }
 
 @media screen and (max-width: 900px) {
@@ -204,11 +293,15 @@
             margin-top: 20px;
 
             .request-quote {
-                margin-top: 30px;
                 position: initial;
             }
         }
 
+    }
+
+    .add-to-cart-detail-row {
+        margin-top: 30px;
+        position: static;
     }
 
     .related-products {
