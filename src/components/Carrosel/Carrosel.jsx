@@ -4,14 +4,16 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Regulador from "../../assets/images/ReguladorTensaoBgRed.png";
+import MofSet from "../../assets/images/MofsetBtnYellow.png";
+import OperationAmplifiers from "../../assets/images/OperationAmplifiersBtnYellow.png";
 
 import './Carrosel.css'
 
 const images = [
-  "https://blog.emania.com.br/wp-content/uploads/2016/02/direitos-autorais-e-de-imagem.jpg",
-  "https://blog.emania.com.br/wp-content/uploads/2016/02/direitos-autorais-e-de-imagem.jpg",
-  "https://blog.emania.com.br/wp-content/uploads/2016/02/direitos-autorais-e-de-imagem.jpg",
-  "https://blog.emania.com.br/wp-content/uploads/2016/02/direitos-autorais-e-de-imagem.jpg"
+  Regulador,
+  MofSet,
+  OperationAmplifiers,
 ];
 
 const Carrosel = () => {
@@ -25,7 +27,7 @@ const Carrosel = () => {
         loop
         spaceBetween={50}
         slidesPerView={1}
-        style={{ height: "50vh" }}
+        style={{ height: "60vh" }}
       >
         {images.map((src, index) => (
           <SwiperSlide key={index}>
