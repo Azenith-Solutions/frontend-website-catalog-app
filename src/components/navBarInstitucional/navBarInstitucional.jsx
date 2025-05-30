@@ -16,7 +16,7 @@ function navBarInstitucional() {
     return (
         <div className="nav-bar-institucional-container">
             <header>
-                <div className="logo-container">
+                <div className="logo-container" onClick={() => handleNavigation('/')}>
                     <div className="logo">
                         <img src={Logo} alt="Símbolo da marca" />
                     </div>
