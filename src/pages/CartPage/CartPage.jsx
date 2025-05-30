@@ -25,7 +25,6 @@ function CartPage() {
     const [formattedPhone, setFormattedPhone] = useState(''); // Valor formatado para exibição
     const [formattedCNPJ, setFormattedCNPJ] = useState('');
     const [open, setOpen] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const [componentsList, setComponentList] = useState(getListOfItemsFromLocalStorage());
 
@@ -34,16 +33,12 @@ function CartPage() {
         // Gerar e armazenar valor formatado para exibição
         const formattedValue = formatPhoneNumber(event.target.value);
         setFormattedPhone(formattedValue);
-
-        console.log("Telefone (formatado): ", formattedValue);
     };
 
     const handleCNPJChange = (event) => {
         // Gerar e armazenar valor formatado para exibição
         const formattedValue = formatCNPJ(event.target.value);
         setFormattedCNPJ(formattedValue);
-
-        console.log("CNPJ (formatado): ", formattedValue);
     };
 
     const handleNavigation = (path) => {
@@ -97,19 +92,18 @@ function CartPage() {
         // Insere o valor bruto sem formatação
         const unformattedCNPJ = formattedCNPJ.replace(/\D/g, '');
         const unformattedPhone = formattedPhone.replace(/\D/g, '');
-        const DDD = unformattedPhone.slice(0, 2);
         const phoneNumber = unformattedPhone.slice(2);
 
-        console.log("DDD:", DDD);
+        console.log("CNPJ (sem formatação): ", unformattedCNPJ);
+        console.log("é PJ? ", isPJ);
 
         const newOrder = {
             "codigo": "PED-2023-004",
-            "CNPJ": isPJ ? unformattedCNPJ : null,
             "nomeComprador": name,
             "emailComprador": email,
-            "DDD": DDD,
-            "telCelular": phoneNumber,
-            "status": ORDER_STATUS.UNDER_REVIEW
+            "cnpj": isPJ ? unformattedCNPJ : null,
+            "status": ORDER_STATUS.UNDER_REVIEW,
+            "telCelular": phoneNumber
         };
 
         console.log("Objeto a ser inserido no banco: ", newOrder);
@@ -229,7 +223,7 @@ function CartPage() {
                         />
                         <TextField
                             id="outlined-telefone"
-                            label="DDD +  Telefone Celular (Opcional)"
+                            label="Telefone Celular (Opcional)"
                             variant="outlined"
                             sx={{ flex: 1 }}
                             value={formattedPhone}
@@ -252,18 +246,11 @@ function CartPage() {
                                 gridColumn: 'span 3', /* Ocupa toda a largura (3 colunas) */
                                 resize: 'none', /* Remove o redimensionamento */
                             }} onChange={(event) => setContent(event.target.value)} />
-                        <button type="submit" disabled={isSubmitting} onClick={() => {
-                            try {
-                                setIsSubmitting(true);
-                                sendEmail();
-                                createOrderFromCart();
-                            } catch (error) {
-                                console.error("Error occurred while submitting:", error);
-                            } finally {
-                                setIsSubmitting(false);
-                            }
+                        <button type="submit" onClick={() => {
+                            sendEmail();
+                            createOrderFromCart();
                         }}>
-                            {isSubmitting ? 'ENVIANDO...' : 'ENVIAR SOLICITAÇÃO'}
+                            ENVIAR SOLICITAÇÃO
                         </button>
                     </div>
                 </section>
