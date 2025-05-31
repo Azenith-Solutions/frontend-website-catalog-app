@@ -1,6 +1,12 @@
 import React from 'react';
 
-const DialogContentMessage = ({ icon: Icon, title, description }) => {
+const DialogContentMessage = ({
+  icon: Icon,
+  title,
+  description,
+  iconColor,
+  iconBgColor,
+}) => {
   return (
     <div
       className="dialog-content"
@@ -18,10 +24,10 @@ const DialogContentMessage = ({ icon: Icon, title, description }) => {
       {Icon && (
         <Icon
           sx={{
-            color: '#4caf50',
+            color: iconColor,
             fontSize: '5rem',
             marginBottom: '10px',
-            backgroundColor: '#E3FFE3',
+            backgroundColor: iconBgColor,
             borderRadius: '30%',
             padding: '5px',
           }}

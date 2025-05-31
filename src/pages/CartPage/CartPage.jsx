@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, TextField, CircularProgress } from '@mui/material'; // Adicione CircularProgress aqui
+import { ShoppingCart, MarkEmailRead as MarkEmailReadIcon, Warning as WarningIcon } from '@mui/icons-material';
 import NavBarCatalog from '../../components/navBar/NavBarCatalog';
 import Footer from '../../components/footer/Footer';
-import Container from '@mui/material/Container';
-import { ShoppingCart } from '@mui/icons-material';
 import CartCard from '../../components/cartCard/CartCard';
-import TextField from '@mui/material/TextField';
-import "./CartPage.css";
-import { sendEmailCart, createOrder, insertItems } from '../../services/cartService/cartService';
-import { generateQuoteEmailTemplate, prepareQuoteEmailData } from '../../services/emailTemplates/quoteTemplate';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
 import DialogContentMessage from '../../components/CustomDialog/DialogContents/DialogContentMessage';
-import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+import { sendEmailCart, createOrder, insertItems, clearLocalStorage } from '../../services/cartService/cartService';
+import { generateQuoteEmailTemplate, prepareQuoteEmailData } from '../../services/emailTemplates/quoteTemplate';
 import { ORDER_STATUS } from '../../enums/orderStatus';
 import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMask/inputMasks';
 import { getListOfItemsFromLocalStorage } from '../../utils/storage/storage';
+import './CartPage.css';
+
 
 function CartPage() {
     const [name, setName] = useState('');
@@ -25,6 +24,9 @@ function CartPage() {
     const [formattedPhone, setFormattedPhone] = useState(''); // Valor formatado para exibição
     const [formattedCNPJ, setFormattedCNPJ] = useState('');
     const [open, setOpen] = useState(false);
+    const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false); // Estado para loading
     const navigate = useNavigate();
     const [componentsList, setComponentList] = useState(getListOfItemsFromLocalStorage());
 
@@ -79,11 +81,10 @@ function CartPage() {
         });
 
         // Mostra o modal de sucesso
-        setOpen(true);
         console.log("Objeto a ser enviado: ", emailData);
 
         // Send the email
-        sendEmailCart(emailData);
+        await sendEmailCart(emailData);
     }
 
     async function createOrderFromCart() {
@@ -116,6 +117,22 @@ function CartPage() {
         } catch (error) {
             console.error('Error creating order from cart:', error);
         }
+    }
+
+    function isFormEmpty() {
+        if (componentsList.length === 0) {
+            setErrorMessage('Seu carrinho está vazio!');
+            return true;
+        }
+        if (!name.trim() || !email.trim()) {
+            setErrorMessage('Por favor, preencha nome e email para solicitar a cotação.');
+            return true;
+        }
+        if (isPJ && !formattedCNPJ.trim()) {
+            setErrorMessage('Por favor, preencha o CNPJ para Pessoa Jurídica.');
+            return true;
+        }
+        return false;
     }
 
     return (
@@ -156,7 +173,7 @@ function CartPage() {
                                 />))
                             }
                             </>
-                        ) : (<h2 style={{ textAlign: 'center' }}>Seu Carrinho Vazio!</h2>)}
+                        ) : (<h2 style={{ textAlign: 'center' }}>Seu carrinho está vazio!</h2>)}
                     </section>
                     <div style={{ display: 'flex', justifyContent: 'center', margin: '30px 0' }}>
                         <p onClick={() => handleNavigation('/catalogPage#componentes')}
@@ -241,16 +258,50 @@ function CartPage() {
                             />
                         )}
 
-                        <TextField id="outlined-basic" label="Observações" variant="outlined" rows={7} multiline
+                        <TextField id="outlined-basic" label="Observações (Opcional)" variant="outlined" rows={7} multiline
                             sx={{
                                 gridColumn: 'span 3', /* Ocupa toda a largura (3 colunas) */
                                 resize: 'none', /* Remove o redimensionamento */
                             }} onChange={(event) => setContent(event.target.value)} />
-                        <button type="submit" onClick={() => {
-                            sendEmail();
-                            createOrderFromCart();
-                        }}>
-                            ENVIAR SOLICITAÇÃO
+                        <button
+                            type="submit"
+                            onClick={async () => {
+                                if (isFormEmpty()) {
+                                    setErrorDialogOpen(true);
+                                    return;
+                                }
+                                setLoading(true);
+                                try {
+                                    await sendEmail();
+                                    await createOrderFromCart();
+                                    setOpen(true); // Modal de sucesso
+                                    clearLocalStorage();
+                                } catch (error) {
+                                    setErrorMessage(
+                                        error?.message ||
+                                        'Ocorreu um erro ao enviar a solicitação. Tente novamente.'
+                                    );
+                                    setErrorDialogOpen(true); // Modal de erro
+                                } finally {
+                                    setLoading(false);
+                                }
+                            }}
+                            disabled={loading}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px'
+                            }}
+                        >
+                            {loading ? (
+                                <>
+                                    <CircularProgress size={22} color="inherit" />
+                                    Enviando...
+                                </>
+                            ) : (
+                                'ENVIAR SOLICITAÇÃO'
+                            )}
                         </button>
                     </div>
                 </section>
@@ -260,11 +311,23 @@ function CartPage() {
                 footerItems={['Componentes', 'Mais vendidos', 'Promoções', 'Novidades']}
             />
 
-            <CustomDialog size={"sm"} open={open} onClose={() => setOpen(false)}>
+            <CustomDialog size={"sm"} open={open} onClose={() => {setOpen(false); window.location.reload();}}>
                 <DialogContentMessage
                     icon={MarkEmailReadIcon}
                     title="Solicitação enviada com sucesso!"
                     description="Recebemos sua solicitação de cotação! Em breve, nossa equipe entrará em contato com você. Agradecemos por escolher a Hardwaretech."
+                    iconColor = '#4caf50'
+                    iconBgColor = '#E3FFE3'
+                />
+            </CustomDialog>
+
+            <CustomDialog size={"sm"} open={errorDialogOpen} onClose={() => setErrorDialogOpen(false)}>
+                <DialogContentMessage
+                    icon={WarningIcon}
+                    title="Erro ao enviar solicitação"
+                    description={errorMessage}
+                    iconColor = '#b71c1c'
+                    iconBgColor = '#FFF3E3'
                 />
             </CustomDialog>
 
