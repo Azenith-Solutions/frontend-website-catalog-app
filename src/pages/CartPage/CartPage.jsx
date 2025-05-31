@@ -55,7 +55,8 @@ function CartPage() {
 
         // Format current date in Brazilian format
         const currentDate = new Date().toLocaleDateString('pt-BR');
-        const currentTime = new Date().toLocaleTimeString('pt-BR');        // Prepare template data
+        const currentTime = new Date().toLocaleTimeString('pt-BR');
+        const currentItems = getListOfItemsFromLocalStorage();       // Prepare template data
         const templateData = {
             quoteId,
             currentDate,
@@ -66,7 +67,7 @@ function CartPage() {
             isPJ,
             cnpj: formattedCNPJ,
             content,
-            items: componentsList
+            items: currentItems
         };
 
         // Generate email templates (HTML and plain text)
