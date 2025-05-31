@@ -37,8 +37,8 @@ export const generateQuoteEmailTemplate = (data) => {
         `<tr>
       <td style="padding: 8px; border-bottom: 1px solid #ddd;">${index + 1}</td>
       <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.descricao}</td>
-      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.quantidade}</td>
-      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.desc ? item.desc.substring(0, 60) + '...' : 'Sem descrição'}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.quantidadeCarrinho}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.descricao ? item.descricao.substring(0, 60) + '...' : 'Sem descrição'}</td>
     </tr>`
     ).join('');
 
