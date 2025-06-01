@@ -170,6 +170,8 @@ function CartPage() {
                                     descricao={component.descricao}
                                     estoque={component.emEstoque}
                                     quantidadeComponent={component.quantidadeCarrinho}
+                                    nomeComponente={component.nomeComponente}
+                                    imagem={component.imagem}
                                     onRemove={() => setComponentList(prev => prev.filter(i => i.fkComponente !== component.fkComponente))}
                                 />))
                             }
