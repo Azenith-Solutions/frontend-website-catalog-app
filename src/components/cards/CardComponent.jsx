@@ -10,11 +10,22 @@ import Tooltip from '@mui/material/Tooltip';
 
 import './CardComponent.css'
 
+const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
+const defaultImage = "https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg";
+
 function CardComponent({ props }) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
     navigate(`/component/details/${props.idComponente}`);
+  };
+
+    // Função para obter a URL da imagem do componente
+  const getImageUrl = (item) => {
+    if (item.imagem) {
+      return `${API_IMAGES_URL}${item.imagem}`;
+    }
+    return defaultImage;
   };
 
   return (
@@ -41,15 +52,15 @@ function CardComponent({ props }) {
     >
       <CardMedia
         sx={{ height: 136, backgroundSize: 'cover' }}
-        image="https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg"
+        image={getImageUrl(props)}
         title="component"
       />
       <CardContent sx={{ padding: '9px 16px 0px 16px' }}>
-        <p className='card-content-price'>Em estoque: {props.quantidade}</p>
-        <Tooltip title={props.descricao}>
-          <p className='card-content-title'>{props.descricao}</p>
+        {/* <p className='card-content-price'>Em estoque: {props.quantidade}</p> */}
+        <Tooltip title={props.nomeComponente == null ? props.descricao : props.nomeComponente} placement="top" arrow>
+          <p className='card-content-title'>{props.nomeComponente == null ? props.descricao : props.nomeComponente}</p>
         </Tooltip>
-        <p className='card-content-desc'>{props.desc}</p>
+        <p className='card-content-desc'>{props.descricao}</p>
       </CardContent>
       <div className='card-button-container' onClick={e => e.stopPropagation()}>
         <AddToCartButton componente={props} />
