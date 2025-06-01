@@ -1,39 +1,30 @@
-import React from 'react'
-import { useState, useEffect } from "react";
-import { Pagination } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Pagination, Box } from "@mui/material";
 import { getComponent } from "../../services/componentService.js";
 
-// import axios from "axios";
-
 function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
-
   const [listaComponentes, setListaComponentes] = useState([]);
   const [totalPaginas, setTotalPaginas] = useState();
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [limitePorPagina, setLimitePorPagina] = useState(10);
 
-  //Observa os filtros e pagina atual
   useEffect(() => {
-    const currentFiltersUri = `?page=${paginaAtual - 1}&size=${limitePorPagina}&descricao=${filterUri.search ? filterUri.search : ''}`;
-
+    const currentFiltersUri = `?page=${paginaAtual - 1}&size=${limitePorPagina}&descricao=${filterUri.search ? filterUri.search : ''}&categoria=${filter ? filter : 0}`;
     getComponent(currentFiltersUri).then((response) => {
-      console.log(response.data)
       setTotalPaginas(response.data.totalPages);
       setListaComponentes(response.data.content);
     }).catch((error) => {
       console.error('Error fetching components:', error);
     });
-  }, [paginaAtual, limitePorPagina, filterUri])
+  }, [paginaAtual, limitePorPagina, filterUri, filter]);
 
   useEffect(() => {
     setPaginaAtual(1)
   }, [filterUri])
 
-  // Altera a quantidade de items por pagina de acordo com a tela
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-
       if (width < 700) {
         setLimitePorPagina(4);
         setPaginaAtual(1);
@@ -48,41 +39,46 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
         setPaginaAtual(1);
       }
     };
-
-    handleResize(); // Chama ao montar
-    window.addEventListener('resize', handleResize); // Adiciona o listener
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      position: 'relative'
-    }}>
-      <div style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        marginBottom: '20px',
-        maxWidth: '1400px',
-        height: '100%',
-        gap: '20px',
-        alignSelf: 'flex-start',
-      }}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      width="100%"
+      height="100%"
+      position="relative"
+    >
+      <Box
+        className="pagination-catalog-list"
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          mb: 2,
+          maxWidth: '1400px',
+          height: '100%',
+          gap: '20px',
+          alignSelf: { xs: 'center', md: 'flex-start' },
+          justifyContent: { xs: 'center', md: 'flex-start' },
+        }}
+      >
         {listaComponentes.map((item, index) => (
           <CardComponent
             key={index}
             props={item}
           />
         ))}
-      </div>
+      </Box>
       <Pagination
         count={totalPaginas}
         page={paginaAtual}
         onChange={(event, value) => setPaginaAtual(value)}
         size="large"
         sx={{
-          alignSelf: 'end',
+          alignSelf: { xs: 'center', md: 'end' },
           bgcolor: '#f5f5f5',
           borderRadius: '16px',
           boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
@@ -97,8 +93,8 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
           },
         }}
       />
-    </div>
+    </Box>
   )
 }
 
-export default PaginationCatalog
+export default PaginationCatalog;
