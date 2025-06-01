@@ -65,12 +65,25 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
           justifyContent: { xs: 'center', md: 'flex-start' },
         }}
       >
-        {listaComponentes.map((item, index) => (
-          <CardComponent
-            key={index}
-            props={item}
-          />
-        ))}
+        {listaComponentes.length === 0 ? (
+          <Box
+            sx={{
+              width: '100%',
+              textAlign: 'center',
+              fontSize: '1.2rem',
+              py: 4,
+            }}
+          >
+            Nenhum componente encontrado.
+          </Box>
+        ) : (
+          listaComponentes.map((item, index) => (
+            <CardComponent
+              key={index}
+              props={item}
+            />
+          ))
+        )}
       </Box>
       <Pagination
         count={totalPaginas}
