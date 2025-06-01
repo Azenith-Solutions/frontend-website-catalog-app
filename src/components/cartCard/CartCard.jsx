@@ -12,8 +12,11 @@ import "./CartCard.css";
 import { addItemToCart, removeItemFromCart, decreaseItemQuantity, updateItemQuantity } from '../../services/catalogService/catalogService';
 import CustomDialog from '../CustomDialog/CustomDialog';
 
+const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
+const defaultImage = "https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg";
+
 export default function CartCard(props) {
-    const { descricao, estoque, quantidadeComponent, idComponente } = props;
+    const { descricao, estoque, quantidadeComponent, idComponente, nomeComponente, imagem } = props;
     const [quantidade, setQuantidade] = useState(quantidadeComponent);
     const [openModal, setOpenModal] = useState(false);
     const navigate = useNavigate();
@@ -74,6 +77,13 @@ export default function CartCard(props) {
     // Impede propagação do clique do card nos botões e input
     const stopPropagation = (e) => e.stopPropagation();
 
+    const getImageUrl = (item) => {
+        if (item.imagem) {
+            return `${API_IMAGES_URL}${item.imagem}`;
+        }
+        return defaultImage;
+    };
+
     return (
         <>
             <CustomDialog size={'sm'} open={openModal} onClose={cancelRemove}>
@@ -108,15 +118,16 @@ export default function CartCard(props) {
                     />
                     <div className="product-details">
                         <img
-                            src="https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg"
+                            src={getImageUrl(props)}
                             alt="Product"
                             className="product-image"
                         />
                         <div className="product-info">
                             <div>
-                                <h3 className="product-name">{descricao}</h3>
+                                <h3 className="product-name">{nomeComponente == null ? descricao : nomeComponente}</h3>
+                                <p className="product-description">{descricao}</p>
                             </div>
-                            <p className="product-price">Em estoque: {estoque}</p>
+                            {/* <p className="product-price">Em estoque: {estoque}</p> */}
                         </div>
                     </div>
                 </div>

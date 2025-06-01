@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBarCatalog from '../../components/navBar/NavBarCatalog';
 import Carrosel from '../../components/Carrosel/Carrosel';
 import PaginatedFilterSection from '../../components/pagination/PaginatedFilterSection';
 import CardComponent from '../../components/cards/CardComponent';
 import CarouselCard from '../../components/cardCarousel/CarouselCard';
 import Footer from '../../components/footer/Footer';
+import {getCategory} from '../../services/categoryService/categoryService';
 
 import { Container } from '@mui/material';
 
@@ -18,6 +19,9 @@ import DialogContentFormComponent from '../../components/CustomDialog/DialogCont
 
 const CatalogPage = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false); // Estado para controlar o modal
+    const [categoryFilters, setCategoryFilters] = useState([
+        { label: 'Todos', value: 'todos' }
+    ]);
 
     // Função para abrir o modal
     const handleOpenDialog = () => {
@@ -50,6 +54,21 @@ const CatalogPage = () => {
         { title: 'Mais Vendidos', anchor: 'mais-vendidos' },
         { title: 'Novidades', anchor: 'novidades' },
     ];
+
+useEffect(() => {
+    const fetchCategories = async () => {
+        try {
+            const categories = await getCategory();
+            console.log('Categorias recebidas:', categories.data); // Debug
+
+            setCategoryFilters(categories.data);
+        } catch (error) {
+            console.error('Erro ao buscar categorias:', error);
+        }
+    };
+    fetchCategories();
+}, []);
+
     return (
         <>
             <div
@@ -100,23 +119,11 @@ const CatalogPage = () => {
                 </Container>
                 <div id='componentes' style={{ margin: '5vh 0' }} className='section'>
                     <PaginatedFilterSection
-                        filters={[
-                            { label: 'Todos', value: 'todos' },
-                            { label: 'Resistores', value: '1' },
-                            { label: 'Capacitores', value: '2' },
-                            { label: 'Indutores', value: '3' },
-                            { label: 'Diodos', value: '4' },
-                            { label: 'Transistores', value: '5' },
-                            { label: 'Tiristores e Retificadores Controlados', value: '6' },
-                            { label: 'Optoeletrônicos', value: '7' },
-                            { label: 'Eletromecânicos', value: '8' },
-                            { label: 'Sensores', value: '9' },
-                            { label: 'Circuitos Integrados', value: '10' },
-                            { label: 'RF e Comunicação', value: '11' },
-                            { label: 'Potência', value: '12' },
-                            { label: 'Prototipagem', value: '13' },
-                            { label: 'Outros', value: '14' }
-                        ]}
+                        filters={
+                            categoryFilters.length > 0 && categoryFilters[0].value !== 'todos'
+                                ? [{ categoria: 'Todos', id: 0 }, ...categoryFilters]
+                                : categoryFilters
+                        }
                         CardComponent={CardComponent}
                         priceFilterEnabled={false}
                         uriEndPoint={'/products'}

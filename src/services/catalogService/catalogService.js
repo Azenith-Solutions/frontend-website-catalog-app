@@ -14,6 +14,8 @@ export const addItemToCart = (component) => {
             fkComponente: component.idComponente,
             descricao: component.descricao,
             emEstoque: component.quantidade,
+            nomeComponente: component.nomeComponente,
+            imagem: component.imagem,
             quantidadeCarrinho: quantidadeAdicionar
         });
     }

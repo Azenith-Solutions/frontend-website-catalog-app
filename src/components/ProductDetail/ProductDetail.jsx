@@ -18,6 +18,9 @@ import WarningIcon from '@mui/icons-material/Warning';
 import { getComponentById } from '../../services/componentService'
 import { addItemToCart } from '../../services/catalogService/catalogService';
 
+const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
+const defaultImage = "https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg";
+
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
     const [component, setComponent] = useState({});
@@ -74,6 +77,13 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
         setQuantity((prev) => prev + 1);
     };
 
+    const getImageUrl = (item) => {
+        if (item.imagem) {
+            return `${API_IMAGES_URL}${item.imagem}`;
+        }
+        return defaultImage;
+    };
+
     return (
         <>
             <Container sx={{
@@ -86,21 +96,26 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                 />
                 <div className="hero-container">
                     <aside className="images-container">
-                        <div className='main-image'></div>
-                        <div className="images-list">
+                        <div
+                            className='main-image'
+                            style={{
+                                backgroundImage: `url(${getImageUrl(component)})`,
+                            }}
+                        ></div>
+                        {/* <div className="images-list">
                             <div className="second-image"></div>
                             <div className="third-image"></div>
                             <div className="fourth-image"></div>
-                        </div>
+                        </div> */}
                     </aside>
 
                     <aside className="details-container">
-                        <p className="price">Em estoque: {component.quantidade}</p>
-                        <h2>{component.descricao}</h2>
+                        {/* <p className="price">Em estoque: {component.quantidade}</p> */}
+                        <h2>{component.nomeComponente == null ? component.descricao : component.nomeComponente}</h2>
                         <p>
                             <b>Descrição:</b>
                         </p>
-                        <p className='description-text'>{description}</p>
+                        <p className='description-text'>{component.descricao}</p>
                         <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
 
                         <div className="add-to-cart-detail-row">

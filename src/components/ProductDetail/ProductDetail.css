@@ -6,6 +6,7 @@
 
     /* Adicione esta regra para limitar a largura ao máximo do Container */
     width: 100%;
+    min-height: 500px;
 
     text-align: justify;
 
@@ -14,19 +15,20 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
         width: 50%;
         /* Ajuste proporcional */
 
 
         .main-image {
-            background-image: url('../../assets/images/main-image.png');
+            width: 100%;
+            height: 500px;
+            min-height: 300px;
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
-            width: 100%;
-            height: 420px;
             border-radius: 6px;
+            transition: height 0.3s;
+
         }
 
         .images-list {
@@ -285,7 +287,16 @@
     .hero-container {
         flex-direction: column;
 
-        .images-container {
+
+
+        .images-container{
+            width: 100%;
+        }
+
+        .main-image{
+            height: 45vw; /* altura dinâmica baseada na largura da tela */
+            min-height: 180px; /* nunca some */
+            max-height: 350px;
             width: 100%;
         }
 
