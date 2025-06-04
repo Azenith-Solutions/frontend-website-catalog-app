@@ -1,4 +1,6 @@
 import { getListOfItemsFromLocalStorage } from '../../utils/storage/storage';
+import apiClient from '../api';
+
 
 export const addItemToCart = (component) => {
     const listOfItems = getListOfItemsFromLocalStorage();
@@ -61,3 +63,22 @@ export const removeItemFromCart = (component) => {
     const updatedList = listOfItems.filter((item) => item.fkComponente !== component.idComponente);
     localStorage.setItem('listOfItems', JSON.stringify(updatedList));
 }
+
+
+/**
+ * Envia email de componente avulso com anexo (imagem) usando endpoint /emails/send-with-attachment
+ * @param {FormData} formPayload
+ */
+export const sendEmailComponentWithAttachment = async (formPayload) => {
+    try {
+        const response = await apiClient.post('/emails/send-with-attachment', formPayload, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error sending email with attachment:', error);
+        throw new Error(error.response?.data?.message || 'Falha ao enviar email com anexo.');
+    }
+};
