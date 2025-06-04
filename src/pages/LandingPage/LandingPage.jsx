@@ -1,6 +1,5 @@
 import './LandingPage.css'
 import React from 'react';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/hardwareTech/WhiteLogo/SIMBOLO.png";
 import Nome from "../../assets/hardwareTech/WhiteLogo/NOME.png";
@@ -14,6 +13,29 @@ import NavBarInstitucional from '../../components/navBarInstitucional/navBarInst
 
 function App() {
   const navigate = useNavigate();
+
+  const services = [
+    {
+      id: 1,
+      title: "Restauração de Placas Eletrônicas",
+      desc: "Recupere o desempenho original das suas placas eletrônicas com nossa tecnologia de ponta. Nossa equipe especializada utiliza equipamentos de última geração para diagnosticar falhas precisamente e restaurar componentes danificados, devolvendo vida a circuitos complexos. Garantimos reparos de alta qualidade com peças originais e testes rigorosos para assegurar o funcionamento como novo."
+    },
+    {
+      id: 2,
+      title: "Recuperação de Inversores",
+      desc: "Inversores industriais defeituosos comprometem toda sua produção. Nossa equipe de engenheiros especializados realiza diagnósticos avançados e reparos precisos em inversores de qualquer marca e modelo. Restauramos parâmetros de fábrica, corrigimos falhas elétricas e substituímos componentes danificados, garantindo o retorno rápido à operação com eficiência e confiabilidade maximizadas."
+    },
+    {
+      id: 3,
+      title: "Renovação de Fontes",
+      desc: "Fontes de alimentação são componentes críticos para o funcionamento seguro do seu sistema. Oferecemos serviços completos de reparo e renovação de fontes industriais, desde a substituição de capacitores até o recondicionamento total. Nossa equipe utiliza componentes certificados e realiza testes sob carga para garantir estabilidade, fornecendo energia contínua e proteção contra surtos para seus equipamentos sensíveis."
+    },
+    {
+      id: 4,
+      title: "Revitalização de CLPs",
+      desc: "Controladores Lógicos Programáveis requerem manutenção especializada para garantir precisão e longevidade. Nossa equipe possui expertise em revitalização de CLPs de diversas marcas, realizando desde a recuperação de módulos danificados até a atualização de firmware. Implementamos soluções que preservam a programação original, modernizam componentes e otimizam o desempenho, prolongando significativamente a vida útil do seu sistema de automação."
+    }
+  ];
 
   return (
     <div className="page">
@@ -74,59 +96,22 @@ function App() {
 
         <div className="servicos" id='servicos'>
           <h1 className='titulo'>Serviços Fornecidos</h1>
-          <p>Esses são apenas alguns dos incríveis serviços que oferecemos. Conte com a nossa expertise para muito mais!</p>
+          <p>Oferecemos soluções técnicas avançadas para manter seus equipamentos industriais funcionando com máxima eficiência. Nossa equipe de especialistas está pronta para diagnosticar, reparar e otimizar seu hardware com precisão e qualidade.</p>
           <br />
           <div className="servicos-container">
-            <CardService props={{id: 1, title: "Reparo de Placas", desc: "Reparo de placas eletrônicas com garantia de qualidade." }} />
-            <CardService props={{id: 2, title: "Reparo de Inversores", desc: "Reparo de inversores de frequência com garantia de qualidade." }} />
-            <CardService props={{id: 3, title: "Reparo de Fontes", desc: "Reparo de fontes industriais com garantia de qualidade." }} />
-            <CardService props={{id: 4, title: "Reparo de CLPs", desc: "Reparo de CLPs com garantia de qualidade." }} />
+            {services.map(service => (
+              <CardService 
+                key={service.id}
+                props={{
+                  id: service.id,
+                  title: service.title,
+                  desc: service.desc
+                }}
+              />
+            ))}
           </div>
           <div className="meia-lua-borda"></div> {/* Meia-lua dentro da seção serviços */}
         </div>
-
-        <div className='contato' id='contato'>
-          <h1 className='titulo'>Entre em contato!</h1>
-          <p>Tem alguma dúvida ou quer saber mais detalhes sobre nossos serviços?
-            Nossa equipe de especialistas está pronta para te atender e esclarecer qualquer questão!
-            Entre em contato agora mesmo e descubra todas as
-            soluções que oferecemos para garantir o melhor desempenho do seu hardware.
-          </p>
-          <div className='box-contato'>
-            <div className='esquerda'>
-              
-              <div className="input-container">
-              Nome
-              <br />
-                <input type="text" placeholder='Seu nome' />
-              </div>
-              
-              <div className="input-container">
-              E-mail
-              <br />
-                <input type="text" placeholder='Seu e-mail' />
-              </div>
-              
-              <div className="input-container">
-              Telefone
-              <br />
-                <input type="text" placeholder='Seu telefone' />
-              </div>
-            </div>
-            <div className='direita'>
-              
-              <div className="input-container">
-              Sua mensagem
-              <br />
-                <input type="text" placeholder='Digite sua mensagem aqui...' />
-              </div>
-              <button className='botao-padrao'>Enviar</button>
-            </div> 
-          </div>
-          <p>
-          Ou entre em contato pelo nosso <span style={{ color: '#1083FF' }}>Whatsapp <img src={WhatsApp} alt="" /></span>
-          </p> 
-        </div> 
         <div className='footer'>
         <Footer footerItems={['Home','Sobre nós', 'Serviços','Contato']}/>
         </div>

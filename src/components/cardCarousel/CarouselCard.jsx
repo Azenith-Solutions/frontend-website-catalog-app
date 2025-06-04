@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import axios from "axios";
-
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -12,22 +10,32 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { getWhereComponentFilter } from "../../services/componentService.js";
-
+// Import services data
+import servicesData from "../../db/services.json";
 
 import './CarouselCard.css';
 
-function CarouselCard({ CardComponent, filter }) {
-    const [listaComponentes, setListaComponentes] = useState([]);
+function CarouselCard({ CardComponent, filter, uriEndPoint, currentServiceId }) {
+    const [items, setItems] = useState([]);
 
     useEffect(() => {
-        getWhereComponentFilter(filter).then((response) => {
-            console.log(response.data)
-            setListaComponentes(response.data);
-        }).catch((error) => {
-            console.error('Error fetching components:', error);
-        });
-    }, []);
+        if (filter === 'services') {
+            const filteredServices = currentServiceId 
+                ? servicesData.services.filter(service => service.id !== parseInt(currentServiceId))
+                : servicesData.services;
+                
+            setItems(filteredServices);
+        } else {
+            import("../../services/componentService.js").then(module => {
+                const { getWhereComponentFilter } = module;
+                getWhereComponentFilter(filter).then((response) => {
+                    setItems(response.data);
+                }).catch((error) => {
+                    console.error('Error fetching components:', error);
+                });
+            });
+        }
+    }, [filter, currentServiceId]);
 
     return (
         <>
@@ -45,17 +53,17 @@ function CarouselCard({ CardComponent, filter }) {
                     1500: { slidesPerView: 5, spaceBetween: 50 },
                 }}
             >
-                {listaComponentes?.length === 0 ? (
+                {items?.length === 0 ? (
                     <div style={{
                         width: '100%',
                         textAlign: 'center',
                         fontSize: '1.2rem',
                         padding: '2rem 0'
                     }}>
-                        Nenhum componente encontrado.
+                        Nenhum item encontrado.
                     </div>
                 ) : (
-                    listaComponentes?.map((item, index) => (
+                    items?.map((item, index) => (
                         <SwiperSlide key={index}>
                             <CardComponent props={item} />
                         </SwiperSlide>

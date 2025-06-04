@@ -1,0 +1,33 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Restauração de Placas Eletrônicas",
+      "desc": "Dê vida nova às suas placas com nossa tecnologia de ponta. Recuperamos circuitos complexos e garantimos funcionamento como novo.",
+      "intro": "Nossa equipe especializada em restauração de placas eletrônicas utiliza técnicas avançadas de diagnóstico e reparo para recuperar seus equipamentos com eficiência e precisão. Contamos com laboratório equipado com ferramentas de última geração que nos permitem trabalhar com circuitos complexos de todos os tipos.",
+      "imageUrl": "/src/assets/hardwareTech/servicos/placaseletronicas.jpeg"
+    },
+    {
+      "id": 2,
+      "title": "Recuperação de Inversores",
+      "desc": "Inversores com problemas? Nossa equipe especializada diagnostica e repara com precisão, mantendo a eficiência do seu sistema industrial.",
+      "intro": "Nosso serviço de recuperação de inversores oferece soluções rápidas e eficazes para restabelecer o funcionamento ideal dos seus equipamentos industriais. Com técnicos altamente capacitados, realizamos diagnósticos precisos e reparos que prolongam a vida útil de seus inversores e minimizam o tempo de inatividade.",
+      "imageUrl": "/src/assets/hardwareTech/servicos/inversores.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Renovação de Fontes",
+      "desc": "Fontes de alimentação são o coração do sistema. Restauramos e estabilizamos para fornecer energia contínua e segura aos seus equipamentos.",
+      "intro": "Nossa expertise em renovação de fontes de alimentação industrial garante o fornecimento estável e seguro de energia para seus sistemas críticos. Utilizamos componentes de alta qualidade e realizamos testes rigorosos para assegurar o desempenho ideal e prolongar a vida útil das suas fontes.",
+      "imageUrl": "/src/assets/hardwareTech/servicos/fontes.jpeg"
+    },
+    {
+      "id": 4,
+      "title": "Revitalização de CLPs",
+      "desc": "Controladores Lógicos Programáveis exigem conhecimento especializado. Nosso time domina a arte de reparar e atualizar seu CLP para máxima performance.",
+      "intro": "Nossa equipe possui ampla experiência na revitalização de Controladores Lógicos Programáveis (CLPs) de diversas marcas e modelos. Realizamos diagnósticos precisos, reparos especializados e atualizações que aumentam a confiabilidade e o desempenho dos seus sistemas de automação industrial.",
+      "imageUrl": "/src/assets/hardwareTech/servicos/clp.jpeg"
+    }
+  ],
+  "negotiationText": "A negociação de nossos serviços é feita de forma transparente e personalizada, considerando as necessidades específicas do seu equipamento e as exigências do seu negócio. Nossos especialistas realizam uma avaliação detalhada para apresentar a melhor solução técnica e comercial, com orçamentos claros e prazos realistas. Garantimos qualidade no serviço e oferecemos garantia para todos os reparos realizados."
+}

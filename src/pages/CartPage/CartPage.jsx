@@ -28,8 +28,7 @@ function CartPage() {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false); // Estado para loading
     const navigate = useNavigate();
-    const [componentsList, setComponentList] = useState(getListOfItemsFromLocalStorage());
-
+    const [componentsList, setComponentList] = useState(getListOfItemsFromLocalStorage() || []);
 
     const handlePhoneChange = (event) => {
         // Gerar e armazenar valor formatado para exibição
@@ -120,8 +119,9 @@ function CartPage() {
         }
     }
 
+    // Make sure isFormEmpty uses the updated componentsList from state
     function isFormEmpty() {
-        if (componentsList.length === 0) {
+        if (!componentsList || componentsList.length === 0) {
             setErrorMessage('Seu carrinho está vazio!');
             return true;
         }
@@ -289,12 +289,14 @@ function CartPage() {
                                     setLoading(false);
                                 }
                             }}
-                            disabled={loading}
+                            disabled={loading || !componentsList || componentsList.length === 0}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '8px'
+                                gap: '8px',
+                                opacity: (!componentsList || componentsList.length === 0) ? 0.6 : 1,
+                                cursor: (!componentsList || componentsList.length === 0) ? 'not-allowed' : 'pointer'
                             }}
                         >
                             {loading ? (
@@ -303,7 +305,7 @@ function CartPage() {
                                     Enviando...
                                 </>
                             ) : (
-                                'ENVIAR SOLICITAÇÃO'
+                                (!componentsList || componentsList.length === 0) ? 'CARRINHO VAZIO' : 'ENVIAR SOLICITAÇÃO'
                             )}
                         </button>
                     </div>
