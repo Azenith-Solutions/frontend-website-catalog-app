@@ -12,11 +12,16 @@
     margin-bottom: 20px;
 }
 
-.list-item,.list-item-menu{
+.list-item,
+.list-item-menu {
     font-size: 14px;
     display: flex;
     align-items: start;
     gap: 5px;
+    /* Quebra de linha automática com limite de largura */
+    white-space: normal;
+    word-break: break-word;
+    max-width: 350px; /* ajuste o valor conforme necessário */
 }
 
 .list-item-menu{
