@@ -75,16 +75,13 @@ function Footer(props) {
                         <li className='list-title'>Nossas Informações</li>
                         <li className='list-item'><Email sx={{ height: '20px' }} />
                             <span style={{ display: 'flex', }}>
-                                E-mail: <br />[contato@empresa.com]</span>
+                                E-mail: <br />hardwaretech@hardwaretech.com.br</span>
                         </li>
                         <li className='list-item'><LocationOn sx={{ height: '20px' }} />
-                            Endereço: <br /> [Rua, Número, Bairro, Cidade - Estado, CEP]
+                            Endereço: <br /> Av. Rio de Janeiro, 317 - Vila Bremen, Guarulhos - SP, 07124-300
                         </li>
                         <li className='list-item'><Phone sx={{ height: '20px' }} />
-                            Telefone: <br /> [(XX) XXXX-XXXX] / [(XX) 9XXXX-XXXX]
-                        </li>
-                        <li className='list-item'><CalendarMonthIcon sx={{ height: '20px' }} />
-                            Horário de atendimento: <br /> Segunda a Sexta: 08h - 18h <br />Sábados: 08h - 12h
+                            Telefone: <br /> (11) 250807-40 | (11) 963417349
                         </li>
                     </ul>
                     <ul className='footer-list'>
@@ -93,7 +90,14 @@ function Footer(props) {
                             <div className='container-icons-media'>
                                 <WhatsApp sx={styleIcons} />
                                 <Instagram sx={styleIcons} />
-                                <Facebook sx={styleIcons} />
+                                <a
+                                    href="https://www.facebook.com/hardwaretech2017/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ display: 'inline-flex' }}
+                                >
+                                    <Facebook sx={styleIcons} />
+                                </a>
                             </div>
                         </li>
                     </ul>
