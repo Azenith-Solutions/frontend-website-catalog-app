@@ -9,7 +9,7 @@ function PaginationCatalog({ CardComponent, filter, filterUri, priceRange }) {
   const [limitePorPagina, setLimitePorPagina] = useState(10);
 
   useEffect(() => {
-    const currentFiltersUri = `?page=${paginaAtual - 1}&size=${limitePorPagina}&descricao=${filterUri.search ? filterUri.search : ''}&categoria=${filter ? filter : 0}`;
+    const currentFiltersUri = `?page=${paginaAtual - 1}&size=${limitePorPagina}&nomeComponente=${filterUri.search ? filterUri.search : ''}&categoria=${filter ? filter : 0}`;
     getComponent(currentFiltersUri).then((response) => {
       setTotalPaginas(response.data.totalPages);
       setListaComponentes(response.data.content);
