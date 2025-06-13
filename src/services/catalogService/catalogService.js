@@ -9,8 +9,6 @@ export const addItemToCart = (component) => {
     // Usa a quantidade recebida ou 1 como padrão
     const quantidadeAdicionar = Number(component.quantidadeCarrinho) > 0 ? Number(component.quantidadeCarrinho) : 1;
 
-    console.log("---------------------COMPONENTE: ", component);
-
     if (item) {
         item.quantidadeCarrinho += quantidadeAdicionar;
     } else {
