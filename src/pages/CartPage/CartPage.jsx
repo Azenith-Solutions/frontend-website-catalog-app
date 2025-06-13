@@ -166,12 +166,12 @@ function CartPage() {
                             <> {componentsList.map((component, index) => (
                                 <CartCard
                                     key={component.fkComponente}
+                                    imagem={component.imagem}
                                     idComponente={component.fkComponente}
+                                    nomeComponente={component.nomeComponente}
                                     descricao={component.descricao}
                                     estoque={component.emEstoque}
                                     quantidadeComponent={component.quantidadeCarrinho}
-                                    nomeComponente={component.nomeComponente}
-                                    imagem={component.imagem}
                                     onRemove={() => setComponentList(prev => prev.filter(i => i.fkComponente !== component.fkComponente))}
                                 />))
                             }
@@ -316,13 +316,13 @@ function CartPage() {
                 footerItems={['Componentes', 'Mais vendidos', 'Promoções', 'Novidades']}
             />
 
-            <CustomDialog size={"sm"} open={open} onClose={() => {setOpen(false); window.location.reload();}}>
+            <CustomDialog size={"sm"} open={open} onClose={() => { setOpen(false); window.location.reload(); }}>
                 <DialogContentMessage
                     icon={MarkEmailReadIcon}
                     title="Solicitação enviada com sucesso!"
                     description="Recebemos sua solicitação de cotação! Em breve, nossa equipe entrará em contato com você. Agradecemos por escolher a Hardwaretech."
-                    iconColor = '#4caf50'
-                    iconBgColor = '#E3FFE3'
+                    iconColor='#4caf50'
+                    iconBgColor='#E3FFE3'
                 />
             </CustomDialog>
 
@@ -331,8 +331,8 @@ function CartPage() {
                     icon={WarningIcon}
                     title="Erro ao enviar solicitação"
                     description={errorMessage}
-                    iconColor = '#b71c1c'
-                    iconBgColor = '#FFF3E3'
+                    iconColor='#b71c1c'
+                    iconBgColor='#FFF3E3'
                 />
             </CustomDialog>
 

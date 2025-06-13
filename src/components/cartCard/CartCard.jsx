@@ -16,7 +16,7 @@ const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
 const defaultImage = "https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg";
 
 export default function CartCard(props) {
-    const { descricao, estoque, quantidadeComponent, idComponente, nomeComponente, imagem } = props;
+    const { nomeComponente, descricao, estoque, quantidadeComponent, idComponente, imagem } = props;
     const [quantidade, setQuantidade] = useState(quantidadeComponent);
     const [openModal, setOpenModal] = useState(false);
     const navigate = useNavigate();
@@ -97,7 +97,9 @@ export default function CartCard(props) {
                         padding: '5px',
                     }} />
                 </div>
-                <DialogTitle sx={{ textAlign: 'center' }}>Deseja remover este item do carrinho?</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>
+                    Deseja remover este item do carrinho?
+                </DialogTitle>
                 <DialogActions sx={{ justifyContent: 'center', marginBottom: 4 }}>
                     <Button onClick={cancelRemove} color="primary">Cancelar</Button>
                     <Button onClick={confirmRemove} variant='contained' color="error">Remover</Button>
