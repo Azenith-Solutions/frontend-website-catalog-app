@@ -34,7 +34,7 @@ function CardService({ props }) {
           {getServiceIcon(props.id)}
         </div>
         <CardContent className="card-service-content">
-          <p className="card-content-title">{props.title}</p>
+          <p className="card-content-title-service">{props.title}</p>
           <div className="card-content-desc-container">
             <p className="card-content-desc">{props.desc}</p>
           </div>
