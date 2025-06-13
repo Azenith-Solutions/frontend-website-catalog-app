@@ -36,7 +36,7 @@ export const generateQuoteEmailTemplate = (data) => {
     const itemsList = items.map((item, index) =>
         `<tr>
       <td style="padding: 8px; border-bottom: 1px solid #ddd;">${index + 1}</td>
-      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.descricao}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.nomeComponente}</td>
       <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.quantidadeCarrinho}</td>
       <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.descricao ? item.descricao.substring(0, 60) + '...' : 'Sem descrição'}</td>
     </tr>`
@@ -79,12 +79,10 @@ export const generateQuoteEmailTemplate = (data) => {
                     <tr>
                         <td>
                             <h2 style="color: #5F1516; border-bottom: 1px solid #ddd; padding-bottom: 8px; font-size: 18px;">Informações do Cliente</h2>
-                            ${isPJ ? // Vamos buscar nome da empresa?
-            `<p><strong>Empresa:</strong> ${name}</p>
-                            <p><strong>CNPJ:</strong> ${cnpj}</p>` :
-            `<p><strong>Solicitante:</strong> ${name}</p>
-                            <p><strong>Tipo:</strong> Pessoa Física</p>`}
-                            <p><strong>Email:</strong> ${email}</p>
+                            ${isPJ ? `<p><strong>Empresa:</strong> ${name}</p>
+                                <p><strong>CNPJ:</strong> ${cnpj}</p>` : `<p><strong>Solicitante:</strong> ${name}</p>
+                                <p><strong>Tipo:</strong> Pessoa Física</p>`}
+                                <p><strong>Email:</strong> ${email}</p>
                             ${telefone ? `<p><strong>Telefone:</strong> ${telefone}</p>` : ''}
                         </td>
                     </tr>

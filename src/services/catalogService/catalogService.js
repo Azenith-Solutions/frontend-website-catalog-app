@@ -9,14 +9,16 @@ export const addItemToCart = (component) => {
     // Usa a quantidade recebida ou 1 como padrão
     const quantidadeAdicionar = Number(component.quantidadeCarrinho) > 0 ? Number(component.quantidadeCarrinho) : 1;
 
+    console.log("---------------------COMPONENTE: ", component);
+
     if (item) {
         item.quantidadeCarrinho += quantidadeAdicionar;
     } else {
         listOfItems.push({
             fkComponente: component.idComponente,
+            nomeComponente: component.nomeComponente,
             descricao: component.descricao,
             emEstoque: component.quantidade,
-            nomeComponente: component.nomeComponente,
             imagem: component.imagem,
             quantidadeCarrinho: quantidadeAdicionar
         });
@@ -47,7 +49,7 @@ export const updateItemQuantity = (component, newQuantity) => {
     const item = listOfItems.find((item) => item.fkComponente === component.idComponente);
 
     if (item) {
-        item.quantidadeCarrinho = Number(newQuantity); 
+        item.quantidadeCarrinho = Number(newQuantity);
         if (item.quantidadeCarrinho <= 0) {
             const updatedList = listOfItems.filter((i) => i.fkComponente !== component.idComponente);
             localStorage.setItem('listOfItems', JSON.stringify(updatedList));
