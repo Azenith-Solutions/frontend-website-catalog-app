@@ -116,7 +116,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                             <b>Descrição:</b>
                         </p>
                         <p className='description-text'>{component.descricao}</p>
-                        <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button>
+                        {/* <button className="more-details-button" onClick={handleOpenMoreDetailsList}>Ver características</button> */}
 
                         <div className="add-to-cart-detail-row">
 

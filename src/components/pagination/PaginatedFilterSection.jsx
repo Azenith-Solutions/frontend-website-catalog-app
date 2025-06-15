@@ -139,7 +139,7 @@ function PaginatedFilterSection({ filters, CardComponent, priceFilterEnabled }) 
           left: 0,
           height: '100%',
           backgroundColor: '#fff',
-          zIndex: 1,
+          zIndex: 2,
           transform: { xs: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)', md: 'none' },
           transition: 'transform 0.3s ease-in-out',
           padding: '20px',
