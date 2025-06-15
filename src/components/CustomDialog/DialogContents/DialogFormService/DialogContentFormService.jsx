@@ -8,7 +8,7 @@ import CustomDialog from '../../../CustomDialog/CustomDialog';
 import DialogContentMessage from '../../DialogContents/DialogContentMessage';
 import { MarkEmailRead as MarkEmailReadIcon, Warning as WarningIcon } from '@mui/icons-material';
 
-const DialogContentFormService = ({ onSubmit }) => {
+const DialogContentFormService = ({ onSubmit, serviceName }) => {
     const [formData, setFormData] = useState({
         nome: '',
         email: '',
@@ -46,7 +46,7 @@ const DialogContentFormService = ({ onSubmit }) => {
         if (!validateFields()) return;
         setLoading(true);
         try {
-            const servico = "Serviço 1";
+            const servico = serviceName;
             const templates = generateServiceRequestEmailTemplate({ ...formData, servico });
             const emailData = prepareServiceRequestEmailData({
                 nome: formData.nome,
@@ -79,10 +79,10 @@ const DialogContentFormService = ({ onSubmit }) => {
                 <div className="form-content">
                     <TextField
                         id="servico"
-                        label="Serviço 1"
+                        label="Serviço"
                         name="servico"
                         fullWidth
-                        value="Serviço 1"
+                        value={serviceName}
                         className="form-field"
                         disabled
                     />

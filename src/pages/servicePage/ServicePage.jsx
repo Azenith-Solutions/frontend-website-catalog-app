@@ -98,6 +98,7 @@ export default function ServicePage() {
 
             <CustomDialog size={'md'} open={isDialogOpen} onClose={handleCloseDialog}>
                 <DialogContentFormService
+                    serviceName={serviceInfo.title}
                     onSubmit={(data) => {
                         console.log('Dados do formulário:', data);
                         handleCloseDialog(); 
