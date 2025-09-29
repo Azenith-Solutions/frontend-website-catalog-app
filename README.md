@@ -1,12 +1,41 @@
-# React + Vite
+# HardwareTech Catálogo Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup Local
 
-Currently, two official plugins are available:
+### 1. Clone e instale dependências:
+```bash
+npm install
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 2. Configure variáveis de ambiente:
+```bash
+# Copie o template
+cp .env.example .env
+cp .env.example .env.production
 
-## Expanding the ESLint configuration
+# Edite os valores conforme necessário
+nano .env
+nano .env.production
+```
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Configuração das Variáveis
+
+| Variável | Descrição | Exemplo |
+|----------|-----------|---------|
+| `VITE_API_URL_BASE` | URL base da API | `http://localhost:4000/api` |
+| `VITE_APP_NAME` | Nome da aplicação | `App Name` |
+| `VITE_DEBUG` | Modo debug | `true` / `false` |
+
+
+### 3. Execute o projeto:
+```bash
+# Desenvolvimento
+npm run dev
+
+# Docker desenvolvimento
+docker-compose up --build
+
+# Docker produção
+docker-compose -f docker-compose.prod.yml up --build
+```
+
