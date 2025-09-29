@@ -22,3 +22,4 @@ networks:
   hardwaretech-network:
     driver: bridge
     name: hardwaretech-network
+    external: true
