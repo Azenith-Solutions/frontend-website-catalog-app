@@ -4,7 +4,7 @@ export async function getCategory() {
     console.log("Service foi chamada e iniciou a recuperação de categorias");
 
     try {
-        const response = await apiClient.get(`/categories`);
+        const response = await apiClient.get(`/categorys`);
         console.log("Resposta: ", response.data);
         return response.data;
     } catch (error) {
