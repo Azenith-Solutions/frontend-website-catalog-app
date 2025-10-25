@@ -29,27 +29,24 @@ jobs:
           push: true
           tags: ${{ env.IMAGE }}:${{ env.TAG }}
 
-      - name: Setup SSH keys
+      - name: Setup SSH (one key/user for both hops)
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf "%s\n" "${{ secrets.BASTION_KEY }}" > ~/.ssh/bastion.key
-          chmod 600 ~/.ssh/bastion.key
-          printf "%s\n" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/target.key
-          chmod 600 ~/.ssh/target.key
+          printf "%s\n" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ci
+          chmod 600 ~/.ssh/id_ci
           ssh-keyscan -T 10 -H "${{ secrets.BASTION_IP }}" >> ~/.ssh/known_hosts
 
-      # Opcional: enviar/atualizar docker-compose.yml no alvo
       - name: Copy docker-compose.yml (via bastion)
         run: |
-          # scp com jump (-J)
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/target.key -J \
-            "${{ secrets.BASTION_USER }}@${{ secrets.BASTION_IP }}" \
-            ./docker-compose.yml \
-            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/opt/frontend-site/docker-compose.yml"
+          scp -o StrictHostKeyChecking=no \
+              -i ~/.ssh/id_ci \
+              -J "${{ secrets.SERVER_USER }}@${{ secrets.BASTION_IP }}" \
+              ./docker-compose.yml \
+              "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/opt/frontend-site/docker-compose.yml"
 
       - name: Deploy via ProxyJump
         env:
-          BASTION: ${{ secrets.BASTION_USER }}@${{ secrets.BASTION_IP }}
+          BASTION: ${{ secrets.SERVER_USER }}@${{ secrets.BASTION_IP }}
           TARGET:  ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
         run: |
           set -euo pipefail
@@ -62,9 +59,7 @@ jobs:
             docker compose --env-file .env pull
             docker compose --env-file .env up -d
           '
-
-          # 1ª conexão “accept-new” para gravar host key do alvo via jump
-          ssh -o ProxyJump="$BASTION" -o StrictHostKeyChecking=accept-new -i ~/.ssh/target.key "$TARGET" "echo connected"
-
+          # 1ª conexão grava a host key do alvo via jump
+          ssh -o ProxyJump="$BASTION" -o StrictHostKeyChecking=accept-new -i ~/.ssh/id_ci "$TARGET" "echo connected"
           # deploy
-          ssh -o ProxyJump="$BASTION" -i ~/.ssh/target.key "$TARGET" "$REMOTE_CMD"
+          ssh -o ProxyJump="$BASTION" -i ~/.ssh/id_ci "$TARGET" "$REMOTE_CMD"
