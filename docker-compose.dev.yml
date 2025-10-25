@@ -1,0 +1,25 @@
+name: hardwaretech
+
+services:
+  frontend-catalog:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"              
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    networks:
+      - hardwaretech-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  hardwaretech-network:
+    driver: bridge
+    name: hardwaretech-network
+    external: true

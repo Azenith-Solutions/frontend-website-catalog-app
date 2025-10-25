@@ -1,25 +1,13 @@
-name: hardwaretech
-
+version: "3.9"
 services:
   frontend-catalog:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"              
-    environment:
-      - NODE_ENV=development
+    image: ghcr.io/ORG/frontend-website-catalog-app:${IMAGE_TAG}
+    container_name: site
     restart: unless-stopped
-    networks:
-      - hardwaretech-network
+    ports:
+      - "80:80"
     healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:80/health"]
-      interval: 30s
-      timeout: 10s
+      test: ["CMD-SHELL","wget -qO- http://127.0.0.1:8081/health || exit 1"]
+      interval: 20s
+      timeout: 5s
       retries: 3
-
-networks:
-  hardwaretech-network:
-    driver: bridge
-    name: hardwaretech-network
-    external: true

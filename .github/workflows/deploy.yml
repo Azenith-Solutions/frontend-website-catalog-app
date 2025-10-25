@@ -1,0 +1,70 @@
+name: deploy-frontend
+on:
+  push: { branches: [ "main" ] }
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: { contents: read, packages: write }
+    env:
+      IMAGE: ghcr.io/ORG/frontend-website-catalog-app
+      TAG: ${{ github.sha }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ env.IMAGE }}:${{ env.TAG }}
+
+      - name: Setup SSH keys
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf "%s\n" "${{ secrets.BASTION_KEY }}" > ~/.ssh/bastion.key
+          chmod 600 ~/.ssh/bastion.key
+          printf "%s\n" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/target.key
+          chmod 600 ~/.ssh/target.key
+          ssh-keyscan -T 10 -H "${{ secrets.BASTION_IP }}" >> ~/.ssh/known_hosts
+
+      # Opcional: enviar/atualizar docker-compose.yml no alvo
+      - name: Copy docker-compose.yml (via bastion)
+        run: |
+          # scp com jump (-J)
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/target.key -J \
+            "${{ secrets.BASTION_USER }}@${{ secrets.BASTION_IP }}" \
+            ./docker-compose.yml \
+            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/opt/frontend-site/docker-compose.yml"
+
+      - name: Deploy via ProxyJump
+        env:
+          BASTION: ${{ secrets.BASTION_USER }}@${{ secrets.BASTION_IP }}
+          TARGET:  ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+        run: |
+          set -euo pipefail
+          REMOTE_CMD='
+            set -e
+            mkdir -p /opt/frontend-site
+            cd /opt/frontend-site
+            echo IMAGE_TAG=${GITHUB_SHA} > .env
+            docker login ghcr.io -u "${GITHUB_ACTOR}" -p "${{ secrets.GITHUB_TOKEN }}"
+            docker compose --env-file .env pull
+            docker compose --env-file .env up -d
+          '
+
+          # 1ª conexão “accept-new” para gravar host key do alvo via jump
+          ssh -o ProxyJump="$BASTION" -o StrictHostKeyChecking=accept-new -i ~/.ssh/target.key "$TARGET" "echo connected"
+
+          # deploy
+          ssh -o ProxyJump="$BASTION" -i ~/.ssh/target.key "$TARGET" "$REMOTE_CMD"
