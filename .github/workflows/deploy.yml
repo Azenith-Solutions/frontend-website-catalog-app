@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: { contents: read, packages: write }
     env:
-      IMAGE: ghcr.io/ORG/frontend-website-catalog-app
+      IMAGE: ghcr.io/azenith-solutions/frontend-website-catalog-app
       TAG: ${{ github.sha }}
 
     steps:
@@ -29,7 +29,7 @@ jobs:
           push: true
           tags: ${{ env.IMAGE }}:${{ env.TAG }}
 
-      - name: Setup SSH (one key/user for both hops)
+      - name: Setup SSH 
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf "%s\n" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ci
