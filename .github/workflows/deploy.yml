@@ -38,11 +38,14 @@ jobs:
 
       - name: Copy docker-compose.yml (via bastion)
         run: |
-          scp -o StrictHostKeyChecking=no \
-              -i ~/.ssh/id_ci \
-              -J "${{ secrets.SERVER_USER }}@${{ secrets.BASTION_IP }}" \
-              ./docker-compose.yml \
-              "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/opt/frontend-site/docker-compose.yml"
+          scp \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=no \
+            -o ProxyJump="${{ secrets.SERVER_USER }}@${{ secrets.BASTION_IP }}" \
+            -i ~/.ssh/id_ci \
+            -v \
+            ./docker-compose.yml \
+            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/opt/frontend-site/docker-compose.yml"
 
       - name: Deploy via ProxyJump
         env:
