@@ -31,13 +31,21 @@ jobs:
 
       - name: Setup SSH 
         run: |
+          set -x
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          
+          # Salvar chave privada
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ci
           chmod 600 ~/.ssh/id_ci
-          ssh-keyscan -T 10 -H "${{ secrets.BASTION_IP }}" >> ~/.ssh/known_hosts
+          
+          # Verificar se a chave foi criada
+          ls -la ~/.ssh/id_ci
+          
+          # Escanear host keys
+          ssh-keyscan -T 10 -H "${{ secrets.BASTION_IP }}" >> ~/.ssh/known_hosts || echo "ssh-keyscan failed"
           
           # Criar arquivo de configuração SSH
-          cat > ~/.ssh/config <<EOF
+          cat > ~/.ssh/config << 'SSHCONFIG'
           Host bastion
             HostName ${{ secrets.BASTION_IP }}
             User ${{ secrets.SERVER_USER }}
@@ -50,8 +58,15 @@ jobs:
             IdentityFile ~/.ssh/id_ci
             ProxyJump bastion
             StrictHostKeyChecking accept-new
-          EOF
+          SSHCONFIG
+          
           chmod 600 ~/.ssh/config
+          
+          # Verificar configuração
+          echo "=== SSH Config ==="
+          cat ~/.ssh/config
+          echo "=== Key fingerprint ==="
+          ssh-keygen -lf ~/.ssh/id_ci || echo "Key validation failed"
 
       - name: Copy docker-compose.yml (via bastion)
         run: |
