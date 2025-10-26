@@ -29,53 +29,40 @@ jobs:
           push: true
           tags: ${{ env.IMAGE }}:${{ env.TAG }}
 
-      - name: Setup SSH (key + config)
+      - name: Setup SSH 
         run: |
-          set -euo pipefail
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf "%s\n" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ci
           chmod 600 ~/.ssh/id_ci
-          # SSH config força a MESMA chave no bastion e no alvo e usa ProxyCommand
-          cat > ~/.ssh/config <<EOF
-          Host bastion
-            HostName ${${{ secrets.BASTION_IP }}}
-            User ${${{ secrets.SERVER_USER }}}
-            IdentityFile ~/.ssh/id_ci
-            IdentitiesOnly yes
-            StrictHostKeyChecking accept-new
+          ssh-keyscan -T 10 -H "${{ secrets.BASTION_IP }}" >> ~/.ssh/known_hosts
 
-          Host target
-            HostName ${${{ secrets.SERVER_IP }}}
-            User ${${{ secrets.SERVER_USER }}}
-            IdentityFile ~/.ssh/id_ci
-            IdentitiesOnly yes
-            StrictHostKeyChecking accept-new
-            ProxyCommand ssh -vv -o IdentitiesOnly=yes -i ~/.ssh/id_ci ${${{ secrets.SERVER_USER }}}@${${{ secrets.BASTION_IP }}} -W %h:%p
-          EOF
-
-      - name: Connectivity check (via bastion)
+      - name: Copy docker-compose.yml (via bastion)
         run: |
-          set -euo pipefail
-          ssh -vvv target "echo connected"
+          scp \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=no \
+            -o ProxyJump="${{ secrets.SERVER_USER }}@${{ secrets.BASTION_IP }}" \
+            -i ~/.ssh/id_ci \
+            -v \
+            ./docker-compose.yml \
+            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/opt/frontend-site/docker-compose.yml"
 
-      - name: Push docker-compose.yml (sem scp/sftp)
-        run: |
-          set -euo pipefail
-          ssh target 'mkdir -p /opt/frontend-site'
-          cat ./docker-compose.yml | ssh target 'cat > /opt/frontend-site/docker-compose.yml'
-
-      - name: Deploy
+      - name: Deploy via ProxyJump
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASTION: ${{ secrets.SERVER_USER }}@${{ secrets.BASTION_IP }}
+          TARGET:  ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
         run: |
           set -euo pipefail
-          ssh target bash -lc "
+          REMOTE_CMD='
             set -e
             mkdir -p /opt/frontend-site
             cd /opt/frontend-site
             echo IMAGE_TAG=${GITHUB_SHA} > .env
-            echo IMAGE=${IMAGE} >> .env
-            docker login ghcr.io -u '${GITHUB_ACTOR}' -p '${GH_TOKEN}'
+            docker login ghcr.io -u "${GITHUB_ACTOR}" -p "${{ secrets.GITHUB_TOKEN }}"
             docker compose --env-file .env pull
             docker compose --env-file .env up -d
-          "
+          '
+          # 1ª conexão grava a host key do alvo via jump
+          ssh -o ProxyJump="$BASTION" -o StrictHostKeyChecking=accept-new -i ~/.ssh/id_ci "$TARGET" "echo connected"
+          # deploy
+          ssh -o ProxyJump="$BASTION" -i ~/.ssh/id_ci "$TARGET" "$REMOTE_CMD"
