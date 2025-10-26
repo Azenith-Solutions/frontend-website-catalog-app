@@ -88,3 +88,4 @@ jobs:
           ssh target "echo connected"
           # deploy
           ssh target "$REMOTE_CMD"
+          
