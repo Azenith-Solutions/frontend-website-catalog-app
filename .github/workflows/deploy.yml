@@ -35,17 +35,27 @@ jobs:
           printf "%s\n" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ci
           chmod 600 ~/.ssh/id_ci
           ssh-keyscan -T 10 -H "${{ secrets.BASTION_IP }}" >> ~/.ssh/known_hosts
+          
+          # Criar arquivo de configuração SSH
+          cat > ~/.ssh/config <<EOF
+          Host bastion
+            HostName ${{ secrets.BASTION_IP }}
+            User ${{ secrets.SERVER_USER }}
+            IdentityFile ~/.ssh/id_ci
+            StrictHostKeyChecking accept-new
+          
+          Host target
+            HostName ${{ secrets.SERVER_IP }}
+            User ${{ secrets.SERVER_USER }}
+            IdentityFile ~/.ssh/id_ci
+            ProxyJump bastion
+            StrictHostKeyChecking accept-new
+          EOF
+          chmod 600 ~/.ssh/config
 
       - name: Copy docker-compose.yml (via bastion)
         run: |
-          scp \
-            -o IdentitiesOnly=yes \
-            -o StrictHostKeyChecking=no \
-            -o ProxyJump="${{ secrets.SERVER_USER }}@${{ secrets.BASTION_IP }}" \
-            -i ~/.ssh/id_ci \
-            -v \
-            ./docker-compose.yml \
-            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/opt/frontend-site/docker-compose.yml"
+          scp -v ./docker-compose.yml target:/opt/frontend-site/docker-compose.yml
 
       - name: Deploy via ProxyJump
         env:
