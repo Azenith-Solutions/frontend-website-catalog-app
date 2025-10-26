@@ -37,7 +37,7 @@ jobs:
           ssh-keyscan -T 10 -H "${{ secrets.BASTION_IP }}" >> ~/.ssh/known_hosts
           
           # Criar arquivo de configuração SSH
-          cat > ~/.ssh/config <<'EOF'
+          cat > ~/.ssh/config <<EOF
           Host bastion
             HostName ${{ secrets.BASTION_IP }}
             User ${{ secrets.SERVER_USER }}
