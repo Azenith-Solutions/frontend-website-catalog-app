@@ -1,23 +1,3 @@
-/**
- * Email template service for quote requests
- * This module contains functions for generating email templates for quote requests
- */
-
-/**
- * Generates an HTML email template for quote requests
- * @param {Object} data - The data to use in the template
- * @param {string} data.quoteId - The unique ID for this quote
- * @param {string} data.currentDate - The formatted date
- * @param {string} data.currentTime - The formatted time
- * @param {string} data.name - Customer's name
- * @param {string} data.email - Customer's email
- * @param {string} data.telefone - Customer's phone (optional)
- * @param {boolean} data.isPJ - Whether the customer is a company
- * @param {string} data.cnpj - Customer's CNPJ (if isPJ is true)
- * @param {string} data.content - Additional message from the customer
- * @param {Array} data.items - Array of items in the quote request
- * @returns {Object} HTML and plain text versions of the email template
- */
 export const generateQuoteEmailTemplate = (data) => {
     const {
         quoteId,
@@ -32,7 +12,6 @@ export const generateQuoteEmailTemplate = (data) => {
         items
     } = data;
 
-    // Format items from cart with detailed information
     const itemsList = items.map((item, index) =>
         `<tr>
       <td style="padding: 8px; border-bottom: 1px solid #ddd;">${index + 1}</td>
@@ -42,7 +21,6 @@ export const generateQuoteEmailTemplate = (data) => {
     </tr>`
     ).join('');
 
-    // Create HTML email template
     const htmlTemplate = `
 <!DOCTYPE html>
 <html>
@@ -144,7 +122,6 @@ export const generateQuoteEmailTemplate = (data) => {
 </body>
 </html>`;
 
-    // Plain text fallback for email clients that don't support HTML
     const plainTextTemplate = `SOLICITAÇÃO DE COTAÇÃO
 ID: ${quoteId}
 Data: ${currentDate} às ${currentTime}
@@ -169,22 +146,13 @@ Nota: Esta é uma solicitação automática gerada pelo sistema. Analisar os ite
     };
 };
 
-/**
- * Prepares the email data object for sending a quote request
- * @param {Object} data - The data to prepare
- * @param {string} data.quoteId - The unique ID for this quote
- * @param {string} data.name - Customer's name
- * @param {string} data.email - Customer's email
- * @param {string} data.templates - Object containing HTML and text templates
- * @returns {Object} The prepared email data
- */
 export const prepareQuoteEmailData = (data) => {
     const { quoteId, name, email, templates } = data;
 
     return {
-        "toEmail": "azenithsolutions@gmail.com", // Company email
+        "toEmail": "azenithsolutions@gmail.com",
         "toName": "Azenith Solutions",
-        "replyTo": email, // Allow direct reply to customer
+        "replyTo": email,
         "subject": `Nova Cotação #${quoteId} - ${name}`,
         "content": templates.html,
         "text": templates.text,
@@ -192,20 +160,9 @@ export const prepareQuoteEmailData = (data) => {
     };
 };
 
-/**
- * Gera template de email para solicitação de serviço
- * @param {Object} data
- * @param {string} data.nome
- * @param {string} data.email
- * @param {string} data.telefone
- * @param {string} data.observacoes
- * @param {string} data.servico
- * @returns {Object} { html, text }
- */
 export const generateServiceRequestEmailTemplate = (data) => {
     const { nome, email, telefone, observacoes, servico } = data;
 
-    // HTML template estilizado igual ao de cotação
     const htmlTemplate = `
 <!DOCTYPE html>
 <html>
@@ -282,7 +239,6 @@ export const generateServiceRequestEmailTemplate = (data) => {
 </body>
 </html>`;
 
-    // Plain text fallback
     const plainTextTemplate = `SOLICITAÇÃO DE SERVIÇO
 
 Serviço: ${servico}
@@ -304,14 +260,6 @@ Nota: Esta é uma solicitação automática gerada pelo sistema. Analise a solic
     };
 };
 
-/**
- * Prepara dados do email para solicitação de serviço
- * @param {Object} data
- * @param {string} data.nome
- * @param {string} data.email
- * @param {Object} data.templates
- * @returns {Object}
- */
 export const prepareServiceRequestEmailData = (data) => {
     const { nome, email, templates } = data;
     return {
@@ -325,18 +273,6 @@ export const prepareServiceRequestEmailData = (data) => {
     };
 };
 
-/**
- * Gera template de email para solicitação de cotação de componente avulso
- * @param {Object} data
- * @param {string} data.nome
- * @param {string} data.email
- * @param {string} data.telefone
- * @param {string} data.componente
- * @param {string} data.quantidade
- * @param {string} data.observacoes
- * @param {File} [data.imagem]
- * @returns {Object} { html, text }
- */
 export const generateComponentRequestEmailTemplate = async (data) => {
     const { nome, email, telefone, componente, quantidade, observacoes, imagem } = data;
 
@@ -348,7 +284,6 @@ export const generateComponentRequestEmailTemplate = async (data) => {
         `;
     }
 
-    // Bloco de informações do solicitante
     const requesterInfoHtml = `
         <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
             <tr>
@@ -362,7 +297,6 @@ export const generateComponentRequestEmailTemplate = async (data) => {
         </table>
     `;
 
-    // Bloco do componente solicitado
     const componentInfoHtml = `
         <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px; background-color: #f9f9f9; border-left: 4px solid #5F1516;">
             <tr>
@@ -376,7 +310,6 @@ export const generateComponentRequestEmailTemplate = async (data) => {
         </table>
     `;
 
-    // Observações
     const observationsHtml = observacoes ? `
         <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
             <tr>
@@ -441,7 +374,6 @@ export const generateComponentRequestEmailTemplate = async (data) => {
 </body>
 </html>`;
 
-    // Plain text com bloco de dados do solicitante no início
     const plainTextTemplate = `SOLICITAÇÃO DE COTAÇÃO DE COMPONENTE
 
 INFORMAÇÕES DO SOLICITANTE
@@ -466,14 +398,6 @@ Nota: Esta é uma solicitação automática gerada pelo sistema. Analise a solic
     };
 };
 
-/**
- * Prepara dados do email para solicitação de componente avulso
- * @param {Object} data
- * @param {string} data.nome
- * @param {string} data.email
- * @param {Object} data.templates
- * @returns {Object}
- */
 export const prepareComponentRequestEmailData = (data) => {
     const { nome, email, templates } = data;
     return {
