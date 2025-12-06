@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, TextField, CircularProgress } from '@mui/material'; // Adicione CircularProgress aqui
+import { Container, TextField, CircularProgress } from '@mui/material';
 import { ShoppingCart, MarkEmailRead as MarkEmailReadIcon, Warning as WarningIcon } from '@mui/icons-material';
 import NavBarCatalog from '../../components/navBar/NavBarCatalog';
 import Footer from '../../components/footer/Footer';
@@ -8,8 +8,7 @@ import CartCard from '../../components/cartCard/CartCard';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
 import DialogContentMessage from '../../components/CustomDialog/DialogContents/DialogContentMessage';
-import { sendEmailCart, createOrder, insertItems, clearLocalStorage } from '../../services/cartService/cartService';
-import { generateQuoteEmailTemplate, prepareQuoteEmailData } from '../../services/emailTemplates/quoteTemplate';
+import { clearLocalStorage, publishOrderWithQuote } from '../../services/cartService/cartService';
 import { ORDER_STATUS } from '../../enums/orderStatus';
 import { formatPhoneNumber, formatCNPJ } from '../../utils/inputMask/inputMasks';
 import { getListOfItemsFromLocalStorage } from '../../utils/storage/storage';
@@ -46,76 +45,50 @@ function CartPage() {
         navigate(path);
     };
 
-    async function sendEmail() {
-        console.log("Entrando função de envio de email");
+    async function publishCreateOrderCommand() {
+        console.log("=== Iniciando publicação de pedido com cache de email ===");
 
-        // Generate a unique quote ID
-        const quoteId = `AZT-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`; // TO-DO 🙌: ID atualmente mockado, questionar sobre como será feito.
-
-        // Format current date in Brazilian format
-        const currentDate = new Date().toLocaleDateString('pt-BR');
-        const currentTime = new Date().toLocaleTimeString('pt-BR');
-        const currentItems = getListOfItemsFromLocalStorage();       // Prepare template data
-        const templateData = {
-            quoteId,
-            currentDate,
-            currentTime,
-            name,
-            email,
-            telefone: formattedPhone,
-            isPJ,
-            cnpj: formattedCNPJ,
-            content,
-            items: currentItems
-        };
-
-        // Generate email templates (HTML and plain text)
-        const templates = generateQuoteEmailTemplate(templateData);
-
-        // Prepare email data for sending
-        const emailData = prepareQuoteEmailData({
-            quoteId,
-            name,
-            email,
-            templates
-        });
-
-        // Mostra o modal de sucesso
-        console.log("Objeto a ser enviado: ", emailData);
-
-        // Send the email
-        await sendEmailCart(emailData);
-    }
-
-    async function createOrderFromCart() {
-        console.log("Entrando função de criar pedido");
-
-        // Insere o valor bruto sem formatação
+        const currentItems = componentsList;
         const unformattedCNPJ = formattedCNPJ.replace(/\D/g, '');
         const unformattedPhone = formattedPhone.replace(/\D/g, '');
         const phoneNumber = unformattedPhone.slice(2);
 
-        console.log("CNPJ (sem formatação): ", unformattedCNPJ);
-        console.log("é PJ? ", isPJ);
-
-        const newOrder = {
-            "codigo": "PED-2023-004",
-            "nomeComprador": name,
-            "emailComprador": email,
-            "cnpj": isPJ ? unformattedCNPJ : null,
-            "status": ORDER_STATUS.UNDER_REVIEW,
-            "telCelular": phoneNumber
+        const orderData = {
+            codigo: "", 
+            nomeComprador: name,
+            emailComprador: email,
+            cnpj: isPJ ? unformattedCNPJ : null,
+            status: ORDER_STATUS.UNDER_REVIEW,
+            telCelular: phoneNumber,
+            items: currentItems.map(item => ({
+                fkComponente: item.fkComponente,
+                quantidadeCarrinho: item.quantidadeCarrinho
+            }))
         };
 
-        console.log("Objeto a ser inserido no banco: ", newOrder);
+        const emailData = {
+            name: name,
+            email: email,
+            telefone: formattedPhone,
+            isPJ: isPJ,
+            cnpj: isPJ ? formattedCNPJ : null,
+            content: content,
+            items: currentItems.map(item => ({
+                nomeComponente: item.nomeComponente ? item.nomeComponente : item.descricao,
+                quantidadeCarrinho: item.quantidadeCarrinho,
+                descricao: item.descricao
+            }))
+        };
+
+        console.log("Order Data:", orderData);
+        console.log("Email Data:", emailData);
 
         try {
-            const response = await createOrder(newOrder);
-            console.log("Response from creating order: ", response.data);
-
-            insertItems(response.data.data.idPedido);
+            const response = await publishOrderWithQuote(orderData, emailData);
+            console.log("✅ Pedido publicado com sucesso:", response.data);            
         } catch (error) {
-            console.error('Error creating order from cart:', error);
+            console.error('❌ Erro ao publicar pedido:', error);
+            throw error;
         }
     }
 
@@ -275,8 +248,7 @@ function CartPage() {
                                 }
                                 setLoading(true);
                                 try {
-                                    await sendEmail();
-                                    await createOrderFromCart();
+                                    await publishCreateOrderCommand();
                                     setOpen(true); // Modal de sucesso
                                     clearLocalStorage();
                                 } catch (error) {
