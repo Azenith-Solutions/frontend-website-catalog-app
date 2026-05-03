@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Box from '@mui/material/Box';
+import MemoryIcon from '@mui/icons-material/Memory';
 
 import AddToCartButton from './AddToCartButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -11,22 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import './CardComponent.css'
 
 const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
-const defaultImage = "https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg";
 
 function CardComponent({ props }) {
   const navigate = useNavigate();
+  const [imgError, setImgError] = useState(false);
 
   const handleCardClick = () => {
     navigate(`/component/details/${props.idComponente}`);
   };
 
-    // Função para obter a URL da imagem do componente
-  const getImageUrl = (item) => {
-    if (item.imagem) {
-      return `${API_IMAGES_URL}${item.imagem}`;
-    }
-    return defaultImage;
-  };
+  const showPlaceholder = !props.imagem || imgError;
 
   return (
     <Card
@@ -50,11 +46,26 @@ function CardComponent({ props }) {
       role="button"
       onKeyPress={e => { if (e.key === 'Enter') handleCardClick(); }}
     >
-      <CardMedia
-        sx={{ height: 136, backgroundSize: 'cover' }}
-        image={getImageUrl(props)}
-        title="component"
-      />
+      {showPlaceholder ? (
+        <Box sx={{
+          height: 136,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#f0f0f0',
+          flexShrink: 0,
+        }}>
+          <MemoryIcon sx={{ fontSize: 64, color: '#bdbdbd' }} />
+        </Box>
+      ) : (
+        <CardMedia
+          component="img"
+          sx={{ height: 136, objectFit: 'cover' }}
+          image={`${API_IMAGES_URL}${props.imagem}`}
+          title="component"
+          onError={() => setImgError(true)}
+        />
+      )}
       <CardContent sx={{ padding: '9px 16px 0px 16px' }}>
         {/* <p className='card-content-price'>Em estoque: {props.quantidade}</p> */}
         <Tooltip title={props.nomeComponente == null ? props.descricao : props.nomeComponente} placement="top" arrow>

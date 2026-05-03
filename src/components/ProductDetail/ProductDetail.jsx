@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ShoppingCart, Add, Remove } from '@mui/icons-material'
+import MemoryIcon from '@mui/icons-material/Memory';
 
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import Container from '@mui/material/Container';
@@ -19,7 +20,6 @@ import { getComponentById } from '../../services/componentService'
 import { addItemToCart } from '../../services/catalogService/catalogService';
 
 const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
-const defaultImage = "https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg";
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);
@@ -27,6 +27,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [categoryFilter, setCategoryFilter] = useState()
     const [open, setOpen] = useState(false);
     const [invalidDialog, setInvalidDialog] = useState(false);
+    const [imgError, setImgError] = useState(false);
 
     const [quantity, setQuantity] = useState(1);
     const { idComponent } = useParams();
@@ -48,6 +49,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
 
     useEffect(() => {
         if (idComponent) {
+            setImgError(false);
             getComponentById(idComponent).then((response) => {
                 setComponent(response.data)
                 setCategoryFilter({
@@ -77,12 +79,7 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
         setQuantity((prev) => prev + 1);
     };
 
-    const getImageUrl = (item) => {
-        if (item.imagem) {
-            return `${API_IMAGES_URL}${item.imagem}`;
-        }
-        return defaultImage;
-    };
+    const showPlaceholder = !component.imagem || imgError;
 
     return (
         <>
@@ -96,12 +93,24 @@ const ProductDetail = ({ productName, price, description, detailsList }) => {
                 />
                 <div className="hero-container">
                     <aside className="images-container">
-                        <div
-                            className='main-image'
-                            style={{
-                                backgroundImage: `url(${getImageUrl(component)})`,
-                            }}
-                        ></div>
+                        {showPlaceholder ? (
+                            <div className='main-image' style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: '#f0f0f0',
+                            }}>
+                                <MemoryIcon sx={{ fontSize: 100, color: '#bdbdbd' }} />
+                            </div>
+                        ) : (
+                            <img
+                                className='main-image'
+                                src={`${API_IMAGES_URL}${component.imagem}`}
+                                alt={component.nomeComponente || component.descricao}
+                                style={{ objectFit: 'cover' }}
+                                onError={() => setImgError(true)}
+                            />
+                        )}
                         {/* <div className="images-list">
                             <div className="second-image"></div>
                             <div className="third-image"></div>

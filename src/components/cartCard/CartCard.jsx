@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import MemoryIcon from '@mui/icons-material/Memory';
 import Button from '@mui/material/Button';
 import { Add, Remove } from '@mui/icons-material'
 import "./CartCard.css";
@@ -13,12 +14,12 @@ import { addItemToCart, removeItemFromCart, decreaseItemQuantity, updateItemQuan
 import CustomDialog from '../CustomDialog/CustomDialog';
 
 const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
-const defaultImage = "https://www.automataweb.com.br/wp-content/uploads/2019/01/DSCN4860_Rev02-1024x728.jpg";
 
 export default function CartCard(props) {
     const { nomeComponente, descricao, estoque, quantidadeComponent, idComponente, imagem } = props;
     const [quantidade, setQuantidade] = useState(quantidadeComponent);
     const [openModal, setOpenModal] = useState(false);
+    const [imgError, setImgError] = useState(false);
     const navigate = useNavigate();
 
     const handleAdd = () => {
@@ -77,12 +78,7 @@ export default function CartCard(props) {
     // Impede propagação do clique do card nos botões e input
     const stopPropagation = (e) => e.stopPropagation();
 
-    const getImageUrl = (item) => {
-        if (item.imagem) {
-            return `${API_IMAGES_URL}${item.imagem}`;
-        }
-        return defaultImage;
-    };
+    const showPlaceholder = !imagem || imgError;
 
     return (
         <>
@@ -119,11 +115,23 @@ export default function CartCard(props) {
                         onClick={e => { stopPropagation(e); handleRemove(); }}
                     />
                     <div className="product-details">
-                        <img
-                            src={getImageUrl(props)}
-                            alt="Product"
-                            className="product-image"
-                        />
+                        {showPlaceholder ? (
+                            <div className="product-image" style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: '#f0f0f0',
+                            }}>
+                                <MemoryIcon sx={{ fontSize: 48, color: '#bdbdbd' }} />
+                            </div>
+                        ) : (
+                            <img
+                                src={`${API_IMAGES_URL}${imagem}`}
+                                alt="Product"
+                                className="product-image"
+                                onError={() => setImgError(true)}
+                            />
+                        )}
                         <div className="product-info">
                             <div>
                                 <h3 className="product-name">{nomeComponente == null ? descricao : nomeComponente}</h3>
