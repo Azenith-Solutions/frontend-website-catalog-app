@@ -19,7 +19,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import { getComponentById } from '../../services/componentService'
 import { addItemToCart } from '../../services/catalogService/catalogService';
 
-const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
+const API_IMAGES_URL = `${import.meta.env.VITE_API_URL_BASE || "/api/v2"}/uploads/images/`;
 
 const ProductDetail = ({ productName, price, description, detailsList }) => {
     const [openMoreDetailsList, setOpenMoreDetailsList] = useState(false);

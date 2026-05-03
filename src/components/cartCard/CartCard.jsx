@@ -13,7 +13,7 @@ import "./CartCard.css";
 import { addItemToCart, removeItemFromCart, decreaseItemQuantity, updateItemQuantity } from '../../services/catalogService/catalogService';
 import CustomDialog from '../CustomDialog/CustomDialog';
 
-const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
+const API_IMAGES_URL = `${import.meta.env.VITE_API_URL_BASE || "/api/v2"}/uploads/images/`;
 
 export default function CartCard(props) {
     const { nomeComponente, descricao, estoque, quantidadeComponent, idComponente, imagem } = props;

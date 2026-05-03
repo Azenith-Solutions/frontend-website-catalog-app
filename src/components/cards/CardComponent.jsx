@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import './CardComponent.css'
 
-const API_IMAGES_URL = "http://localhost:8080/api/uploads/images/";
+const API_IMAGES_URL = `${import.meta.env.VITE_API_URL_BASE || "/api/v2"}/uploads/images/`;
 
 function CardComponent({ props }) {
   const navigate = useNavigate();
